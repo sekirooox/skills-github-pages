@@ -1,0 +1,13 @@
+services:
+  blog:
+    build: .
+    ports:
+      - "127.0.0.1:4000:4000"
+      - "127.0.0.1:35729:35729"
+    volumes:
+      - .:/workspace
+      - bundle-cache:/usr/local/bundle
+    environment:
+      JEKYLL_ENV: development
+volumes:
+  bundle-cache:

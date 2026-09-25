@@ -1,37 +1,48 @@
+# MayL 的博客
 
-<div align="center">
+使用官方 **Chirpy 7.6.0**，中文界面，上海时区，通过 GitHub Actions 部署。
 
-# 🎉 Congratulations sekirooox! 🎉
+- 站点：<https://sekirooox.github.io/skills-github-pages/>
+- **[完整使用与维护手册](docs/MAINTENANCE.md)**：环境、部署、项目结构、写作、栏目扩展、评论、样式、升级与排错。
+- [文章模板](templates/post.md)
 
-<img src="https://octodex.github.com/images/welcometocat.png" height="200px" />
+## 首次发布
 
-### 🌟 You've successfully completed the exercise! 🌟
+在仓库 **Settings → Pages → Source** 选择 **GitHub Actions**，然后提交并推送本次迁移。查看 **Build and Deploy** 工作流结果。
 
-## 🚀 Share Your Success!
+原 GitHub Skills 教程流程已归档到 `docs/legacy-github-skills/`，不再触发初始化。
 
-**Show off your new skills and inspire others!**
+## 本地预览
 
-<a href="https://twitter.com/intent/tweet?text=I%20just%20completed%20the%20%22GitHub%20Pages%22%20GitHub%20Skills%20hands-on%20exercise!%20%F0%9F%8E%89%0A%0Ahttps%3A%2F%2Fgithub.com%2Fsekirooox%2Fskills-github-pages%0A%0A%23GitHubSkills%20%23OpenSource%20%23GitHubLearn%0A" target="_blank" rel="noopener noreferrer">
-  <img src="https://img.shields.io/badge/Share%20on%20X-1da1f2?style=for-the-badge&logo=x&logoColor=white" alt="Share on X" />
-</a>
-<a href="https://bsky.app/intent/compose?text=I%20just%20completed%20the%20%22GitHub%20Pages%22%20GitHub%20Skills%20hands-on%20exercise!%20%F0%9F%8E%89%0A%0Ahttps%3A%2F%2Fgithub.com%2Fsekirooox%2Fskills-github-pages%0A%0A%23GitHubSkills%20%23OpenSource%20%23GitHubLearn%0A" target="_blank" rel="noopener noreferrer">
-  <img src="https://img.shields.io/badge/Share%20on%20Bluesky-0085ff?style=for-the-badge&logo=bluesky&logoColor=white" alt="Share on Bluesky" />
-</a>
-<a href="https://www.linkedin.com/feed/?shareActive=true&text=I%20just%20completed%20the%20%22GitHub%20Pages%22%20GitHub%20Skills%20hands-on%20exercise!%20%F0%9F%8E%89%0A%0Ahttps%3A%2F%2Fgithub.com%2Fsekirooox%2Fskills-github-pages%0A%0A%23GitHubSkills%20%23OpenSource%20%23GitHubLearn%0A" target="_blank" rel="noopener noreferrer">
-  <img src="https://img.shields.io/badge/Share%20on%20LinkedIn-0077b5?style=for-the-badge&logo=linkedin&logoColor=white" alt="Share on LinkedIn" />
-</a>
+安装并启动 Docker Desktop 后：
 
-### 🎯 What's Next?
-**Keep the momentum going!**
+```sh
+docker compose up --build
+```
 
-[![](https://img.shields.io/badge/Return%20to%20Exercise-%E2%86%92-1f883d?style=for-the-badge&logo=github&labelColor=197935)](https://github.com/sekirooox/skills-github-pages/issues/1)
-[![GitHub Skills](https://img.shields.io/badge/Explore%20GitHub%20Skills-000000?style=for-the-badge&logo=github&logoColor=white)](https://skills.github.com)
+或在已有 Ruby 3.4 环境中：
 
-*There's no better way to learn than building things!* 🚀
+```sh
+bundle install
+bundle exec jekyll serve --livereload
+```
 
-</div>
+打开 <http://localhost:4000/skills-github-pages/>。Windows 本机也可运行 `./tools/preview.ps1`；VS Code 可使用本仓库 Dev Container。
 
----
+## 写文章
 
-&copy; 2025 GitHub &bull; [Code of Conduct](https://www.contributor-covenant.org/version/2/1/code_of_conduct/code_of_conduct.md) &bull; [MIT License](https://gh.io/mit)
+复制 `templates/post.md` 到 `_posts/YYYY-MM-DD-英文短名.md`，修改日期（带 `+0800`）、标题、摘要、分类、标签和正文。
 
+保留了最初的 `MyFirstBlog`，另附三篇可删除示例：入门与置顶、Markdown 排版、数学与 Mermaid。删除示例时同步删除相互引用。
+
+## 验证
+
+```sh
+bash tools/test.sh
+```
+
+CI 在 PR 和 main 推送时构建并检查内部链接；只有 main 推送及手动触发才发布。
+
+## 上游与许可
+
+基于 [Chirpy](https://github.com/cotes2020/jekyll-theme-chirpy) 与 [Chirpy Starter](https://github.com/cotes2020/chirpy-starter)，上游许可证见 [第三方说明](THIRD-PARTY-NOTICES.md)。
