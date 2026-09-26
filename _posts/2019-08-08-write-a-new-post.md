@@ -5,10 +5,13 @@ date: 2019-08-08 14:10:00 +0800
 categories: [教程]
 tags: [chirpy, jekyll, markdown, 写作, front-matter, 多媒体]
 render_with_liquid: false
+description: >
+- 教程基于Kramdown, 有许多独特的语法
+- 本教程将介绍如何在 _Chirpy_ 模板中撰写文章。即使你以前使用过 Jekyll，也值得阅读，因为许多功能需要设置特定变量才能使用。
 ---
 
-本教程将介绍如何在 _Chirpy_ 模板中撰写文章。即使你以前使用过 Jekyll，也值得阅读，因为许多功能需要设置特定变量才能使用。
 
+Kramdown
 ## 命名与路径
 
 新建一个名为 `YYYY-MM-DD-TITLE.EXTENSION`{: .filepath} 的文件，并将其放在根目录下的 `_posts`{: .filepath} 目录中。请注意，`EXTENSION`{: .filepath} 必须为 `md`{: .filepath} 或 `markdown`{: .filepath}。如果希望节省创建文件的时间，可以考虑使用 [`Jekyll-Compose`](https://github.com/jekyll/jekyll-compose) 插件。
@@ -35,7 +38,7 @@ tags: [TAG]     # TAG names should always be lowercase
 
 ### 分类与标签
 
-每篇文章的 `categories` 设计为最多包含两个元素，而 `tags` 的元素数量可以为零，也可以有任意多个。例如：
+每篇文章的 `categories` 设计为**最多包含两个元素**，而 `tags` 的元素数量可以为零，也**可以有任意多个**。例如：
 
 ```yaml
 ---
@@ -138,7 +141,7 @@ comments: false
 
 #### 图片说明
 
-在图片的下一行添加斜体文字，它就会作为图片说明显示在图片下方：
+在图片的**下一行添加斜体文字**，它就会作为图片说明显示在图片下方：
 
 ```markdown
 ![img-description](/path/to/image)
@@ -197,7 +200,7 @@ _Image Caption_
 
 #### 深浅色模式
 
-你可以让图片随主题偏好切换深浅色模式。为此，需要准备两张图片，一张用于深色模式，另一张用于浅色模式，然后分别指定对应的类（`dark` 或 `light`）：
+你可以让图片**随主题偏好切换深浅色模式**。为此，需要准备两张图片，一张用于深色模式，另一张用于浅色模式，然后分别指定对应的类（`dark` 或 `light`）：
 
 ```markdown
 ![Light mode only](/path/to/light-mode.png){: .light }
@@ -215,7 +218,7 @@ _Image Caption_
 
 #### 预览图
 
-如果希望在文章顶部添加图片，请提供一张分辨率为 `1200 x 630` 的图片。请注意，如果图片宽高比不符合 `1.91 : 1`，图片将被缩放和裁剪。
+如果希望**在文章顶部添加图片**，请提供一张分辨率为 `1200 x 630` 的图片。请注意，如果图片宽高比不符合 `1.91 : 1`，图片将被缩放和裁剪。
 
 了解这些前提后，就可以开始设置图片属性：
 
@@ -269,7 +272,7 @@ image:
 
 下表展示了如何从给定的视频或音频 URL 中获取所需的两个参数，同时列出了当前支持的平台。
 
-| 视频 URL                                                                                                                  | 平台       | ID                       |
+| 视频 URL                                                                                                                   | 平台       | ID                       |
 | -------------------------------------------------------------------------------------------------------------------------- | ---------- | :----------------------- |
 | [https://www.**youtube**.com/watch?v=**H-B46URT4mg**](https://www.youtube.com/watch?v=H-B46URT4mg)                         | `youtube`  | `H-B46URT4mg`            |
 | [https://www.**twitch**.tv/videos/**1634779211**](https://www.twitch.tv/videos/1634779211)                                 | `twitch`   | `1634779211`             |
