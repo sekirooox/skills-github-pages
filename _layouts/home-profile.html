@@ -35,8 +35,8 @@ script_includes:
   <section class="visitor-card" aria-labelledby="visitor-title">
     <div class="visitor-heading">
       <div>
-        <p class="visitor-kicker">VISITOR MAP</p>
-        <h2 id="visitor-title">访客足迹</h2>
+        <p class="visitor-kicker">VISITOR RANKING</p>
+        <h2 id="visitor-title">国家与地区访问榜</h2>
       </div>
 
       <div class="visitor-total">
@@ -52,34 +52,41 @@ script_includes:
     </div>
 
     {% if stats.available %}
-      <div
-        id="visitor-map"
-        class="visitor-map"
-        role="img"
-        aria-label="建站以来访客国家和地区分布世界地图"
-      ></div>
-      <p id="visitor-map-status" class="visually-hidden" aria-live="polite"></p>
+      <ol class="visitor-ranking" aria-label="访问量前十五的国家和地区">
+        {% for country in stats.display_countries %}
+          {% capture flag_path %}/assets/vendor/flag-icons/flags/4x3/{{ country.code | downcase }}.svg{% endcapture %}
+          <li class="visitor-country{% if country.source == 'gdp_fallback' %} visitor-country-fallback{% endif %}">
+            <span class="visitor-rank" aria-hidden="true">{{ forloop.index }}</span>
+            <img
+              class="visitor-flag"
+              src="{{ flag_path | relative_url }}"
+              width="48"
+              height="36"
+              alt=""
+              loading="lazy"
+            >
+            <span class="visitor-country-copy">
+              <strong data-country-code="{{ country.code }}">{{ country.name | escape }}</strong>
+              <small>
+                {{ country.code }}
+                {% if country.source == 'gdp_fallback' %} · GDP 榜单补位{% endif %}
+              </small>
+            </span>
+            <span class="visitor-count">
+              <strong>{{ country.visits }}</strong>
+              <small>次访问</small>
+            </span>
+          </li>
+        {% endfor %}
+      </ol>
 
-      <details class="visitor-country-summary">
-        <summary>查看国家和地区文字列表</summary>
-        <ul>
-          {% for country in stats.countries %}
-            <li data-country-code="{{ country.code }}">
-              <span>{{ country.name | escape }}（{{ country.code }}）</span>
-              <span>{{ country.visits }} 次，{{ country.share | times: 100 | round: 1 }}%</span>
-            </li>
-          {% endfor %}
-          {% if stats.unknown_visits > 0 %}
-            <li>
-              <span>未知地区</span>
-              <span>{{ stats.unknown_visits }} 次</span>
-            </li>
-          {% endif %}
-        </ul>
-      </details>
+      {% if stats.unknown_visits > 0 %}
+        <p class="visitor-unknown">另有 {{ stats.unknown_visits }} 次访问无法识别国家或地区。</p>
+      {% endif %}
 
       <p class="visitor-note">
         更新于 {{ stats.generated_at | date: '%Y-%m-%d %H:%M UTC' }}。
+        榜单优先显示访问量最高的 15 个国家和地区；数量不足时以世界银行 2024 年 GDP 前 15 名补足，补位项显示 0 次。
         国家和地区根据网络位置推断；数字采用 GoatCounter 的访问口径，并非永久唯一用户。
       </p>
     {% else %}
@@ -88,6 +95,4 @@ script_includes:
       </div>
     {% endif %}
   </section>
-
-  <script id="visitor-stats-data" type="application/json">{{ stats | jsonify }}</script>
 </div>

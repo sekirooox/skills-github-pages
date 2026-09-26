@@ -10,5 +10,22 @@
     { "code": "CN", "name": "China", "visits": 100, "share": 0.813008 },
     { "code": "US", "name": "United States", "visits": 15, "share": 0.121951 },
     { "code": "JP", "name": "Japan", "visits": 6, "share": 0.04878 }
+  ],
+  "display_countries": [
+    { "code": "CN", "name": "China", "visits": 100, "share": 0.813008, "source": "visits" },
+    { "code": "US", "name": "United States", "visits": 15, "share": 0.121951, "source": "visits" },
+    { "code": "JP", "name": "Japan", "visits": 6, "share": 0.04878, "source": "visits" },
+    { "code": "DE", "name": "Germany", "visits": 0, "share": 0.0, "source": "gdp_fallback" },
+    { "code": "IN", "name": "India", "visits": 0, "share": 0.0, "source": "gdp_fallback" },
+    { "code": "GB", "name": "United Kingdom", "visits": 0, "share": 0.0, "source": "gdp_fallback" },
+    { "code": "FR", "name": "France", "visits": 0, "share": 0.0, "source": "gdp_fallback" },
+    { "code": "IT", "name": "Italy", "visits": 0, "share": 0.0, "source": "gdp_fallback" },
+    { "code": "CA", "name": "Canada", "visits": 0, "share": 0.0, "source": "gdp_fallback" },
+    { "code": "BR", "name": "Brazil", "visits": 0, "share": 0.0, "source": "gdp_fallback" },
+    { "code": "RU", "name": "Russia", "visits": 0, "share": 0.0, "source": "gdp_fallback" },
+    { "code": "KR", "name": "South Korea", "visits": 0, "share": 0.0, "source": "gdp_fallback" },
+    { "code": "AU", "name": "Australia", "visits": 0, "share": 0.0, "source": "gdp_fallback" },
+    { "code": "ES", "name": "Spain", "visits": 0, "share": 0.0, "source": "gdp_fallback" },
+    { "code": "MX", "name": "Mexico", "visits": 0, "share": 0.0, "source": "gdp_fallback" }
   ]
 }

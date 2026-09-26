@@ -13,6 +13,15 @@ module VisitorStats
     DEFAULT_BASE_URL = "https://mayl.goatcounter.com"
     DEFAULT_START = "2026-09-26T00:00:00+08:00"
     PAGE_SIZE = 100
+    DISPLAY_LIMIT = 15
+    # 世界银行 2024 年现价美元 GDP 前 15 个经济体，用于访问国家不足 15 个时补位。
+    GDP_FALLBACK_COUNTRIES = [
+      ["US", "United States"], ["CN", "China"], ["DE", "Germany"],
+      ["JP", "Japan"], ["IN", "India"], ["GB", "United Kingdom"],
+      ["FR", "France"], ["IT", "Italy"], ["CA", "Canada"],
+      ["BR", "Brazil"], ["RU", "Russia"], ["KR", "South Korea"],
+      ["AU", "Australia"], ["ES", "Spain"], ["MX", "Mexico"]
+    ].freeze
     COUNTRY_CODES = %w[
       AD AE AF AG AI AL AM AO AQ AR AS AT AU AW AX AZ BA BB BD BE BF BG BH BI BJ BL BM BN BO BQ BR BS BT BV BW BY BZ
       CA CC CD CF CG CH CI CK CL CM CN CO CR CU CV CW CX CY CZ DE DJ DK DM DO DZ EC EE EG EH ER ES ET FI FJ FK FM FO
@@ -40,6 +49,17 @@ module VisitorStats
       total = fetch_total
       countries, unknown = fetch_locations
 
+      country_rows = countries
+        .sort_by { |code, visits| [-visits, code] }
+        .map do |code, visits|
+          {
+            "code" => code,
+            "name" => @country_names.fetch(code, code),
+            "visits" => visits,
+            "share" => total.zero? ? 0.0 : (visits.to_f / total).round(6)
+          }
+        end
+
       {
         "available" => true,
         "metric" => "goatcounter_visits",
@@ -47,20 +67,35 @@ module VisitorStats
         "generated_at" => @end_time.utc.iso8601,
         "total_visits" => total,
         "unknown_visits" => unknown,
-        "countries" => countries
-          .sort_by { |code, visits| [-visits, code] }
-          .map do |code, visits|
-            {
-              "code" => code,
-              "name" => @country_names.fetch(code, code),
-              "visits" => visits,
-              "share" => total.zero? ? 0.0 : (visits.to_f / total).round(6)
-            }
-          end
+        "countries" => country_rows,
+        "display_countries" => display_countries(country_rows)
       }
     end
 
     private
+
+    def display_countries(countries)
+      displayed = countries.first(DISPLAY_LIMIT).map do |country|
+        country.merge("source" => "visits")
+      end
+      displayed_codes = displayed.to_h { |country| [country.fetch("code"), true] }
+
+      GDP_FALLBACK_COUNTRIES.each do |code, name|
+        break if displayed.length >= DISPLAY_LIMIT
+        next if displayed_codes[code]
+
+        displayed << {
+          "code" => code,
+          "name" => name,
+          "visits" => 0,
+          "share" => 0.0,
+          "source" => "gdp_fallback"
+        }
+        displayed_codes[code] = true
+      end
+
+      displayed
+    end
 
     def fetch_total
       payload = get_json("/api/v0/stats/total", query_params)

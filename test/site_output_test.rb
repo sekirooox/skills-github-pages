@@ -8,8 +8,9 @@ home = File.read(home_path, encoding: "UTF-8")
 checks = {
   "首页包含个人介绍布局" => home.include?('id="home-profile"'),
   "首页包含累计访问" => home.include?('id="visitor-total-value"'),
-  "首页包含世界地图" => home.include?('id="visitor-map"'),
-  "首页加载地图脚本" => home.include?("/assets/vendor/jsvectormap/world.js"),
+  "首页包含十五项国家访问榜" => home.scan(/class="visitor-country(?: |")/).length == 15,
+  "首页包含自托管国旗" => home.include?("/assets/vendor/flag-icons/flags/4x3/"),
+  "首页不再加载世界地图" => !home.include?("jsvectormap"),
   "首页没有文章列表" => !home.match?(/id=["']post-list|class=["'][^"']*post-list/),
   "首页侧栏面板被专用样式隐藏" => home.include?("/assets/css/home.css"),
   "没有分页首页" => !File.exist?(File.join(site, "page2", "index.html")),
@@ -21,7 +22,7 @@ checks["至少生成一篇文章"] = !post_path.nil?
 if post_path
   post = File.read(post_path, encoding: "UTF-8")
   checks["文章页不公开阅读次数"] = !post.include?('id="pageviews"')
-  checks["文章页不加载首页地图资源"] = !post.include?("jsvectormap")
+  checks["文章页不加载首页国旗资源"] = !post.include?("flag-icons")
 end
 
 html_files = Dir.glob(File.join(site, "**", "*.html"))

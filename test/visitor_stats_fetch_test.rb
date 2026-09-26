@@ -32,6 +32,11 @@ class VisitorStatsFetchTest < Minitest::Test
     assert_equal 123, result["total_visits"]
     assert_equal 2, result["unknown_visits"]
     assert_equal %w[CN US JP], result["countries"].map { |country| country["code"] }
+    assert_equal 15, result["display_countries"].length
+    assert_equal %w[CN US JP], result["display_countries"].first(3).map { |country| country["code"] }
+    assert_equal "visits", result["display_countries"].first["source"]
+    assert_equal "gdp_fallback", result["display_countries"][3]["source"]
+    assert_equal 0, result["display_countries"][3]["visits"]
     assert_equal 100, result["countries"].first["visits"]
     assert_in_delta 100.0 / 123, result["countries"].first["share"], 0.000001
     assert_equal "4", URI.decode_www_form(calls.last[0].query).to_h.fetch("offset")
@@ -44,6 +49,8 @@ class VisitorStatsFetchTest < Minitest::Test
 
     assert_equal [], result["countries"]
     assert_equal 0, result["unknown_visits"]
+    assert_equal 15, result["display_countries"].length
+    assert result["display_countries"].all? { |country| country["source"] == "gdp_fallback" }
   end
 
   def test_missing_token_fails
