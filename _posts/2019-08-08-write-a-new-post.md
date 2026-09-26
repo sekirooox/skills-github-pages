@@ -5,9 +5,7 @@ date: 2019-08-08 14:10:00 +0800
 categories: [教程]
 tags: [chirpy, jekyll, markdown, 写作, front-matter, 多媒体]
 render_with_liquid: false
-description: >
-- 教程基于Kramdown, 有许多独特的语法
-- 本教程将介绍如何在 _Chirpy_ 模板中撰写文章。即使你以前使用过 Jekyll，也值得阅读，因为许多功能需要设置特定变量才能使用。
+description: jekyll基于Kramdown, 有许多独特的语法. 本教程将介绍如何在 _Chirpy_ 模板中撰写文章。即使你以前使用过 Jekyll，也值得阅读，因为许多功能需要设置特定变量才能使用。
 ---
 
 

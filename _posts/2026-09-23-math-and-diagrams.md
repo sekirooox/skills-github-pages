@@ -2,7 +2,7 @@
 title: "技术笔记示例：公式与 Mermaid 流程图"
 date: 2026-09-23 20:00:00 +0800
 description: 展示 Chirpy 的数学公式与流程图，并解释如何按文章启用。
-categories: [技术, 学习笔记]
+categories: [教程]
 tags: [数学, mermaid, 示例]
 math: true
 mermaid: true

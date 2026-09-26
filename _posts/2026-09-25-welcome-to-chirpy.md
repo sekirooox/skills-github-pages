@@ -2,7 +2,7 @@
 title: "从这里开始：我的 Chirpy 博客"
 date: 2026-09-25 20:00:00 +0800
 description: 一篇可删除的入门示例，用来体验首页、分类、标签和站内搜索。
-categories: [博客, 入门]
+categories: [教程]
 tags: [chirpy, 使用指南]
 pin: true
 ---
