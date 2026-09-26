@@ -41,7 +41,7 @@ jobs:
           bundler-cache: true
 
       - name: Build site
-        run: bundle exec jekyll b -d "_site/skills-github-pages"
+        run: bundle exec jekyll b -d "_site"
         env:
           JEKYLL_ENV: "production"
 
@@ -54,7 +54,7 @@ jobs:
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v5
         with:
-          path: "_site/skills-github-pages"
+          path: "_site"
         if: github.event_name != 'pull_request'
 
   deploy:

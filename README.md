@@ -8,11 +8,11 @@
 
 基于 Chirpy 的个人博客 · 中文界面 · 上海时区
 
-[![Build and Deploy](https://github.com/sekirooox/skills-github-pages/actions/workflows/pages-deploy.yml/badge.svg)](https://github.com/sekirooox/skills-github-pages/actions/workflows/pages-deploy.yml)
+[![Build and Deploy](https://github.com/sekirooox/sekirooox.github.io/actions/workflows/pages-deploy.yml/badge.svg)](https://github.com/sekirooox/sekirooox.github.io/actions/workflows/pages-deploy.yml)
 [![Chirpy](https://img.shields.io/badge/Chirpy-7.6.0-7957d5)](https://github.com/cotes2020/jekyll-theme-chirpy)
-[![GitHub Pages](https://img.shields.io/badge/Hosted_on-GitHub_Pages-222222?logo=github)](https://sekirooox.github.io/skills-github-pages/)
+[![GitHub Pages](https://img.shields.io/badge/Hosted_on-GitHub_Pages-222222?logo=github)](https://sekirooox.github.io/)
 
-[访问博客](https://sekirooox.github.io/skills-github-pages/) · [维护手册](docs/MAINTENANCE.md) · [文章模板](templates/post.md) · [构建记录](https://github.com/sekirooox/skills-github-pages/actions)
+[访问博客](https://sekirooox.github.io/) · [维护手册](docs/MAINTENANCE.md) · [文章模板](templates/post.md) · [构建记录](https://github.com/sekirooox/sekirooox.github.io/actions)
 
 </div>
 
@@ -37,7 +37,7 @@
 | Windows PowerShell | 已有 Ruby 或本机便携环境时运行 `./tools/preview.ps1` |
 | VS Code / Codespaces | 使用仓库 Dev Container，初始化后运行 `bash tools/serve.sh` |
 
-预览地址：**<http://localhost:4000/skills-github-pages/>**。
+预览地址：**<http://localhost:4000/>**。
 
 修改 `_config.yml` 后需要重启预览。完整的环境配置与排错步骤见[维护手册](docs/MAINTENANCE.md)。
 
@@ -46,7 +46,7 @@
 1. 在仓库 **Settings → Pages → Build and deployment → Source** 中选择 **GitHub Actions**。
 2. 检查变更范围，只暂存和提交需要发布的文件，然后推送到 `main`。
 3. 在 Actions 中查看 **Build and Deploy**；构建和内部链接检查通过后自动部署。
-4. 打开[线上博客](https://sekirooox.github.io/skills-github-pages/)检查结果。
+4. 打开[线上博客](https://sekirooox.github.io/)检查结果。
 
 > Pull Request 只执行构建检查。部署仅限 `main` 的推送或在 `main` 上手动运行。仅修改 README 不会触发部署。
 

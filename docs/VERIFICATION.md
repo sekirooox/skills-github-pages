@@ -6,13 +6,13 @@
 
 - 本机隔离 Ruby 3.4.11 + Chirpy 7.6.0 安装与真实生产构建。
 - 配置、工作流、Docker Compose 和所有文章/栏目 Front Matter 的 YAML 解析。
-- `JEKYLL_ENV=production bundle exec jekyll build --destination _site/skills-github-pages`。
+- `JEKYLL_ENV=production bundle exec jekyll build --destination _site`。
 - HTMLProofer：26 个 HTML 文件、46 条内部链接、5 个文件中的内部锚点检查通过；检查包括 Images、Links、Scripts，禁用外部链接探测。
 - Edge 浏览器：首页四篇文章显示，欢迎文章置顶；搜索 Mermaid 返回对应文章。
 - 数学公式和 Mermaid 流程图实际渲染；浅色与深色显示正常。
 - 390 × 844 手机视口：文章排版与侧栏展开正常；测试后已恢复桌面视口。
 - 原文章保留，生成旧日期地址到新文章地址的跳转页。
-- `csdn-repo/` 未进入最终 `_site/skills-github-pages`。
+- `csdn-repo/` 未进入最终 `_site`。
 - `git diff --check` 无空白错误。
 
 ## 验证中修复

@@ -2,7 +2,7 @@
 
 ## 1. 站点与技术选择
 
-站点地址：<https://sekirooox.github.io/skills-github-pages/>。
+站点地址：<https://sekirooox.github.io/>。
 
 使用官方 `jekyll-theme-chirpy` **7.6.0** gem，配合官方 starter 的配置、导航页面和更新日期插件。主题的布局、样式、脚本来自 gem，保留官方交互与响应式设计；中文界面、站点名称、头像和文章为本仓库内容。不是将演示站的作者资料和文章原样复制。
 
@@ -37,11 +37,11 @@ git push origin main
 docker compose up --build
 ```
 
-首次自动下载 Ruby 镜像并执行 `bundle install`。打开 <http://localhost:4000/skills-github-pages/>。依赖保存到 Docker volume，正文修改后自动刷新。结束时按 Ctrl+C，再执行 `docker compose down`。
+首次自动下载 Ruby 镜像并执行 `bundle install`。打开 <http://localhost:4000/>。依赖保存到 Docker volume，正文修改后自动刷新。结束时按 Ctrl+C，再执行 `docker compose down`。
 
 ### 方式 B：VS Code Dev Container / Codespaces
 
-本仓库有 `.devcontainer/devcontainer.json`。在 VS Code 选择 **Dev Containers: Reopen in Container**，或者在 GitHub 创建 Codespace。容器初始化会执行 `bundle install`。终端运行 `bash tools/serve.sh`，打开转发的 4000 端口并追加 `/skills-github-pages/`。
+本仓库有 `.devcontainer/devcontainer.json`。在 VS Code 选择 **Dev Containers: Reopen in Container**，或者在 GitHub 创建 Codespace。容器初始化会执行 `bundle install`。终端运行 `bash tools/serve.sh`，打开转发的 4000 端口根地址。
 
 ### 方式 C：已有 Ruby 环境
 
@@ -96,16 +96,16 @@ bash tools/test.sh
 
 在 `_config.yml` 修改 `title`、`tagline`、`description`、`social.name` 和 `github.username`。头像是 `assets/img/avatar.svg`，可换成自己的 PNG/JPG 并更新 `avatar` 路径。`_tabs/about.md` 是关于页。
 
-当前项目站必须保持：
+当前用户主页必须保持：
 
 ```yaml
 url: "https://sekirooox.github.io"
-baseurl: "/skills-github-pages"
+baseurl: ""
 lang: zh-CN
 timezone: Asia/Shanghai
 ```
 
-`url` 不含仓库名，`baseurl` 不带结尾斜杠。如果以后改为 `sekirooox.github.io` 根站或自定义域名，修改这两个值，并同步更新工作流构建/上传路径（当前为 `_site/skills-github-pages`）。
+`url` 末尾不加斜杠。用户主页的 `baseurl` 必须为空，工作流直接构建并上传 `_site`。如果以后改回项目站点，才需要将 `baseurl` 设置为仓库路径，并同步检查构建目录。
 
 首页卡片来自 `_posts`，不要往 `index.html` 粘贴文章列表。`paginate` 控制每页篇数；`pin: true` 使文章置顶。明暗模式默认跟随系统，可用 `theme_mode: light` 或 `dark` 指定初始偏好。
 
@@ -220,9 +220,9 @@ permalink: /projects/
 
 常见情况：
 
-- **首页 404**：核对 Pages Source、最新 deploy、`url/baseurl`，使用带仓库名的完整地址。
+- **首页 404**：确认仓库名精确为 `sekirooox.github.io`，核对 Pages Source、最新 deploy 及 `url/baseurl`。
 - **文章不出现**：检查日期、时区、`published`、文件路径；时间到达后仍需触发新构建。
-- **CSS 或图片 404**：检查项目子路径，避免重复或遗漏 `baseurl`。
+- **CSS 或图片 404**：确认 `baseurl` 为空，并检查资源链接没有残留旧仓库路径。
 - **链接检查失败**：看 Test site 的具体文件和路径，修正链接，不要直接关闭检查。
 - **Cancelled**：同分支新运行会取代旧任务，查看最新一次结果。
 - **修改后显示旧内容**：等待部署成功，再硬刷新；仍有问题时在浏览器 Application → Service Workers 中注销旧服务工作线程并清理站点缓存。
