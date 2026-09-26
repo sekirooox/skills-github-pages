@@ -7,7 +7,7 @@ author: cotes
 date: 2019-08-09 20:55:00 +0800
 categories: [教程]
 tags: [chirpy, jekyll, 入门, 环境配置, github-pages, 部署]
-pin: true
+pin: false
 media_subpath: 'https://chirpy-img.netlify.app/posts/20180809'
 ---
 

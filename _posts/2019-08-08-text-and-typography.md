@@ -5,7 +5,7 @@ author: cotes
 date: 2019-08-08 11:33:00 +0800
 categories: [教程]
 tags: [chirpy, markdown, 排版, 数学公式, mermaid, 多媒体]
-pin: true
+pin: false
 math: true
 mermaid: true
 media_subpath: 'https://chirpy-img.netlify.app'
@@ -88,10 +88,10 @@ Quisque egestas convallis ipsum, ut sollicitudin risus tincidunt a. Maecenas int
 
 ## 表格
 
-| 公司                         | 联系人           | 国家 |
-| :--------------------------- | :--------------- | ------: |
-| Alfreds Futterkiste          | Maria Anders     | 德国 |
-| Island Trading               | Helen Bennett    | 英国 |
+| 公司                         | 联系人           |   国家 |
+| :--------------------------- | :--------------- | -----: |
+| Alfreds Futterkiste          | Maria Anders     |   德国 |
+| Island Trading               | Helen Bennett    |   英国 |
 | Magazzini Alimentari Riuniti | Giovanni Rovelli | 意大利 |
 
 ## 链接
