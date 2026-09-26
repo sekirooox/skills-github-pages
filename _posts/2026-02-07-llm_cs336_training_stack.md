@@ -5,6 +5,7 @@ date: 2026-02-07
 categories: ["大语言模型与强化学习", "大语言模型"]
 tags: ["人工智能", "学习笔记"]
 render_with_liquid: false
+math: true
 description: "本文围绕“计算机基础·cs336·损失函数,优化器,调度器…”梳理核心概念、算法思路与实践要点，便于系统学习和后续查阅。"
 ---
 

@@ -5,11 +5,12 @@ date: 2025-12-11
 categories: ["深度学习与计算机视觉", "计算机视觉"]
 tags: ["计算机视觉", "clip", "深度学习", "学习笔记"]
 render_with_liquid: false
+math: true
 description: "本文整理“CorrCLIP”涉及的模型原理、关键方法与实践要点，便于理解和复习相关技术。"
 ---
 
 # CorrCLIP
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/5eec145940e14040886ff0f54d848a48.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/5eec145940e14040886ff0f54d848a48.png){: referrerpolicy="no-referrer" }
 
 # 动机
 作者提出了类间相关性的概念，并发现**类间相关性就是CLIP分割性能下降的关键原因**。
@@ -22,13 +23,13 @@ description: "本文整理“CorrCLIP”涉及的模型原理、关键方法与�
 (例如对于狗的patch，加入猫的patch，加入公路的patch，一个高相似度，一个低相似度。)以实现增加类间相关性。
 作者得出结论，**即使是高相似度的类间patch，例如狗和猫的patch相似度较高，这种类间相关性仍然会大幅度影响分割性能**。
 
-![，](https://i-blog.csdnimg.cn/direct/cd289eba30bf4deca758b9c0bd5d389c.png)
+![，](https://i-blog.csdnimg.cn/direct/cd289eba30bf4deca758b9c0bd5d389c.png){: referrerpolicy="no-referrer" }
 
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/4360addf2e524443a7ab5aacdae3a42c.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/4360addf2e524443a7ab5aacdae3a42c.png){: referrerpolicy="no-referrer" }
 
 先前的方法本质上可以理解为降低类间相似度来提高分割性能。
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/b79feba951694c16887ea43e613fe6e6.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/b79feba951694c16887ea43e613fe6e6.png){: referrerpolicy="no-referrer" }
 
 # 方法
 
@@ -38,7 +39,7 @@ description: "本文整理“CorrCLIP”涉及的模型原理、关键方法与�
 尽管self-self注意力可以增加性能，但仍然受限于CLIP的类间相关性。作者使用SAM来显示构造这种注意力掩码。
 
 注意：$F_S$是DINO中提取的特征。SAM2生成的分割掩码与$F_S$进行交互，得到二分类掩码。这些二分类掩码将会被用于聚类，得到多个聚类中心。
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/6a2f6c8e3fbf467ca21b557c824e78aa.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/6a2f6c8e3fbf467ca21b557c824e78aa.png){: referrerpolicy="no-referrer" }
 
 
 
@@ -48,31 +49,31 @@ Z个掩码经过聚类后只剩下z个掩码，这z个掩码中分为背景类�
 
 
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/5908aff1deb34a2e93bbaef757ef3ff5.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/5908aff1deb34a2e93bbaef757ef3ff5.png){: referrerpolicy="no-referrer" }
 # Value Reconstruction
 与ProxyCLIP差不多，利用DINO的特征制作注意力矩阵。
 通过插值确保S和E维度一致。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/5c7f9f6a773c48f7a62d9db5a85a55f3.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/5c7f9f6a773c48f7a62d9db5a85a55f3.png){: referrerpolicy="no-referrer" }
 ##  Feature Refinement
 简单来说就是CLIP的特征+多个低层特征的平均值(**空间特征**)+MCT掩码嵌入(**语义特征**)。
 MCT的数量和融合后的掩码数量一致，经过ViT编码后，将与自己的对应的掩膜进行直接相乘(相当于论文中与自己的掩膜交互)
 假设z个MCT，维度为(z,D)，共有(z,H*W)个掩膜，相乘后维度恰好为(H*W,D)，然后就可以与前面的特征进行融合。
-![F](https://i-blog.csdnimg.cn/direct/a3758502139947d1b729bfe54ea67d62.png)
+![F](https://i-blog.csdnimg.cn/direct/a3758502139947d1b729bfe54ea67d62.png){: referrerpolicy="no-referrer" }
 
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/a0dac767cbd54d9a97382db7d4993986.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/a0dac767cbd54d9a97382db7d4993986.png){: referrerpolicy="no-referrer" }
 # Map Correction
 前面**融合后的掩码将用于用于同一某一区域的类别**。
 作者说是为了**保持空间一致性**，抑制区域内单个patch的噪声。
 
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/1ce073f418304b889d2cf7d99d304351.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/1ce073f418304b889d2cf7d99d304351.png){: referrerpolicy="no-referrer" }
 
 # 缺点和不足
 计算开销大
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/de023698314a42989a32962136f1a741.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/de023698314a42989a32962136f1a741.png){: referrerpolicy="no-referrer" }
 同时运行 CLIP、DINO、SAM2，且 SAM 要 32×32 网格点采样；
 掩码生成、相似度重算、DBSCAN 聚类都比较耗时/显存；
 

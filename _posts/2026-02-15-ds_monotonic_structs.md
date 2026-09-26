@@ -5,6 +5,7 @@ date: 2026-02-15
 categories: ["算法与数据结构", "数据结构"]
 tags: ["数据结构", "单调栈", "单调队列", "算法"]
 render_with_liquid: false
+math: true
 description: "本文整理“数据结构·单调栈和单调队列”的核心思路、典型问题与实现要点，便于刷题复习和后续查阅。"
 ---
 

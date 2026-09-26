@@ -5,6 +5,7 @@ date: 2026-03-22
 categories: ["数学基础与数学建模", "数学基础"]
 tags: ["数学", "学习笔记"]
 render_with_liquid: false
+math: true
 description: "本文整理“数论·快速幂和逆元”涉及的基本原理、计算方法与应用思路，便于学习复习和建模参考。"
 ---
 

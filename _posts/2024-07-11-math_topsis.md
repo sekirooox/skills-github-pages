@@ -12,10 +12,10 @@ description: "本文整理“数学建模·Topsis优劣解&距离法”涉及的
 >一种新的评价方法，特点就是利用原有数据，客观性强。
 ## 相较于模糊评价和层次评价
 >更加客观，充分利用原有数据，精确反映方案差距
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/71181a6fa4fd40d79a6466b6a796ae28.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/71181a6fa4fd40d79a6466b6a796ae28.png){: referrerpolicy="no-referrer" }
 ## 基本原理
 >离最优解最近，离最劣解越远
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/3e07a3716fe7428e81eff870c16db068.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/3e07a3716fe7428e81eff870c16db068.png){: referrerpolicy="no-referrer" }
  ## 具体步骤
  ### 正向化
  代码与原理与熵权法类同，不多赘述
@@ -24,18 +24,18 @@ description: "本文整理“数学建模·Topsis优劣解&距离法”涉及的
  	标准化的计算方式不是算数平均，而是平方数的平均
  ### *优劣解打分
 + 1.优先计算最优解和最劣解，作为行向量存在
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/7fab89f995ca4bc8a2c4c01a126b60fc.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/7fab89f995ca4bc8a2c4c01a126b60fc.png){: referrerpolicy="no-referrer" }
 + 2.分别计算每一个对象i的j指标相对优劣解的距离
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/f3d2c87c51ce42fd99f2feae71762812.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/f3d2c87c51ce42fd99f2feae71762812.png){: referrerpolicy="no-referrer" }
 + 3.按照公式得出对象的得分进行**归一化**
 ### 带权值的优劣解计算
 + 距离之差表现在矩阵乘法上作为矩阵
 + 这个权值表现在矩阵乘法上是作为**列向量**，原因很简单：线性组合。**这点很重要！**
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/19e49e816e174bfaaf43b28051821f14.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/19e49e816e174bfaaf43b28051821f14.png){: referrerpolicy="no-referrer" }
 w向量形式如下图
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/2ea7d189f7a742b19f75af19c5db81e0.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/2ea7d189f7a742b19f75af19c5db81e0.png){: referrerpolicy="no-referrer" }
 公式中的"距离之差的平方"形式如下图
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/0268d2173bee4785b5bd8603698a1422.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/0268d2173bee4785b5bd8603698a1422.png){: referrerpolicy="no-referrer" }
 ---
 如果你运行不成功可能是变量名不一样，matlab支持一步步运行代码。
 ## 权重的计算：
@@ -119,7 +119,7 @@ xlswrite("工作簿1.xlsx",S,'F2:F26');
 ## 基本原理
 >根据每一个元素与最大值最小值的距离打分，比较朴素，一般不使用这个方法评
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/2583d94ebf554a7499fa7c4eda3b9af0.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/2583d94ebf554a7499fa7c4eda3b9af0.png){: referrerpolicy="no-referrer" }
 ## 代码如下
 
 ```matlab

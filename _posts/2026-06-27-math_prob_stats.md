@@ -5,6 +5,7 @@ date: 2026-06-27
 categories: ["数学基础与数学建模", "数学基础"]
 tags: ["概率论", "数学", "学习笔记"]
 render_with_liquid: false
+math: true
 description: "本文整理“数理基础·概率论与数理统计”涉及的基本原理、计算方法与应用思路，便于学习复习和建模参考。"
 ---
 
@@ -562,7 +563,7 @@ $$
 \end{align}
 $$
 #### 例题：均匀分布函数的参数估计
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/ae74528097544061a8f7b26126ebf354.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/ae74528097544061a8f7b26126ebf354.png){: referrerpolicy="no-referrer" }
 
 
 ### 评价指标

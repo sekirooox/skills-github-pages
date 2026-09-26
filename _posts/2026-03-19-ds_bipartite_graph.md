@@ -5,6 +5,7 @@ date: 2026-03-19
 categories: ["算法与数据结构", "图论"]
 tags: ["图论", "二分查找", "算法", "学习笔记"]
 render_with_liquid: false
+math: true
 description: "本文整理“图论·二分图”的核心思路、典型问题与实现要点，便于刷题复习和后续查阅。"
 ---
 
@@ -44,7 +45,7 @@ description: "本文整理“图论·二分图”的核心思路、典型问题�
 
 
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/c718bac6af6a4119a199ef06e5c7cc6a.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/c718bac6af6a4119a199ef06e5c7cc6a.png){: referrerpolicy="no-referrer" }
 
 <br><br><br><br>
 

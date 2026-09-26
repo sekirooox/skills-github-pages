@@ -5,6 +5,7 @@ date: 2024-06-11
 categories: ["算法与数据结构", "算法题解"]
 tags: ["算法题解", "算法", "学习笔记"]
 render_with_liquid: false
+math: true
 description: "本文整理“洛谷·玩具谜题”的核心思路、典型问题与实现要点，便于刷题复习和后续查阅。"
 ---
 
@@ -21,7 +22,7 @@ NOIP2016 提高组 D1T1
 
 有一天，这些玩具小人把小南的眼镜藏了起来。小南发现玩具小人们围成了一个圈，它们有的面朝圈内，有的面朝圈外。如下图：
 
-![](https://i-blog.csdnimg.cn/blog_migrate/a727c302c7b311995f94a76222e3e8d4.png) 
+![](https://i-blog.csdnimg.cn/blog_migrate/a727c302c7b311995f94a76222e3e8d4.png){: referrerpolicy="no-referrer" }
 
 这时 singer 告诉小南一个谜题：“眼镜藏在我左数第 $3$ 个玩具小人的右数第 $1$ 个玩具小人的左数第 $2$ 个玩具小人那里。”
 
@@ -124,7 +125,7 @@ y
 
 每个测试点的数据规模及特点如下表:
 
-![](https://i-blog.csdnimg.cn/blog_migrate/c28a04c451fe22de89e87dab1f800508.png)
+![](https://i-blog.csdnimg.cn/blog_migrate/c28a04c451fe22de89e87dab1f800508.png){: referrerpolicy="no-referrer" }
 
 其中一些简写的列意义如下:
 

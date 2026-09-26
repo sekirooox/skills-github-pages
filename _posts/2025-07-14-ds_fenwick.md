@@ -5,6 +5,7 @@ date: 2025-07-14
 categories: ["算法与数据结构", "数据结构"]
 tags: ["数据结构", "fenwick-tree", "算法", "学习笔记"]
 render_with_liquid: false
+math: true
 description: "本文整理“数据结构·数状数组(BIT)”的核心思路、典型问题与实现要点，便于刷题复习和后续查阅。"
 ---
 
@@ -25,7 +26,7 @@ int lowbit(int pos) {
 + `t[pos]`的含义：$t[pos]=\sum_{\{\forall x \mid x+lowbit(x)=pos\}}{t[x]}+a[pos]$。
 + 例如：$t[8=1000]=t[4=0100]+t[6=0110]+t[7=0111]+a[8]$，其中$a[8]$是原始数组第8个数。
 + 注意：不能通过$pos-lowbit(pos)$得到x。
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/9203012a34294d73a6e27f2396bee927.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/9203012a34294d73a6e27f2396bee927.png){: referrerpolicy="no-referrer" }
 ## 建树
 + 由于不能通过$pos-lowbit(pos)$反过来确定x，所以我们要**从x开始累加**`lowbit(x)`向上更新，这一步相当于前缀和的累积。
 ```cpp

@@ -5,6 +5,7 @@ date: 2026-06-26
 categories: ["数学基础与数学建模", "数学基础"]
 tags: ["线性代数", "数学", "学习笔记"]
 render_with_liquid: false
+math: true
 description: "本文整理“数理基础·线性代数及其应用”涉及的基本原理、计算方法与应用思路，便于学习复习和建模参考。"
 ---
 
@@ -30,7 +31,7 @@ AX&=A[x_1,x_2,\cdots,x_n]\\
 \end{align}
 $$
 ## 几何意义：坐标基的变换
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/f7b802f4fd1b48d09beed171eb7f4cf7.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/f7b802f4fd1b48d09beed171eb7f4cf7.png){: referrerpolicy="no-referrer" }
 
 ## 旋转变换
 + 坐标基旋转一定角度。
@@ -590,7 +591,7 @@ $$\begin{align} \text{换到特征向量坐标系}\rightarrow \text{按特征值
 ### 定义
 #### 动机：广义特征方程的变形，$AV=U\Sigma \Leftrightarrow A=U\Sigma V^{-1} \Leftrightarrow A=U\Sigma V^{T}$
 + **动机**：给定**单位**向量$v\in \mathbb{R}^{m \times 1}$，使得$||Av||_2$的值最大，含义为经过A投影后，投影向量的**伸长程度最大**。
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/928008db942b4ca58606015bef5ad85b.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/928008db942b4ca58606015bef5ad85b.png){: referrerpolicy="no-referrer" }
 + **转换**：$||Av||_2$的值最大，等价于$v^TA^TAv$的值最大，其中$A^TA$一定可以进行特征分解，等价于$v^T\lambda v$。因此得到$||Av||_2=\sqrt{\lambda}$。最大投影长度为$\lambda$。
 + **形式化表示**：$Av=\sqrt{\lambda}u$，其中$u \in \mathbb{R}^{n \times 1}$，表示为投影后的空间中，单位的**方向向量**。
 

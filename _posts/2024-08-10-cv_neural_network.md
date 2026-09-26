@@ -5,6 +5,7 @@ date: 2024-08-10
 categories: ["深度学习与计算机视觉", "深度学习"]
 tags: ["深度学习", "学习笔记"]
 render_with_liquid: false
+math: true
 description: "本文整理“深度学习·神经网络初步”涉及的模型原理、关键方法与实践要点，便于理解和复习相关技术。"
 ---
 
@@ -31,7 +32,7 @@ $$
 $J(w,b)$等价于$J(y,a^{[l+1]})$
 利用链式法则求导，每次反向传播$z^{[l+1]}$
 推导过程如下
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/b5f7136185be4819b40da3ebf1a8e872.jpeg)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/b5f7136185be4819b40da3ebf1a8e872.jpeg){: referrerpolicy="no-referrer" }
 
 # 超参数和参数
 + 参数：w,b
@@ -43,5 +44,5 @@ $J(w,b)$等价于$J(y,a^{[l+1]})$
 >随机丢弃一些神经元(输出结果置0)
 
 表现在代码上就是生成随机矩阵作为掩码与输出矩阵相乘
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/5345eca8cb9f4a528b2942476100824f.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/5345eca8cb9f4a528b2942476100824f.png){: referrerpolicy="no-referrer" }
 

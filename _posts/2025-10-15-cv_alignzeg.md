@@ -5,6 +5,7 @@ date: 2025-10-15
 categories: ["深度学习与计算机视觉", "计算机视觉"]
 tags: ["计算机视觉", "语义分割", "深度学习", "学习笔记"]
 render_with_liquid: false
+math: true
 description: "本文整理“AlignZeg: Mitigating Ob…”涉及的模型原理、关键方法与实践要点，便于理解和复习相关技术。"
 ---
 
@@ -17,7 +18,7 @@ description: "本文整理“AlignZeg: Mitigating Ob…”涉及的模型原理�
 ### 设计思路：双阶段方法生成掩码的过程
 
 # GEPC
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/fa73694928d7489a9cd5db1c9240f420.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/fa73694928d7489a9cd5db1c9240f420.png){: referrerpolicy="no-referrer" }
 这篇论文《**AlignZeg: Mitigating Objective Misalignment for Zero-shot Semantic Segmentation**》的主要内容可概括如下：
 
 ---
@@ -51,32 +52,32 @@ description: "本文整理“AlignZeg: Mitigating Ob…”涉及的模型原理�
 
    * 设计**双向交互机制**：mask queries 与视觉特征相互精炼（mutual refinement），得到高质量、类无关的 mask proposals。
    * 有助于减少对 seen 类特征的依赖，增强对 unseen 类的泛化。
-   ![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/8edd4d2435c94a41b51bc6a074d56eeb.png)
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/3bfa0dcc554c4fd599cbd8091223aaeb.png)
+   ![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/8edd4d2435c94a41b51bc6a074d56eeb.png){: referrerpolicy="no-referrer" }
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/3bfa0dcc554c4fd599cbd8091223aaeb.png){: referrerpolicy="no-referrer" }
 
 
 2. **Generalization-Enhanced Proposal Classification (GEPC)**
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/d255301abec94565adde8f01f2acbfc2.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/d255301abec94565adde8f01f2acbfc2.png){: referrerpolicy="no-referrer" }
 
    * 引入两种策略：
 每一个掩码对应的特征向量提取。
 
      * **Feature Expansion Strategy (FES)**：通过 Manifold Mixup 生成虚拟特征，扩大 seen 类特征分布边界；
 每一个掩码提取的**特征向量**方式如下：
-     ![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/26cde46cc63f4608b906c4ff6bc2c633.png)
+     ![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/26cde46cc63f4608b906c4ff6bc2c633.png){: referrerpolicy="no-referrer" }
 
-     ![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/f7b25957df6e4e43b3b2315894cb1ffe.png)
+     ![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/f7b25957df6e4e43b3b2315894cb1ffe.png){: referrerpolicy="no-referrer" }
 
      * **Background Diversity Strategy (BDS)**：采用多背景原型（multi-background prototypes），增强背景多样性表示。
    * 从特征层面扩大 unseen 类的可占空间，避免 seen 类主导特征空间。
 
 4. **Predictive Bias Correction (PBC)**
 二分类指示器的标签设置：
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/5835b84823ad418f9381282233179b21.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/5835b84823ad418f9381282233179b21.png){: referrerpolicy="no-referrer" }
 
 概率校准：
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/0b7d270ee541475aa656c40897173990.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/0b7d270ee541475aa656c40897173990.png){: referrerpolicy="no-referrer" }
 
    * 在推理阶段引入一个二分类器 **ϕ_bc(·)**，用于检测哪些 proposals 可能属于 unseen 类；
    * 若检测为 unseen，则降低其 seen 类预测分数；

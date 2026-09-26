@@ -24,7 +24,7 @@ description: "本文整理“数学建模·模糊评价法”涉及的基本原�
  ### 模糊集合
 >模糊集合不是非此即彼，没有互相排斥的属性，只能反映相关性，如年轻与年老。	 
 
-![请添加图片描述](https://i-blog.csdnimg.cn/direct/a98ff0d5852049c88cca5699f826b18d.png)
+![请添加图片描述](https://i-blog.csdnimg.cn/direct/a98ff0d5852049c88cca5699f826b18d.png){: referrerpolicy="no-referrer" }
  ### 隶属函数
 >对于一个元素的隶属函数，本质上是从评语集中的元素到区间[0,1]的一个映射，越接近于１隶属程度越强
 	
@@ -34,19 +34,19 @@ description: "本文整理“数学建模·模糊评价法”涉及的基本原�
 + 分为极小型，中间型，极大型
 + 注意极小型靠近０的这一侧隶属程度**接近１说明隶属关系强**，以此类推想象
 	
-![请添加图片描述](https://i-blog.csdnimg.cn/direct/67a89742eb6e455db2fb825abe319a5c.png)
+![请添加图片描述](https://i-blog.csdnimg.cn/direct/67a89742eb6e455db2fb825abe319a5c.png){: referrerpolicy="no-referrer" }
 ### 隶属函数的确定
 + 模糊统计法：
-![请添加图片描述](https://i-blog.csdnimg.cn/direct/efcfb1df7212445892f57436a11e8062.png)
+![请添加图片描述](https://i-blog.csdnimg.cn/direct/efcfb1df7212445892f57436a11e8062.png){: referrerpolicy="no-referrer" }
 + F分布:
 	
-![请添加图片描述](https://i-blog.csdnimg.cn/direct/cae56193613b4be3b371fb6a1903883f.png)
+![请添加图片描述](https://i-blog.csdnimg.cn/direct/cae56193613b4be3b371fb6a1903883f.png){: referrerpolicy="no-referrer" }
 ### 例题
 >隶属函数如果有数据，优先使用F分布确定，没有数据可以采用模糊评价
 
-![请添加图片描述](https://i-blog.csdnimg.cn/direct/f7ffc996bbb147b3ad250c7333bf58d8.png)确定隶属函数分布类型：
+![请添加图片描述](https://i-blog.csdnimg.cn/direct/f7ffc996bbb147b3ad250c7333bf58d8.png){: referrerpolicy="no-referrer" }确定隶属函数分布类型：
 频率越高越容易确定为快，所以是极大型；频率越小越容易确定为慢，所以是极小型，**注意从多(少)对于程度判断的相关程度考虑**
-![请添加图片描述](https://i-blog.csdnimg.cn/direct/f275922e5b0d441f9fd282e6e0ff8049.png)
+![请添加图片描述](https://i-blog.csdnimg.cn/direct/f275922e5b0d441f9fd282e6e0ff8049.png){: referrerpolicy="no-referrer" }
 
 ---
 ## 权重集
@@ -56,8 +56,8 @@ description: "本文整理“数学建模·模糊评价法”涉及的基本原�
 ## 模糊矩阵
 >矩阵列是因素集，行是评价集，还有对应因素集的权重集
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/1e596f0991534a49a13128a959c10b0f.png)
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/f80f6e79fc7940589a34dde183b1abde.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/1e596f0991534a49a13128a959c10b0f.png){: referrerpolicy="no-referrer" }
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/f80f6e79fc7940589a34dde183b1abde.png){: referrerpolicy="no-referrer" }
 	
 最后得到的结果是综合类所有因素集得到的最终评价集
 	
@@ -65,14 +65,14 @@ description: "本文整理“数学建模·模糊评价法”涉及的基本原�
 ## 多级评价体系
 >不断综合低级因素集，生成高级评价集，最终生成最终评价集
 
-![请添加图片描述](https://i-blog.csdnimg.cn/direct/9b4676bd3fa5499ab5b73c6363287999.png)
+![请添加图片描述](https://i-blog.csdnimg.cn/direct/9b4676bd3fa5499ab5b73c6363287999.png){: referrerpolicy="no-referrer" }
 
-![请添加图片描述](https://i-blog.csdnimg.cn/direct/935e8c4762a54d32ab9c0b4f2e3f09f4.png)
+![请添加图片描述](https://i-blog.csdnimg.cn/direct/935e8c4762a54d32ab9c0b4f2e3f09f4.png){: referrerpolicy="no-referrer" }
 
 # 核心步骤
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/3effe242eb9146ee8c41dd937aa64900.png)
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/88aee975c4c248c6b959efc95bf60549.png)
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/1d4010615d39495eb50ec4d13fb3b8cd.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/3effe242eb9146ee8c41dd937aa64900.png){: referrerpolicy="no-referrer" }
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/88aee975c4c248c6b959efc95bf60549.png){: referrerpolicy="no-referrer" }
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/1d4010615d39495eb50ec4d13fb3b8cd.png){: referrerpolicy="no-referrer" }
 
 
 # 个人总结：

@@ -5,6 +5,7 @@ date: 2024-06-11
 categories: ["算法与数据结构", "算法题解"]
 tags: ["算法题解", "算法", "学习笔记"]
 render_with_liquid: false
+math: true
 description: "本文整理“洛谷·塔姆沃斯牛”的核心思路、典型问题与实现要点，便于刷题复习和后续查阅。"
 ---
 

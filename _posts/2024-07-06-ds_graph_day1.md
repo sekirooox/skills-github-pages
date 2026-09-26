@@ -5,6 +5,7 @@ date: 2024-07-06
 categories: ["算法与数据结构", "图论"]
 tags: ["图论", "算法", "学习笔记"]
 render_with_liquid: false
+math: true
 description: "本文整理“图论·Day01”的核心思路、典型问题与实现要点，便于刷题复习和后续查阅。"
 ---
 
@@ -290,7 +291,7 @@ int main() {
 
 右图为样例 $2$ 给出的有向图，红色标注的边构成了负环，注意给出的图不一定连通。
 
-![](https://i-blog.csdnimg.cn/blog_migrate/cee5ac6f3ec2893186ffeb2d4c5aa580.png)
+![](https://i-blog.csdnimg.cn/blog_migrate/cee5ac6f3ec2893186ffeb2d4c5aa580.png){: referrerpolicy="no-referrer" }
 # Johnson算法
 + 数据溢出longlong的转换
 + `h[item.v] = h[cur.v] + item.w;`这段代码是Johnson算法的精髓，势能函数

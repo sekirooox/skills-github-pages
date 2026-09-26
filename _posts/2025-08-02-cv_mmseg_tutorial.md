@@ -461,7 +461,7 @@ fig.suptitle('Semantic Segmentation Predictions', fontsize=30)
 plt.savefig('../K3.jpg')
 plt.show()
 ```
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/a493f4b973dd4390825e8a908b56ab25.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/a493f4b973dd4390825e8a908b56ab25.png){: referrerpolicy="no-referrer" }
 
 
 <br><br><br><br><br><br>
@@ -469,10 +469,10 @@ plt.show()
 # 数据集的存储要求(待续)
 ## 整数掩码/掩膜
 + 存储格式**必须是`png`**，目的是为了**无损**
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/f2c6f4de363b492b841272546c29b572.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/f2c6f4de363b492b841272546c29b572.png){: referrerpolicy="no-referrer" }
 像素太小，什么都看不出来。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/5bc9d363001b408dba486e9f1f9b7451.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/5bc9d363001b408dba486e9f1f9b7451.png){: referrerpolicy="no-referrer" }
 
 虽然掩码是一个**整数矩阵**，但是保存为`png`格式时，**必须存储3通道**
 ```python
@@ -498,14 +498,14 @@ viz_mask_bgr = viz_mask_bgr.astype('uint8')
 opacity = 0.1 # 透明度越大，可视化效果越接近原图
 label_viz = cv2.addWeighted(img, opacity, viz_mask_bgr, 1-opacity, 0)
 ```
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/34d19466288e4af69db423c7d4d1751b.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/34d19466288e4af69db423c7d4d1751b.png){: referrerpolicy="no-referrer" }
 ## opencv的注意事项
 注意opencv**载入图片是bgr格式**，要进行一个转换`img_bgr[:,:,::-1]`
 ```python
 img_bgr = cv2.imread(img_path)
 ```
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/319176cff9a548a0a6bd343a4c6dace3.png)
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/87c6ed402cf74337b7555360f63fd365.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/319176cff9a548a0a6bd343a4c6dace3.png){: referrerpolicy="no-referrer" }
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/87c6ed402cf74337b7555360f63fd365.png){: referrerpolicy="no-referrer" }
 <br><br><br><br>
 ---
 # 参考文献

@@ -21,13 +21,13 @@ ProxyCLIP 的讨论和动机。 CLIP 采用的图像级对比学习范式经常�
 + 使用CLIP的各种注意力矩阵和VFM的相似度矩阵的结果作为预测值，**将属于同一类的patch记为标签1，否则为0。**
 + 发现CLIP的AP确实不如VFM的相似度矩阵。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/d14ffa5f017040a69c4255a188d91e9c.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/d14ffa5f017040a69c4255a188d91e9c.png){: referrerpolicy="no-referrer" }
 + 在图像上采样某点(视为patch)，看看注意力矩阵。结果发现**CLIP关注了很多不相关的patch**。
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/6600bdb6aa504868a79ea16c8a2018d0.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/6600bdb6aa504868a79ea16c8a2018d0.png){: referrerpolicy="no-referrer" }
 
 
 # 架构
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/cbeb197c6e1d40978dabe3e37cfd6d33.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/cbeb197c6e1d40978dabe3e37cfd6d33.png){: referrerpolicy="no-referrer" }
 + 两个创新点：**一个是代理注意力机制，一个是归一化设计。**
 
 ## 代理注意力
@@ -35,20 +35,20 @@ ProxyCLIP 的讨论和动机。 CLIP 采用的图像级对比学习范式经常�
 + 代理指的是：**CLIP的注意力矩阵替换为VFM的相似度矩阵。**
 
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/9635b4d3761c4b49904576b21bacad90.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/9635b4d3761c4b49904576b21bacad90.png){: referrerpolicy="no-referrer" }
 ## 归一化和掩码
 动机：VFM获得的代理注意力**并不一定有良好的一致性，因为它们的归纳偏置不一定相同**
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/03ff020805254953a07f2597ddbed951.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/03ff020805254953a07f2597ddbed951.png){: referrerpolicy="no-referrer" }
 + 为此,作者计算了一个归一化矩阵
 相当于对所有VFM的相似度矩阵进行了一个归一化处理，确保不会受到尺度的影响(不同VFM相似度分数的分布不同)。
 >这一步把 VFM 的相似度矩阵变成了标准的注意力权重矩阵：每一行对应一个“中心 patch”，对所有 patch 做 softmax 得到归一加权系数。
 >
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/6b095145022c460980e46b668252db6f.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/6b095145022c460980e46b668252db6f.png){: referrerpolicy="no-referrer" }
 
 ## 上采样
 就是CLIP的视觉特征维度和VFM不一定相同。作者建议**将CLIP的视觉特征上采样到VFM的维度**，这样可以**利用VFM中小patch的维度优势**。
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/f5f9c49fe4314a96887ae3f71c369f2f.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/f5f9c49fe4314a96887ae3f71c369f2f.png){: referrerpolicy="no-referrer" }
 
 # GPT总结版
 

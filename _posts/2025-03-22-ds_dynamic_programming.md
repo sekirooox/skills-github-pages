@@ -5,6 +5,7 @@ date: 2025-03-22
 categories: ["算法与数据结构", "算法"]
 tags: ["动态规划", "算法", "学习笔记"]
 render_with_liquid: false
+math: true
 description: "本文整理“算法·动态规划”的核心思路、典型问题与实现要点，便于刷题复习和后续查阅。"
 ---
 
@@ -29,7 +30,7 @@ description: "本文整理“算法·动态规划”的核心思路、典型问�
 + 将一个集合划分为若干的子集(子问题)
 + 划分要求：不出现遗漏，可以出现重复。
 + 划分技巧：**最后一个不同点，不同之处**。
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/bc5bd863a5ba4129ab6e15a89b3687ce.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/bc5bd863a5ba4129ab6e15a89b3687ce.png){: referrerpolicy="no-referrer" }
 
 ---
 
@@ -378,16 +379,16 @@ void solve() {
 
 + [282. 石子合并](https://www.acwing.com/problem/content/description/284/)：$O(N^2K)$
 + 矩阵乘法链：$O(N^2K)$
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/80b12709bd3d4aea8a130d6ef6a30f78.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/80b12709bd3d4aea8a130d6ef6a30f78.png){: referrerpolicy="no-referrer" }
 + [回文串](https://leetcode.cn/problems/longest-palindromic-substring/description/?envType=study-plan-v2&envId=top-100-liked)：DP不擅长获得具体的方案实现，因此将问题转换为判定回文数。
 + 括号问题：
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/a3ac1f0c406e4e1ca561f1d3589c8e39.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/a3ac1f0c406e4e1ca561f1d3589c8e39.png){: referrerpolicy="no-referrer" }
 
 ## DP数组定义：考虑数组`[i,j]`区间的属性
 + ``dp[i][j]``：区间`[i,j]`被合并的为一堆的方案。
 + **大区间使用了小区间的结果**，先遍历小区间，然后大区间利用小区间的值进行更新。
 + 先遍历区间大小，确保小区间先被更新。
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/ce5580fa6e514c9da7515462fc10a303.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/ce5580fa6e514c9da7515462fc10a303.png){: referrerpolicy="no-referrer" }
 
 ```cpp
 void solve() {
@@ -611,7 +612,7 @@ for(int i=0;i<text1.size();i++){
 + 使用预处理处理合并的状态，剔除不合法的状态
 + 同时两列之间的状态也有不合法之处(**`a&b!=0`说明有1的部分重叠了，这是不合法**)。
 + **枚举各种状态进行转移**。
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/ad74cccbbcd04402b74e78fd8f138dca.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/ad74cccbbcd04402b74e78fd8f138dca.png){: referrerpolicy="no-referrer" }
 
 ```cpp
 void solve() {

@@ -5,26 +5,27 @@ date: 2025-07-15
 categories: ["深度学习与计算机视觉", "计算机视觉"]
 tags: ["计算机视觉", "语义分割", "目标检测", "深度学习"]
 render_with_liquid: false
+math: true
 description: "本文整理“深度学习·目标检测和语义分割基础”涉及的模型原理、关键方法与实践要点，便于理解和复习相关技术。"
 ---
 
 # 边缘框
 + 不是标准的x，y坐标轴。
 + 边缘框三种表示：左上右下下坐标，左上坐标+长宽，**中心坐标+长宽**
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/0debd29564ac47028a05faeb9a1c4daa.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/0debd29564ac47028a05faeb9a1c4daa.png){: referrerpolicy="no-referrer" }
 # COCO
 + 目标检测数据集的格式：注意一个图片有多个物体，**使用csv或者文件夹结构的格式不可取**。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/09e81553dc494a5fb39b7f0bb2037d8e.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/09e81553dc494a5fb39b7f0bb2037d8e.png){: referrerpolicy="no-referrer" }
 # 锚框算法
 + 生成很多个锚框
 + 锚框之间和真实边缘框匹配(标签)。
 + ### 一般的目标检测模型不直接预测锚框的四个位置，**而是预测与真实值的偏移**。
 + 对于背景类，会有个掩码将偏移值设置为0.
 + ### 匹配标签后**使用NMS输出最后预测的锚框**
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/9c84ac6dcc2246d7846780eae57b9e22.png)
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/8750006d339e47f08bb5ad1bf5c5e0b1.png)
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/d6f25696022745bb9cb575478c600cdc.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/9c84ac6dcc2246d7846780eae57b9e22.png){: referrerpolicy="no-referrer" }
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/8750006d339e47f08bb5ad1bf5c5e0b1.png){: referrerpolicy="no-referrer" }
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/d6f25696022745bb9cb575478c600cdc.png){: referrerpolicy="no-referrer" }
 ## 在训练数据中标注锚框
 label:`subsec_labeling-anchor-boxes`
 
@@ -59,7 +60,7 @@ label:`subsec_labeling-anchor-boxes`
 :label:`fig_anchor_label`
 
 此算法在下面的`assign_anchor_to_bbox`函数中实现。
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/bd0c8798bb654970b1b1ca6590828101.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/bd0c8798bb654970b1b1ca6590828101.png){: referrerpolicy="no-referrer" }
 ### 标记类别和偏移量
 
 现在我们可以为每个锚框标记类别和偏移量了。
@@ -79,15 +80,15 @@ $$\left( \frac{ \frac{x_b - x_a}{w_a} - \mu_x }{\sigma_x},
 
 这种转换在下面的 `offset_boxes` 函数中实现。
 # 基于锚框的经典算法
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/ce316e2389ec4724a526def423ce4c54.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/ce316e2389ec4724a526def423ce4c54.png){: referrerpolicy="no-referrer" }
 # 语义分割
 + ### 每个像素都会有一个label,这个label也是一个RGB颜色，三个通道
 ## VOC数据集
 + 图片在JPEGImages，标签在SegmentationClass中。
 + 格式都为图片
-![taget](https://i-blog.csdnimg.cn/direct/7a47f9b079474f2b8d8b3d5b2765b53a.png)
+![taget](https://i-blog.csdnimg.cn/direct/7a47f9b079474f2b8d8b3d5b2765b53a.png){: referrerpolicy="no-referrer" }
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/6a1559f6772940d6be3f319a5ca00ec4.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/6a1559f6772940d6be3f319a5ca00ec4.png){: referrerpolicy="no-referrer" }
 
 ### 图像增强的注意事项
 
@@ -106,7 +107,7 @@ $$\left( \frac{ \frac{x_b - x_a}{w_a} - \mu_x }{\sigma_x},
 # 将标签图片的RGB(3D)转换为标签索引(1D)
 >可见最后的dataloader**标签是一个图片**，**每个像素是一个标签**。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/01b30b619078487582efefee8155aa0d.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/01b30b619078487582efefee8155aa0d.png){: referrerpolicy="no-referrer" }
 
 
 # 正常卷积Conv2d
@@ -122,8 +123,8 @@ X.shape,conv(X).shape
 
 # 转置卷积TransConv2d
 利用卷积核的感受野，逆还原卷积。
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/68b58b6bca7343bdb22e44185c3f4bf4.png)
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/58916fa23e034a2586458259b151793a.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/68b58b6bca7343bdb22e44185c3f4bf4.png){: referrerpolicy="no-referrer" }
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/58916fa23e034a2586458259b151793a.png){: referrerpolicy="no-referrer" }
 输入和输出通道，
 kernel_size=2*padding+1，且stride=1时，大小不变。
 kernel_size=2*padding，且stride=1时，大小不变。
@@ -143,7 +144,7 @@ conv = nn.Conv2d(10, 20, kernel_size=5, padding=2, stride=3)
 tconv = nn.ConvTranspose2d(20, 10, kernel_size=5, padding=2, stride=3)
 tconv(conv(X)).shape == X.shape
 ```
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/7f6d4f86cca84105a4a2278b4f6ce223.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/7f6d4f86cca84105a4a2278b4f6ce223.png){: referrerpolicy="no-referrer" }
 # FCN
 ### CNN+1x1卷积(**降低通道数**)+转置卷积(**重新缩放**)
 ### 输出是(通道数，宽，高)，其中**通道数是用作类似全连接的标签**，与标签数一致
@@ -168,9 +169,9 @@ torch.Size([1, 21, 320, 480])
 
 # 整数掩码/掩膜
 + 存储格式**必须是`png`**，目的是为了**无损**
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/f2c6f4de363b492b841272546c29b572.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/f2c6f4de363b492b841272546c29b572.png){: referrerpolicy="no-referrer" }
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/5bc9d363001b408dba486e9f1f9b7451.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/5bc9d363001b408dba486e9f1f9b7451.png){: referrerpolicy="no-referrer" }
 
 虽然掩码是一个**整数矩阵**，但是保存为`png`格式时，**必须存储3通道**
 ```python
@@ -196,7 +197,7 @@ viz_mask_bgr = viz_mask_bgr.astype('uint8')
 opacity = 0.1 # 透明度越大，可视化效果越接近原图
 label_viz = cv2.addWeighted(img, opacity, viz_mask_bgr, 1-opacity, 0)
 ```
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/34d19466288e4af69db423c7d4d1751b.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/34d19466288e4af69db423c7d4d1751b.png){: referrerpolicy="no-referrer" }
 
 # 自定义数据集`mmsegmentation\mmseg\datasets\ZihaoDataset.py`
 + 继承`BaseSegDataset`：`from .basesegdataset import BaseSegDataset`
@@ -538,8 +539,8 @@ model = init_model(config_file, checkpoint_file, device=device)
 ```python
 img_bgr = cv2.imread(img_path)
 ```
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/319176cff9a548a0a6bd343a4c6dace3.png)
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/87c6ed402cf74337b7555360f63fd365.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/319176cff9a548a0a6bd343a4c6dace3.png){: referrerpolicy="no-referrer" }
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/87c6ed402cf74337b7555360f63fd365.png){: referrerpolicy="no-referrer" }
 ## 推理过程
 `result = inference_model(model, img_bgr)`，好像**要用BGR格式的图片进行推理**？返回一个result，`SegDataSample`类型，分为两个东西，**一个是预测的类别，一个是概率**，其余就是**tensor的使用方法**。
 ```python
@@ -614,7 +615,7 @@ fig.suptitle('Semantic Segmentation Predictions', fontsize=30)
 plt.savefig('../K3.jpg')
 plt.show()
 ```
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/a493f4b973dd4390825e8a908b56ab25.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/a493f4b973dd4390825e8a908b56ab25.png){: referrerpolicy="no-referrer" }
 # 摄像头推理(实时分割)
 但是我没有摄像头😒
 ```python

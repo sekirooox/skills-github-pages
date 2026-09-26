@@ -91,7 +91,7 @@ description: "本文记录“论文精读·Does Context Matte…”的研究问�
 + 作者采用了**成对比较回答的思路**，构建成对数据，而不是逐点评估。
 + 简单来说就是构建4个SPLIT，每个SPLIT有两个分支，**一般包括上下文任务：QA和Summarzation(摘要)**。
 + 第一个SPLIT只有QA，包括可以回答/不可以回答两种分支。
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/46064d213a874e5c8c93f9312f6c7b72.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/46064d213a874e5c8c93f9312f6c7b72.png){: referrerpolicy="no-referrer" }
 
 
 # 实验评估
@@ -283,7 +283,7 @@ Run 2：把正确答案设为 Response B。
 + 模型选出的答案；
 + 当前任务所属的评估标准（如“faithfulness”、“completeness”等）；
 + 然后判断：
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/b6224d44a2ee443698fb73477dabbdd3.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/b6224d44a2ee443698fb73477dabbdd3.png){: referrerpolicy="no-referrer" }
 
 ## 在评审任务中，增加推理时的计算量（如自一致、多模型集成等方法）能否提升 LLM 评审员的表现？
 
@@ -306,7 +306,7 @@ Run 2：把正确答案设为 Response B。
 | **原因分析** | 评审模型间缺乏一致标准；系统性偏差（位置、长度）无法通过采样平均消除。                               |
 | **结论**   | 推理时扩算（inference-time scaling）对上下文评审无显著帮助；改进需从**训练与标准化**入手，而非计算扩展。 |
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/e16833b2cb954224a5816971d5b78f89.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/e16833b2cb954224a5816971d5b78f89.png){: referrerpolicy="no-referrer" }
 ## 上下文（context）越长、回答（response）越长，是否会让评审模型（LLM-as-judge）的判断变得更困难
 
 在前文实验中，作者已经发现：
@@ -344,7 +344,7 @@ Run 2：把正确答案设为 Response B。
 
 ---
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/18f5f9359f19473ea36e6f37b60e2e43.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/18f5f9359f19473ea36e6f37b60e2e43.png){: referrerpolicy="no-referrer" }
 
 
 ### （1）长上下文 & 长回答 → 双重负效应

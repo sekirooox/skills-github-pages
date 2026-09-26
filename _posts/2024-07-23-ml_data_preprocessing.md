@@ -62,7 +62,7 @@ description: "本文围绕“Python·数据分析和数据预处理”整理基�
 + 默认生成方式：`s = pd.Series([1,3,5,np.nan,6,8])`
 >**np.nan表示缺失值，注意不等于空**
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/33cadbbc43994dff8cb511e7907831ca.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/33cadbbc43994dff8cb511e7907831ca.png){: referrerpolicy="no-referrer" }
 # DataFrame
 >index：左侧标号
 >columns：上方索引
@@ -96,7 +96,7 @@ description: "本文围绕“Python·数据分析和数据预处理”整理基�
 ## 统计性的函数
 >pandas默认对列进行求值，这点于numpy不同
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/b969b8c943804bb8ba17e5c463041aa2.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/b969b8c943804bb8ba17e5c463041aa2.png){: referrerpolicy="no-referrer" }
 ## 切片和拼接
 + `pieces=[df[:3],df[3:7],d[7:]]`切片,**返回的是dataframe**
 + `pd.concat(pieces)`拼接碎片**纵向合并**
@@ -119,7 +119,7 @@ description: "本文围绕“Python·数据分析和数据预处理”整理基�
 	+ 线条属性
 	+ 字符和类型属性
 + 提前修改属性：plt.setp(line,"color",'r',"linewidth",4)
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/f76dc9c64c034a6f9213e04ed4879302.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/f76dc9c64c034a6f9213e04ed4879302.png){: referrerpolicy="no-referrer" }
 + 指定坐标轴：`plt.axis([xmin, xmax, ymin, ymax])`
 + 支持传入多张图：`
 ## 子图

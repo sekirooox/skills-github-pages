@@ -5,6 +5,7 @@ date: 2024-07-27
 categories: ["机器学习与数据分析", "机器学习"]
 tags: ["回归", "机器学习", "数据分析"]
 render_with_liquid: false
+math: true
 description: "本文围绕“机器学习·回归”整理基本原理、处理流程与实践方法，便于学习复习和数据分析参考。"
 ---
 
@@ -160,11 +161,11 @@ $$
 ## 逻辑回归的损失函数
 >为了保证梯度下降法的准确性，我们必须保证损失函数是一个凸函数或者凹函数。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/dcde73a393f74de993a3e67ea34dde16.png)
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/89fc7b68783047578e60475ac72229f6.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/dcde73a393f74de993a3e67ea34dde16.png){: referrerpolicy="no-referrer" }
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/89fc7b68783047578e60475ac72229f6.png){: referrerpolicy="no-referrer" }
 ## 梯度
 与线性回归一致，但是注意这里的$f_{w,b}(x^{(i)})$已经改为了上述的概率**sigmoid函数**
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/5619141df7fd40ab84fcfe1f700e566e.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/5619141df7fd40ab84fcfe1f700e566e.png){: referrerpolicy="no-referrer" }
 # 过拟合
 >在训练集表现良好，但在预测上表现糟糕
 >特征是**较高的方差**

@@ -5,6 +5,7 @@ date: 2026-02-13
 categories: ["大语言模型与强化学习", "大语言模型"]
 tags: ["人工智能", "学习笔记"]
 render_with_liquid: false
+math: true
 description: "本文围绕“计算机基础·cs336·实验与推理”梳理核心概念、算法思路与实践要点，便于系统学习和后续查阅。"
 ---
 
@@ -61,7 +62,7 @@ echo "=========================================="
 ## 实验结果
 + 代码有一些bug，仅供娱乐
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/05fdf1bd128b417486e5351e1abf222a.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/05fdf1bd128b417486e5351e1abf222a.png){: referrerpolicy="no-referrer" }
 
 # 学习率实验
 ## 脚本
@@ -156,7 +157,7 @@ done
 ```
 ## 结果
 + 6e-3是当前实验条件下最优的最大学习率。
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/99d79e946110406682137ebe82f50a08.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/99d79e946110406682137ebe82f50a08.png){: referrerpolicy="no-referrer" }
 ---
 <br><br><br><br>
 # 推理

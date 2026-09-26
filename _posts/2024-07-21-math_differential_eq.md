@@ -19,7 +19,7 @@ description: "本文整理“数模·微分方程”涉及的基本原理、计�
 >使用eq表示微分方程，**注意等号==**
 >选择性提供初值
 
-![定义](https://i-blog.csdnimg.cn/direct/835630cd2ca744ae9d9f1d35ab170ec9.png)
+![定义](https://i-blog.csdnimg.cn/direct/835630cd2ca744ae9d9f1d35ab170ec9.png){: referrerpolicy="no-referrer" }
 ## 一阶微分方程
 ```matlab
 %% 微分方程1
@@ -58,7 +58,7 @@ eq2=diff(y,t)==-x;
 # matlab数值解
 >一般使用ode45或ode15这个函数求解
 >注意传入参数不再是符号变量而是**函数**
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/b3f33b347d45425586925b23e201f6fb.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/b3f33b347d45425586925b23e201f6fb.png){: referrerpolicy="no-referrer" }
 ## matlab匿名函数
 + ### 匿名函数的语法`odefun1=@(x,y)-exp(x);`
 + ### 匿名函数就是`odefun1=返回值`类似的语法

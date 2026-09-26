@@ -72,16 +72,16 @@ disp(P);disp(d);
 # 网络最大流
 ## 网络最大流问题的概念
 + 流量图
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/99fdf3fbb6094ebea108830551c723ef.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/99fdf3fbb6094ebea108830551c723ef.png){: referrerpolicy="no-referrer" }
 >就是一条边的权值不再是一个值了，而是**一个元组(c,x)分别表示最大流量和当前流量**，如下图所示
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/1f89108fa9a443ff9aa75f23cb1a730d.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/1f89108fa9a443ff9aa75f23cb1a730d.png){: referrerpolicy="no-referrer" }
 + 可行流
 >进来的流量始终等于出去的流量
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/04fa552e8dbc4797b3df501fc4bd0f0f.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/04fa552e8dbc4797b3df501fc4bd0f0f.png){: referrerpolicy="no-referrer" }
 + 增广链
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/f0d516851fcb42f492d6e58708833904.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/f0d516851fcb42f492d6e58708833904.png){: referrerpolicy="no-referrer" }
 
 
 ## Ford Fulkerson算法
@@ -91,7 +91,7 @@ disp(P);disp(d);
 >如果没有路径可以采取DFS/BFS搜索创造路径
 >必须注意的是，局部最优不一定就是全局最优，表现题目中在**一个管道的流量全部占满不一定是全局最优解**，为了解决这个问题，**我们会添加负权值的反向弧供程序反悔**
 >
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/49c24d0c664944ca9dc7a1c73fca0a14.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/49c24d0c664944ca9dc7a1c73fca0a14.png){: referrerpolicy="no-referrer" }
 ## matlab代码
 >maxflow函数，接受图作为参数，传入起点和终点返回mf作为当前网络最大流
 ```matlab
@@ -108,7 +108,7 @@ mf=maxflow(matrix,1,7)%%不接受邻接矩阵，只接受有向图
 ```
 <br><br><br><br>
 # 最小费用最大流问题
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/b56ce6a5dc7045788d5bc68d9bbc7f51.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/b56ce6a5dc7045788d5bc68d9bbc7f51.png){: referrerpolicy="no-referrer" }
 
 >简单来说既要最短权值消耗，又要尽可能多的流量
 ## 解题思路
@@ -191,22 +191,22 @@ disp("最小费用最大流的结果是");cost_all
 <br><br><br><br>
 
 # 旅行商TSP问题
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/a337251d195049b2bf2abfa444bd5b35.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/a337251d195049b2bf2abfa444bd5b35.png){: referrerpolicy="no-referrer" }
 ## 解题思路
 >从本质来讲，这是一个哈密顿回路，我们需要做的就是不断改变以下结点相互之间的顺序(源点和终点不变)，最终取得合法的最优解
 >**注意这个最优解不是全局最优解**，极度依赖于初始回路的顺序
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/2449c11fb0474987afc21bd3a111320d.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/2449c11fb0474987afc21bd3a111320d.png){: referrerpolicy="no-referrer" }
 ## 改良圈算法
 >简单来说，如果两个顶点i和j间存在一条路径满足以下约束，我们尝试改变其原有次序，**让他们两个顶点优先靠在一起**
 >因为改变了次序，为了得到合法的回路，**我们必须反转i+1~j原有次序。**
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/83d539dd18054491853366ce2bf23a5e.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/83d539dd18054491853366ce2bf23a5e.png){: referrerpolicy="no-referrer" }
 ## 具体步骤
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/cc9de79021e84305bc6d4af755745fe0.png)
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/1cd2cd1e914d409fa1e5cd6643551b1d.png)
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/9bc006069dc14e798ad9edbaa2dd3d96.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/cc9de79021e84305bc6d4af755745fe0.png){: referrerpolicy="no-referrer" }
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/1cd2cd1e914d409fa1e5cd6643551b1d.png){: referrerpolicy="no-referrer" }
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/9bc006069dc14e798ad9edbaa2dd3d96.png){: referrerpolicy="no-referrer" }
 ## matlab代码
 >这个算法本质上就是暴力模拟，枚举所有的改变方式
 >注意取值范围 `i<i+1<j`

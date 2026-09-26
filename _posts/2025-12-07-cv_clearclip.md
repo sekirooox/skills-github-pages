@@ -5,6 +5,7 @@ date: 2025-12-07
 categories: ["深度学习与计算机视觉", "计算机视觉"]
 tags: ["计算机视觉", "clip", "深度学习", "学习笔记"]
 render_with_liquid: false
+math: true
 description: "本文整理“ClearCLIP”涉及的模型原理、关键方法与实践要点，便于理解和复习相关技术。"
 ---
 
@@ -27,21 +28,21 @@ The aforementioned baseline in Eq. (4) often fails to achieve satisfactory resul
 ## 验证实验
 + 对于更大的CLIP模型，性能反而更低的情况，作者发现：注意力输出的范数和性能基本上呈现正相关
 + 之所以性能下降，作者推测**可能是因为残差层输出的特征范数较高**。CLIP-B时13~14的水平，CLIP-L确实24左右的水平。
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/eafc6b2013ec4bd09dad60bf8c497e5c.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/eafc6b2013ec4bd09dad60bf8c497e5c.png){: referrerpolicy="no-referrer" }
 ---
 + 作者可视化分割图之后发现，**残差的输出结果非常多噪声，性能几乎为0**。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/3d4fe67c53644aa7b093ab9c918e0506.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/3d4fe67c53644aa7b093ab9c918e0506.png){: referrerpolicy="no-referrer" }
 + 局部可区分性差：残差层的归一化熵接近于0，**说明其提供不了任何有利信息**。同时，其在某些通道的的值非常大，**大部分在这些通道上十分相似**，这可能是因为为了**图像识别任务需要均匀的特征，但是这肯定不利于图像分割任务**。
 
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/a11c51df174c40b782d05bd0314a04d1.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/a11c51df174c40b782d05bd0314a04d1.png){: referrerpolicy="no-referrer" }
 + **FFN的作用可以忽略不计**。这个结论来自一篇验证clip的论文，作者发现当去掉残差和FFN时，效果更好。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/7a864ab856e14da9940359f49da6c789.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/7a864ab856e14da9940359f49da6c789.png){: referrerpolicy="no-referrer" }
 # 方法
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/f24d436b41864e3ca7ea2811a1033f88.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/f24d436b41864e3ca7ea2811a1033f88.png){: referrerpolicy="no-referrer" }
 
 # GPT总结
 先给你一版“整篇论文的方法理解 + 复现指南”，尽量按你给的提纲来。

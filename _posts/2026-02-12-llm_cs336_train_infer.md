@@ -5,6 +5,7 @@ date: 2026-02-12
 categories: ["大语言模型与强化学习", "大语言模型"]
 tags: ["人工智能", "学习笔记"]
 render_with_liquid: false
+math: true
 description: "本文围绕“计算机基础·cs336·推理和训练”梳理核心概念、算法思路与实践要点，便于系统学习和后续查阅。"
 ---
 
@@ -70,7 +71,7 @@ for _ in range(max_new_tokens):
 ```
 
 ## 从logits中采样得到`next_token`的方法
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/352d8af8673e452892b983e24083f44d.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/352d8af8673e452892b983e24083f44d.png){: referrerpolicy="no-referrer" }
 
 + 常见策略
 + 贪心 vs topk vs topp

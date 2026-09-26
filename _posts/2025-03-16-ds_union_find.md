@@ -5,6 +5,7 @@ date: 2025-03-16
 categories: ["算法与数据结构", "图论"]
 tags: ["图论", "并查集", "算法", "学习笔记"]
 render_with_liquid: false
+math: true
 description: "本文整理“图论·并查集 (未完)”的核心思路、典型问题与实现要点，便于刷题复习和后续查阅。"
 ---
 
@@ -37,7 +38,7 @@ void merge(int x, int y) {
 + 合并操作：考虑两个集合根结点的权值合并。
 + 路径压缩操作：更新**非根结点的权值**
 + 注意：**只有集合(子集)的根节点**的权值是一定有效的，**非根结点不一定有效**。
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/73eb50bc5c5c47d7ababa3f49a3ad495.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/73eb50bc5c5c47d7ababa3f49a3ad495.png){: referrerpolicy="no-referrer" }
 
 
 ### 例题

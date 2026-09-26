@@ -16,12 +16,12 @@ description: "本文整理“数学建模·非线性规划”涉及的基本原�
 > 表现为单下标，单变量问题
 
  例：建设学校问题
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/a1ff831fc8084675beba844e3aeb5ea2.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/a1ff831fc8084675beba844e3aeb5ea2.png){: referrerpolicy="no-referrer" }
 + > 对于每个学校来说只有选和不选两种情况，在数学上我们用0-1变量来表示
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/919e68e50cd94a71b12bf2f0b2872fcd.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/919e68e50cd94a71b12bf2f0b2872fcd.png){: referrerpolicy="no-referrer" }
 + > 约束条件如下
 		>例如对于A1来说，至少从x1，x2，x3中选择至少建设一所，反映在数学上就是0-1变量和>=1
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/423460fdffbb4b89840e05edd591ee67.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/423460fdffbb4b89840e05edd591ee67.png){: referrerpolicy="no-referrer" }
 ### 蒙特卡洛模拟代码
 ```matlab
 %% 蒙特卡洛建校问题
@@ -45,11 +45,11 @@ disp(res_min);
 
 ### 指派问题
 例：工厂的设备分配问题
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/249e87e65d184298a2b4203d81fb5710.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/249e87e65d184298a2b4203d81fb5710.png){: referrerpolicy="no-referrer" }
 
 >拥有两个对象，将i指派给j，所以是双下标问题
 >类似于0-1背包问题，我们用带两个下标0-1向量表示问题
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/748a963ce9584e25b3c74a22f42b15d4.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/748a963ce9584e25b3c74a22f42b15d4.png){: referrerpolicy="no-referrer" }
 ### 代码如下
 
 ```matlab
@@ -87,18 +87,18 @@ disp(res_x);
 
 ## 具体步骤
 + matlab具体函数求解
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/be0ef49ef8474e588280b52f07afd1d8.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/be0ef49ef8474e588280b52f07afd1d8.png){: referrerpolicy="no-referrer" }
 + 蒙特卡洛模拟
 > 本质上是使用随机数不断模拟逼近最优解的形式
 >具体问题具体分析
 
 # 非线性规划
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/cd9ab0cb0f3a4dfab5ebc6d908720b20.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/cd9ab0cb0f3a4dfab5ebc6d908720b20.png){: referrerpolicy="no-referrer" }
 ## 具体定义
 > 对于目标函数或约束条件不是线性的情况求极值
 ## 具体步骤
 >步骤如下，基本上就是填参数
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/31a9ee5568c94339897d0a2350cee20f.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/31a9ee5568c94339897d0a2350cee20f.png){: referrerpolicy="no-referrer" }
 ## 代码模板
 > 唯一要注意的点是f和nonlfun函数中的格式：
 + f函数

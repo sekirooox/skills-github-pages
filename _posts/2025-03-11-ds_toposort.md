@@ -5,6 +5,7 @@ date: 2025-03-11
 categories: ["算法与数据结构", "图论"]
 tags: ["图论", "拓扑排序", "算法", "学习笔记"]
 render_with_liquid: false
+math: true
 description: "本文整理“图论·拓扑排序”的核心思路、典型问题与实现要点，便于刷题复习和后续查阅。"
 ---
 

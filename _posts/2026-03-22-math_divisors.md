@@ -5,6 +5,7 @@ date: 2026-03-22
 categories: ["数学基础与数学建模", "数学基础"]
 tags: ["数学", "学习笔记"]
 render_with_liquid: false
+math: true
 description: "本文整理“数论·约数”涉及的基本原理、计算方法与应用思路，便于学习复习和建模参考。"
 ---
 
@@ -60,7 +61,7 @@ $$
 
 
 ## 约数的数量：$O(\log n)-O(\sqrt{n})$
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/0e41f2977f3c4676afa6a7d11977b539.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/0e41f2977f3c4676afa6a7d11977b539.png){: referrerpolicy="no-referrer" }
 
 
 + 简单理解：**我们有的是素因子，但是我们可以通过组合素因子的方法得到合数因子！**
@@ -96,7 +97,7 @@ void solve() {
 ```
 
 ## 约数之和：$O(\log n)-O(\sqrt{n})$
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/eeb9c695cc114df28893a7f06537aaf9.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/eeb9c695cc114df28893a7f06537aaf9.png){: referrerpolicy="no-referrer" }
 + 简单理解：既然我们知道**任何一个因子都可以由素因子组合得到**。因此我们**对所有因子进行求和，可以化简为对单个因子进行求和，最后乘积的形式**。
 ### 实现
 + **对单个因子求和的公式如下：$S_n=S_{n-1}*p+1$**，循环n次即可。

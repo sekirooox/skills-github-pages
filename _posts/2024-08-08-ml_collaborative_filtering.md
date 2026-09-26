@@ -5,6 +5,7 @@ date: 2024-08-08
 categories: ["机器学习与数据分析", "机器学习"]
 tags: ["推荐系统", "机器学习", "数据分析"]
 render_with_liquid: false
+math: true
 description: "本文围绕“机器学习·L3W2-协同过滤”整理基本原理、处理流程与实践方法，便于学习复习和数据分析参考。"
 ---
 
@@ -15,7 +16,7 @@ description: "本文围绕“机器学习·L3W2-协同过滤”整理基本原�
 >评分矩阵Y，左侧索引是名称，栏目是用户名
 >协同过滤的基本原理就是**利用已有的评分数据，对未有的评分数据进行预测**，根据评分大小推荐给用户
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/7bbc8812b6214036876f5462f6af4513.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/7bbc8812b6214036876f5462f6af4513.png){: referrerpolicy="no-referrer" }
 本质上用的算法还是线性回归那套
 ## 计算公式
 
@@ -73,11 +74,11 @@ for iter in range(iterations):
 >原来的$f(w,b,x)\to f=sigmoid(z)$函数
 >损失函数改为交叉熵即可！
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/6965bd63142d4ff6985a5b28382739c4.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/6965bd63142d4ff6985a5b28382739c4.png){: referrerpolicy="no-referrer" }
 ## 技巧：平均值正常化
 ## 模型评估
 + 不适合冷启动问题
 + 需要额外的信息，很难解释这些额外的信息的含义
 + **梯度下降速度极慢，参数太多**
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/67cb9b2ab19d469f9063c393a43a07f7.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/67cb9b2ab19d469f9063c393a43a07f7.png){: referrerpolicy="no-referrer" }
 

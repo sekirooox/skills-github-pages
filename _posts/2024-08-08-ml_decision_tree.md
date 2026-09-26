@@ -5,6 +5,7 @@ date: 2024-08-08
 categories: ["机器学习与数据分析", "机器学习"]
 tags: ["决策树", "机器学习", "数据分析"]
 render_with_liquid: false
+math: true
 description: "本文围绕“机器学习·L2W4-决策树”整理基本原理、处理流程与实践方法，便于学习复习和数据分析参考。"
 ---
 
@@ -35,7 +36,7 @@ $$H(p_1) = -p_1 \text{log}_2(p_1) - (1- p_1) \text{log}_2(1- p_1)$$
 
 $\max :var_{root}-\left(w_{left}*var_{left}+w_{right}*var_{right}\right)$
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/8310aface75247c8aa82d0813de79d3c.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/8310aface75247c8aa82d0813de79d3c.png){: referrerpolicy="no-referrer" }
 输出的结果为**数据集的均值**
 # 随机森林
 >随机森林每次从n个样本中抽取$\sqrt{n}$个特征作为划分的标准，可以避免形成对于特定特征局部一致的决策树
@@ -92,7 +93,7 @@ xgb_model.fit(X_train,Y_train,eval_set=[(X_cv,Y_cv)])
 ## 连续值-二分法
 >设定一个阈值，用于划分左右子树，**该阈值使得信息增益最大化。**
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/3d913506ae1b4598b01862095163ba5b.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/3d913506ae1b4598b01862095163ba5b.png){: referrerpolicy="no-referrer" }
 ## 缺失值处理
 >决策树可以很好的处理数据有缺失值的情况，**基本的原理就是给每一个数据加权重**，划分时将缺失数据全部加入到所有类别的子集中，修改权重
 

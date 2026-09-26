@@ -5,6 +5,7 @@ date: 2026-03-25
 categories: ["算法与数据结构", "算法题解"]
 tags: ["算法题解", "算法", "学习笔记"]
 render_with_liquid: false
+math: true
 description: "本文整理“leetcode-hot100”的核心思路、典型问题与实现要点，便于刷题复习和后续查阅。"
 ---
 
@@ -137,7 +138,7 @@ public:
 + 优化思路2：按照行的形式问题，**之前的元素递减时不需要计算，一旦出现递增的情况，就要横向计算雨水量**。发现可以使用单调栈来模拟这一个过程。
 **一定要使用行的形式计算雨水！！！**
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/7ee8515912eb4dfebbd1a580238823b0.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/7ee8515912eb4dfebbd1a580238823b0.png){: referrerpolicy="no-referrer" }
 
 # 双指针：滑动窗口
 
@@ -195,7 +196,7 @@ public:
 + 几何法
 + 等价于**翻转数组**
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/a62d32cb97304386ae191837a45ed5a8.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/a62d32cb97304386ae191837a45ed5a8.png){: referrerpolicy="no-referrer" }
 
 ```cpp
 class Solution {
@@ -226,7 +227,7 @@ public:
 + 这题模拟反而好一点
 
 ## 48.旋转图像
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/441ef3ca79b844568fd89645bd21fd65.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/441ef3ca79b844568fd89645bd21fd65.png){: referrerpolicy="no-referrer" }
 
 + 顺时针90度：(i,j)->(j,n-i+1)
 + 寻找中间操作：(j,i)
@@ -252,7 +253,7 @@ public:
 + 从右上角搜索
 + 利用矩阵的单调性，**删除不需要的行/列(模拟的方法)**。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/4f30ab24883b49dbbb4b97fb3c26c7c4.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/4f30ab24883b49dbbb4b97fb3c26c7c4.png){: referrerpolicy="no-referrer" }
 
 ```cpp
 class Solution {
@@ -289,10 +290,10 @@ public:
 ## 141.环形链表
 + 快慢指针的应用
 + 为什么有交点，两个指针一定会重合？**直觉：在环中，快指针一定保证与慢指针的相对距离在缩小**，也就是相对速度大，且一定保证会出现重合，不会一直跳过。
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/fc1eaf6246c14b31b1939cd4ad3fe15a.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/fc1eaf6246c14b31b1939cd4ad3fe15a.png){: referrerpolicy="no-referrer" }
 ## 142.环形链表
 + 快慢指针一定相遇，**但是不保证在环的开始点相遇**。
 + 我们想要保证慢指针在圆环起始点，假设开始点距离圆环起始点距离为x，**当环内路程t-x为圆环长度c的倍数时，可以确定慢指针一定在起点处**。
 + 寻找t的等式：$s1-s2=n*c=2t-t=t$，**因此t一定是c的倍数**，只需要补上x，就一定能保证$c ~| ~t-x+x$
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/cfba0b93698949fc9e4ccc7c4198671b.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/cfba0b93698949fc9e4ccc7c4198671b.png){: referrerpolicy="no-referrer" }
 

@@ -29,7 +29,7 @@ description: "本文记录“论文精读·Crowd Comparative…”的研究问�
 ---
 
 # 研究方法
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/e9b528e2dd6e4a398f66e16e1e5490d5.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/e9b528e2dd6e4a398f66e16e1e5490d5.png){: referrerpolicy="no-referrer" }
 
 
 论文提出一种新框架 **Crowd-based Comparative Evaluation（CCE）**，核心思想是引入“群众响应（crowd responses）”来扩展评估视角，让模型像人类一样通过与更多样的参考答案比较来获得更深层的理解。其流程如图1与图2（第1–4页）所示：
@@ -56,24 +56,24 @@ description: "本文记录“论文精读·Crowd Comparative…”的研究问�
 ## CCE
 + 作者提出的CCE方法不针对某个模型，是一种Prompt技巧，需要多个LLM生成群众响应，然后与候选响应两两比较，选择候选输的情况作为上下文。作者所使用的LLM如下(**用于生成群众响应，要求保持多样性**)：
 + 使用vanilla LLM来评审群众和候选相应
-+ ![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/cc57e6f7038b45c4b0f7cd7d2a7c4f25.png)
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/b594334705f64382854434eb62740753.png)
++ ![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/cc57e6f7038b45c4b0f7cd7d2a7c4f25.png){: referrerpolicy="no-referrer" }
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/b594334705f64382854434eb62740753.png){: referrerpolicy="no-referrer" }
 + 作者也是选用了5个基准测试，分别对于5个模型应用CCE技术。
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/844fdd4886244f698dc633c0aac6be0d.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/844fdd4886244f698dc633c0aac6be0d.png){: referrerpolicy="no-referrer" }
 
 CCE技术还扩展到蒸馏和微调两个场景：
 ## **Judge Distillation**：
 
 + 利用**CCE的COT** 蒸馏出更小的评估模型。
 + 与使用**Vanilla的LLM生成的COT**进行蒸馏的LLM作为对比。基准测试保持不变、
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/a378cd7bd87c45c1a058086ca65e51c3.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/a378cd7bd87c45c1a058086ca65e51c3.png){: referrerpolicy="no-referrer" }
 
 ## Crowd Rejection Sampling：
 + 改进SFT（监督微调）中的拒绝采样，筛选出更优质的训练样本。
 + 其中SFT中的拒绝采样指的是从多个LLM模型：GPT-4o, DeepSeek-v3, Claude-3.5-Sonnet, and Qwen 2.572B-Instruct.的回答中两两比较，挑选**胜率最大的回答作为标签**。
 + 在此基础上，作者将**胜率最低的两个LLM**作为群众回答，按照CCE的步骤，获得4个模型中最优的回答。
 + 可见作者是在llama3.1 8B和Qwen 2.5 7B上作为基础模型，**剩余模型作为群众模型**。
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/873ecf7ae94249ad8feda74451667986.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/873ecf7ae94249ad8feda74451667986.png){: referrerpolicy="no-referrer" }
 
 ---
 

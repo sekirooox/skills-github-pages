@@ -5,6 +5,7 @@ date: 2024-08-08
 categories: ["机器学习与数据分析", "机器学习"]
 tags: ["聚类", "异常检测", "机器学习", "数据分析"]
 render_with_liquid: false
+math: true
 description: "本文围绕“机器学习·L3W1-聚类和异常检测”整理基本原理、处理流程与实践方法，便于学习复习和数据分析参考。"
 ---
 

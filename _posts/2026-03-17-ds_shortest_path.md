@@ -5,6 +5,7 @@ date: 2026-03-17
 categories: ["算法与数据结构", "图论"]
 tags: ["图论", "算法", "学习笔记"]
 render_with_liquid: false
+math: true
 description: "本文整理“图论·最短路径问题”的核心思路、典型问题与实现要点，便于刷题复习和后续查阅。"
 ---
 
@@ -254,7 +255,7 @@ void spfa() {
 ```
 #### SPFA的应用：检测负权回路
 + 使用cnt数组，`cnt[i]`表示从起点到i节点最短路径的长度，如果该长度大于等于结点数n，则说明肯定出现负环（**有负数回路才会导致一直加入节点**）。
-![负回路无限循环的原理](https://i-blog.csdnimg.cn/direct/a173afba464e41faa7af5ae7ffc8d53b.png)
+![负回路无限循环的原理](https://i-blog.csdnimg.cn/direct/a173afba464e41faa7af5ae7ffc8d53b.png){: referrerpolicy="no-referrer" }
 + 问题：图不一定联通
 + 解决方案：加入虚拟源节点，假设源节点为0，令其与所有边的节点边权重为0，运行SPFA算法即可。
 

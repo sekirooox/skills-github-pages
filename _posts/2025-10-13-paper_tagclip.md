@@ -23,22 +23,22 @@ Abstract—Contrastive Language-Image Pre-training (CLIP) has recently shown gre
 + **放弃关系描述符**，通过transformer block得到增强后的文本嵌入。维度是((C+1),D)
 + 最后多出来那个维度，也用于生成语义掩码，不过是**用于调节**维度为(C,N)的正常语义匹配得到的掩码。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/445f8009d99b4fc897ec94469a95cf21.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/445f8009d99b4fc897ec94469a95cf21.png){: referrerpolicy="no-referrer" }
 
 以下是训练和测试过程
 + 这个图能体现作者的部分想法：置信token**主要是为了帮助模型区分哪些是看见类，哪些是未见类**。
 + 其中多出来的一层置信掩码使用**二进制标注**：**原有标注中看见类统一设置为1，其余为0，这样不影响训练逻辑**。
 
-+ ![](https://i-blog.csdnimg.cn/direct/e3b8d67b0e694f77b7511bcc6d8f9ea2.png)
++ ![](https://i-blog.csdnimg.cn/direct/e3b8d67b0e694f77b7511bcc6d8f9ea2.png){: referrerpolicy="no-referrer" }
 + 推理思路非常简单：就是二者的加权，**调节正常匹配得到的掩码概率**
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/ba0c47c4303e4b3093fdc60e69646405.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/ba0c47c4303e4b3093fdc60e69646405.png){: referrerpolicy="no-referrer" }
 + 损失函数：NEL损失+置信掩码的DICE损失(这个不需要考虑ZegCLIP中提到的概率抑制等问题，主要目的是保证正确就行)
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/96aaff26856f46d3992b70efe17644cb.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/96aaff26856f46d3992b70efe17644cb.png){: referrerpolicy="no-referrer" }
 
 
 # 实验
 ## 本文的实验非常详尽，表格和图片数据也做得比较好，至少体现了作者工作量很足够，非常值得学习(用于水论文)😀
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/74f5f88a93d84705b7258813efca06b5.png)
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/4a77fa3722d04b598d1ebe67599366a5.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/74f5f88a93d84705b7258813efca06b5.png){: referrerpolicy="no-referrer" }
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/4a77fa3722d04b598d1ebe67599366a5.png){: referrerpolicy="no-referrer" }
 
 

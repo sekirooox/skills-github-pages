@@ -5,6 +5,7 @@ date: 2026-06-18
 categories: ["算法与数据结构", "数据结构"]
 tags: ["数据结构", "算法", "学习笔记"]
 render_with_liquid: false
+math: true
 description: "本文整理“计算机基础·数据结构”的核心思路、典型问题与实现要点，便于刷题复习和后续查阅。"
 ---
 
@@ -28,7 +29,7 @@ description: "本文整理“计算机基础·数据结构”的核心思路、�
 + 原来的栈顶变成**栈1的底部**，栈底变成**栈2的底部**。
 + 共享一个数组的空间。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/3ecd1158cf7f4137828e25a2356b19db.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/3ecd1158cf7f4137828e25a2356b19db.png){: referrerpolicy="no-referrer" }
 
 # 队列
 
@@ -40,7 +41,7 @@ description: "本文整理“计算机基础·数据结构”的核心思路、�
 ### *什么是假上溢问题？
 ### 特点：容易出现假上溢的问题
 + 容易出现假溢出问题，**两个指针都在最后，看似没有位置，实际上数组空余**。
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/ee6c90cd06994e8586cd8fcf9a89541e.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/ee6c90cd06994e8586cd8fcf9a89541e.png){: referrerpolicy="no-referrer" }
 ## 循环队列
 ### 特点：无法却分队满和对空！
 + 解决了**顺序队列出现的假上溢问题**。
@@ -48,7 +49,7 @@ description: "本文整理“计算机基础·数据结构”的核心思路、�
 
 + 解决方案1：**牺牲一个存储单元**用于区分。**队空仍然是指针重合**，**队满时由于隔一个存储单元，就能判断是队空**。
 + 解决方案2：使用**tag标记**是出队列还是入队列，用于**判断是队满和队空**。
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/f3018cba1d2d4a6d8cc75691b2be74a8.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/f3018cba1d2d4a6d8cc75691b2be74a8.png){: referrerpolicy="no-referrer" }
 
  
 
@@ -70,7 +71,7 @@ next[i] 表示**子串切片** s[0:i] 的**最长公共前后缀**的长度，ne
 + 保留算法：每次匹配主串失败，**子串要重新开始匹配，主串需要回退**。
 + KMP算法的改进：主串和子串匹配失败后，主串**不需要回退**，子串回退到公共前后缀的位置。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/de4fc370f0a842f09bafd4bed7ef976c.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/de4fc370f0a842f09bafd4bed7ef976c.png){: referrerpolicy="no-referrer" }
 
 ---
 
@@ -92,7 +93,7 @@ next[i] 表示**子串切片** s[0:i] 的**最长公共前后缀**的长度，ne
 + 只有**叶子节点才是最终的编码结果**。
 + 哈夫曼编码**保证不出现重复的前缀**，消除了二义性。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/86ce8287dced46ee9b5970e802476ccc.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/86ce8287dced46ee9b5970e802476ccc.png){: referrerpolicy="no-referrer" }
 
 ---
 # 二叉树
@@ -112,7 +113,7 @@ next[i] 表示**子串切片** s[0:i] 的**最长公共前后缀**的长度，ne
 + 分为小堆/大堆：**根节点必须大于/小于两个孩子**。
 ### 实现
 + 使用数组来实现
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/b821bef4df3543208adc255203f8644a.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/b821bef4df3543208adc255203f8644a.png){: referrerpolicy="no-referrer" }
 
 维护堆的性质：例如**大根堆满足当前元素大于子节点的元素**，如果不满足则交换最大子节点的元素；**但这样还不够，需要递归的实现每一步操作！**
 
@@ -122,7 +123,7 @@ next[i] 表示**子串切片** s[0:i] 的**最长公共前后缀**的长度，ne
 删除新元素：把末位元素**替代待删除元素**，然后**遍历子节点**，把不满足性质的节点进行交换。
 
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/5a775db0b9d04ca9b7ded072e10d8ba1.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/5a775db0b9d04ca9b7ded072e10d8ba1.png){: referrerpolicy="no-referrer" }
 
 ---
 
@@ -139,7 +140,7 @@ next[i] 表示**子串切片** s[0:i] 的**最长公共前后缀**的长度，ne
 + 叶子节点 (都不存在)：直接删除
 + 恰好存在一个：例如左子树存在，直接使用左子树的根节点连接即可。
 + **都存在**：使用**左子树的最大值**当作当前根节点。然后再**删除左子树的最大值即可**！同理，可以使用右子树的最小值。
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/7c4d60ee71754e85afa641e46eb8ac8d.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/7c4d60ee71754e85afa641e46eb8ac8d.png){: referrerpolicy="no-referrer" }
 ---
 
 
@@ -171,7 +172,7 @@ next[i] 表示**子串切片** s[0:i] 的**最长公共前后缀**的长度，ne
 | LR | 插入到失衡节点左孩子的右子树 | 先对左孩子做**左旋**，再对失衡节点做**右旋** |
 | RL | 插入到失衡节点右孩子的左子树 | 先对右孩子做**右旋**，再对失衡节点做**左旋** |
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/059feb8827db46d69e665ee4f8dbc162.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/059feb8827db46d69e665ee4f8dbc162.png){: referrerpolicy="no-referrer" }
 
 ---
 
@@ -179,17 +180,17 @@ next[i] 表示**子串切片** s[0:i] 的**最长公共前后缀**的长度，ne
 ### 修复平衡二叉树的逻辑：LL/RR->反面 + LR/RL + 正面
 往根节点的左子树的左子树插入节点导致不平衡：根节点的**左孩子右旋**替代根节点。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/aecd5840f2d44ecb983af3ab0669b0f5.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/aecd5840f2d44ecb983af3ab0669b0f5.png){: referrerpolicy="no-referrer" }
 
 ---
 
 往根节点的右子树的右子树插入导致不平衡：根节点的**右孩子左旋**替代根节点。
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/f655d3f931ab4aa3ae4ddbc2fa44e5fa.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/f655d3f931ab4aa3ae4ddbc2fa44e5fa.png){: referrerpolicy="no-referrer" }
 往根节点的左子树的右子树插入节点导致不平衡：根节点的左孩子的右孩子先**左旋**取代左孩子，然后**再右旋**取代根节点。
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/9242a256f7e7422ba5af9ff84f1caba0.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/9242a256f7e7422ba5af9ff84f1caba0.png){: referrerpolicy="no-referrer" }
 往根节点的右子树的左子树插入节点导致不平衡：根节点的右孩子的左孩子**先右旋**取代右孩子，然后**再左旋**取代根节点。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/db10598706434b5f9e2b17f2128f0617.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/db10598706434b5f9e2b17f2128f0617.png){: referrerpolicy="no-referrer" }
 
 ---
 
@@ -202,7 +203,7 @@ next[i] 表示**子串切片** s[0:i] 的**最长公共前后缀**的长度，ne
 + 叶子节点表示**空节点**和**失败节点**，叶子节点都是黑色。
 + 红色节点不能相邻
 + **任意到叶子节点的路径**上，经过黑色节点的数量是相同的。
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/7edf349673824d5784404b4bc28ec592.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/7edf349673824d5784404b4bc28ec592.png){: referrerpolicy="no-referrer" }
 ---
 ## B树：多路平衡二叉树
 ### 定义：多路+平衡+搜索树
@@ -212,7 +213,7 @@ next[i] 表示**子串切片** s[0:i] 的**最长公共前后缀**的长度，ne
 + m阶B树中，一个节点最多有**m个分支**，**m-1个值**(将搜索范围划为为m个区间)。
 + 非根节点的分支数不少于**m/2，确保高度有限**
 + **强制确保所有的左子树和右子树高度一致**。
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/628366b034f84205b3fbde13b97eabfc.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/628366b034f84205b3fbde13b97eabfc.png){: referrerpolicy="no-referrer" }
 ---
 
 ## B+树
@@ -221,7 +222,7 @@ next[i] 表示**子串切片** s[0:i] 的**最长公共前后缀**的长度，ne
 + 叶子节点包含**指向真实数据所在地址的指针**，非叶子节点不包含这一点，仅作为快速查早的索引。
 + 叶子节点之间**会有指针，构成链表，可以按照顺序索取**。
 + 一个节点**有多少个值与节点有多少个分叉有关**。
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/59d7aea7b812458ca41cd568e070ab65.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/59d7aea7b812458ca41cd568e070ab65.png){: referrerpolicy="no-referrer" }
 
 ### 应用：MySQL使用这种底层
 
@@ -272,7 +273,7 @@ next[i] 表示**子串切片** s[0:i] 的**最长公共前后缀**的长度，ne
 >假设数组有序，选择最小值作为绩点，会将序列分为左边的空序列和右边的n-1个长度的序列
 >问题规模不会显著缩减，而是线性优化。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/292c477be7b5413aa12e7e6ac9cca726.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/292c477be7b5413aa12e7e6ac9cca726.png){: referrerpolicy="no-referrer" }
 
 ## 归并排序：递归+分治
 + 将数组不断二分为子序列，子序列递归地进行再次二分
@@ -281,5 +282,5 @@ next[i] 表示**子串切片** s[0:i] 的**最长公共前后缀**的长度，ne
 ### 特点：稳定，空间复杂度 $O(n)$，不是原地排序
 + 稳定：不出现交换
 + 需要额外数组，**不是原地排序**。
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/ac6fbc3129544303aeeae013ae754c9f.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/ac6fbc3129544303aeeae013ae754c9f.png){: referrerpolicy="no-referrer" }
 

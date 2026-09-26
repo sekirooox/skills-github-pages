@@ -11,37 +11,37 @@ description: "本文整理“数模·相关性”涉及的基本原理、计算�
 # 皮尔逊相关系数
 > 注意相关系数r只有0和1一个取值，
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/b1fa0b3d949546dc9b95583e73772fa3.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/b1fa0b3d949546dc9b95583e73772fa3.png){: referrerpolicy="no-referrer" }
 # 相关系数的使用条件
 >**线性相关**，要绘制散点图查看
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/e5a881889f07442992657a3be01ec390.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/e5a881889f07442992657a3be01ec390.png){: referrerpolicy="no-referrer" }
 # 假设检验
 ## 主观的假设检验，适用于热力图
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/53801ef9b2da43a2bce11ecf74bb53da.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/53801ef9b2da43a2bce11ecf74bb53da.png){: referrerpolicy="no-referrer" }
 ## 假设检验的条件
 >样本的均值不是正态分布，需要提前检验
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/19ef6f80feb7460ead59f0e353560273.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/19ef6f80feb7460ead59f0e353560273.png){: referrerpolicy="no-referrer" }
 ## JB检验
 >利用之前计算的S,K构造JB统计量
 >
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/189042786aaa4a9f810758ae2b1459ff.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/189042786aaa4a9f810758ae2b1459ff.png){: referrerpolicy="no-referrer" }
 ## 零假设和备择假设
 > 零假设：假设无相关性 r=0;备择假设：有相关性 r=1
 > 这里的假设是右尾假设：**也就是只要算出来的t*大于理论值t，就可以拒绝原假设**
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/0a0730f26a174c6aaec3a4ca365204af.png)![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/741cdea3f71048d38f2af9860f95b8e2.png)
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/a263c6b0be9c48538b1ebf67affe47d6.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/0a0730f26a174c6aaec3a4ca365204af.png){: referrerpolicy="no-referrer" }![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/741cdea3f71048d38f2af9860f95b8e2.png){: referrerpolicy="no-referrer" }
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/a263c6b0be9c48538b1ebf67affe47d6.png){: referrerpolicy="no-referrer" }
 ## p假设检验
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/920dadc0e6974231aff33072003dea41.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/920dadc0e6974231aff33072003dea41.png){: referrerpolicy="no-referrer" }
 ## 显著性标记
 >在学术出版、‌科学研究等领域，‌显著性标记星号通常用于表示统计显著性。‌例如，‌在实验结果中，‌如果某个数据点的p值小于0.05，‌**研究者可能会在该数据点旁边加上星号，‌以表明这个结果具有统计显著性**，‌即这个结果不太可能是由于偶然或随机误差造成的。‌星号的数量（‌如一个星号、‌两个星号等）‌通常代表p值的范围，‌比如一个星号可能表示p<0.05，‌两个星号可能表示p<0.01，‌以此类推。‌这种标记方式帮助读者快速理解哪些结果是统计上显著的，‌从而更好地理解研究结果的意义和重要性。‌
 
 这个部分对p值矩阵来做，可以直接少去一步对每一个变量进行假设检验的步骤
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/ecb314919da7436fb56f083000e37f69.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/ecb314919da7436fb56f083000e37f69.png){: referrerpolicy="no-referrer" }
 
 
 # Python全过程代码
@@ -138,8 +138,8 @@ if __name__ == '__main__':
 ```
 
 # spss制作矩阵散点图
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/5d4b98cba6ca40c38e7ef0abfb78e772.png)
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/477e2201171f4bb7ba94e39deef80793.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/5d4b98cba6ca40c38e7ef0abfb78e772.png){: referrerpolicy="no-referrer" }
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/477e2201171f4bb7ba94e39deef80793.png){: referrerpolicy="no-referrer" }
 ## 函数调用步骤
 + 求解相关系数的充分条件：绘制散点图，确定变量之间是否出于线性关系
 + 求解相关系数，绘图：
@@ -148,32 +148,32 @@ if __name__ == '__main__':
 
 # 典型相关分析
 >典型相关分析（Canonical Correlation Analysis, CCA）的主要目的是**确定两组变量之间的相关性**，但它与简单的相关性分析不同。CCA不仅仅是在单个变量之间寻找相关性，而是**寻找两组变量中线性组合的最大相关性**
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/91d55e234cf44cdbb8254117bd5fc859.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/91d55e234cf44cdbb8254117bd5fc859.png){: referrerpolicy="no-referrer" }
 
 
 ## spss调用
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/79750b386729469fb0e434fa21e5b98c.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/79750b386729469fb0e434fa21e5b98c.png){: referrerpolicy="no-referrer" }
 ## 结果解释
 ### 典型相关性表
 >**只选择相关性最大的一列进行解释**
 >描述p值小于显著性水平，通过假设性检验
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/0418fa127bce42369096186e45ad1e0c.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/0418fa127bce42369096186e45ad1e0c.png){: referrerpolicy="no-referrer" }
 ### 标准化/非标准化典型相关系数表
 >每一个集合中各自变量之间的相关系数
 >**应该看标准化的结果**
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/8ab3eed492cb4a508737c667b990c193.png)
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/d9801b9b91d9456089f081e1064e6e6d.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/8ab3eed492cb4a508737c667b990c193.png){: referrerpolicy="no-referrer" }
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/d9801b9b91d9456089f081e1064e6e6d.png){: referrerpolicy="no-referrer" }
 ### 载荷
 >载荷就是**线性组合的系数**
 >行变量是典型变量名
 >应该往列看，**一般也只看第一列**
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/3b7ae30325144044901f0ed60fbdf874.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/3b7ae30325144044901f0ed60fbdf874.png){: referrerpolicy="no-referrer" }
 ### 贡献率
 >看第一行
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/b7326cfc8e2d4d2cbf50e945d59d8165.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/b7326cfc8e2d4d2cbf50e945d59d8165.png){: referrerpolicy="no-referrer" }
 
 
 

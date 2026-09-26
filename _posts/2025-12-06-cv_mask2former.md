@@ -22,7 +22,7 @@ MaskFormer的升级优化版。
 + 作者在注意力中引入了交互掩码，**该掩码来自上一层block的二值化输出**。
 + 作者还修改了解码器的结构顺序：对于自注意力，不涉及图像特征，因此查询嵌入的自注意力没什么必要，因此作者**将其替换为先于图像特征进行交叉注意力，然后再进行自注意力**。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/00b75ecf2e1041d48da5eceec7532587.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/00b75ecf2e1041d48da5eceec7532587.png){: referrerpolicy="no-referrer" }
 
 # 损失
 + 对于Maskformer，需要考虑为每一层输出的查询嵌入生成掩码并进行损失计算。

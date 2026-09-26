@@ -5,11 +5,12 @@ date: 2025-12-14
 categories: ["深度学习与计算机视觉", "计算机视觉"]
 tags: ["计算机视觉", "clip", "深度学习", "学习笔记"]
 render_with_liquid: false
+math: true
 description: "本文整理“ResCLIP”涉及的模型原理、关键方法与实践要点，便于理解和复习相关技术。"
 ---
 
 # ResCLIP
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/7c983a67fa644add909bc0869e0b66f9.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/7c983a67fa644add909bc0869e0b66f9.png){: referrerpolicy="no-referrer" }
 
 # 动机
 现有方法（如SCLIP、NACLIP）通过将最后一层的标准**交叉相关自注意力**（$C^2SA$, Query-Key）替换为**自相关自注意力**（SCSA, Query-Query或Key-Key）来解决空间不变性问题 。然而，这些SCSA方法忽略了**交叉相关注意力本身能捕获丰富的空间对应关系的特性** 。
@@ -17,38 +18,38 @@ description: "本文整理“ResCLIP”涉及的模型原理、关键方法与�
 ## 验证实验
 作者发现中间层的C2SA注意力图也能关注局部特征(具有**良好的空间协变性**)，还能**关注相同类别的特征**。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/9308d71f5190445a9c6aecc1dc325f58.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/9308d71f5190445a9c6aecc1dc325f58.png){: referrerpolicy="no-referrer" }
 
 # 方法
 # 残差C2SA
 就是将中间层的交叉注意力图进行平均加权到最后一层的注意力图中。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/97b783047d5b4e718e29cd516f5328c7.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/97b783047d5b4e718e29cd516f5328c7.png){: referrerpolicy="no-referrer" }
 对应的消融实验。
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/05d3d3c57ee0451abd4f0807ec026bf0.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/05d3d3c57ee0451abd4f0807ec026bf0.png){: referrerpolicy="no-referrer" }
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/b9c3de8f088a451f814938bc333bf8e8.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/b9c3de8f088a451f814938bc333bf8e8.png){: referrerpolicy="no-referrer" }
 
 ## 语义反馈提取
 NACLIP的高斯注意力虽然提高了空间局部性，但是却有个致命缺点：各向同性。意味着其只考虑相对距离，没有考虑形状。**例如距离相同的高斯核的输出结果一致，但是可能是毫不相干的特征**。
 除此之外，好的注意力图**不仅应该关注局部特征，还应该关注相同的类别特征**。
 
 首先作者**使用RCS模块输出后的分割掩码**进一步细化最后一层的注意力图，将相同类别的注意力图直接置为1。
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/18561aec469a4906a70675b1ef1605b7.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/18561aec469a4906a70675b1ef1605b7.png){: referrerpolicy="no-referrer" }
 
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/db653a3e913d44fdb8d3222ca8ff55c9.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/db653a3e913d44fdb8d3222ca8ff55c9.png){: referrerpolicy="no-referrer" }
 
 然后为了保持局部性，作者采用连通性的方法削弱类别相同，但是不同连通的patch分数。
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/dd02e63a45284afab24955517f9ee8c2.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/dd02e63a45284afab24955517f9ee8c2.png){: referrerpolicy="no-referrer" }
 最后重新得到注意力矩阵，再通过这一矩阵获得分割掩码。
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/e2359432c0f5420781a0d9700895f6f0.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/e2359432c0f5420781a0d9700895f6f0.png){: referrerpolicy="no-referrer" }
 
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/bbf48ce5b1384e448b245e419056dc8f.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/bbf48ce5b1384e448b245e419056dc8f.png){: referrerpolicy="no-referrer" }
 
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/c8027949476242d0826ee3bd314f1bf7.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/c8027949476242d0826ee3bd314f1bf7.png){: referrerpolicy="no-referrer" }
 好的，作为一名AI领域的研究生分析师，我将为您深入解析您提供的论文《ResCLIP: Residual Attention for Training-free Dense Vision-language Inference》的方法部分。
 
 ---

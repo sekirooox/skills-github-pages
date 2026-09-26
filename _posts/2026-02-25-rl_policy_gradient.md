@@ -5,6 +5,7 @@ date: 2026-02-25
 categories: ["大语言模型与强化学习", "强化学习"]
 tags: ["强化学习", "策略梯度", "人工智能", "学习笔记"]
 render_with_liquid: false
+math: true
 description: "本文围绕“强化学习·策略学习-策略梯度定理和Reinfor…”梳理核心概念、算法思路与实践要点，便于系统学习和后续查阅。"
 ---
 
@@ -12,16 +13,16 @@ description: "本文围绕“强化学习·策略学习-策略梯度定理和Rei
 # 策略学习方法
 策略参数化：
 The idea is to parameterize the policy. For instance, using a neural network $\pi(\theta)$, this policy will output a probability distribution over actions (stochastic policy).
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/3c7ca8a9b2f045b7845bf6bd94b16b6f.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/3c7ca8a9b2f045b7845bf6bd94b16b6f.png){: referrerpolicy="no-referrer" }
 接受一个状态网络输出的是**动作的分布**。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/15a81174b4224ddbb3cd49fc00bd89b7.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/15a81174b4224ddbb3cd49fc00bd89b7.png){: referrerpolicy="no-referrer" }
 ## 策略学习 vs 价值学习
 策略梯度方法能够学习出一种随机策略，而价值函数则无法做到这一点。
 这会产生两个后果：
 + 我们无需手动进行**探索与利用之间的权衡**。由于我们输出的是针对行动的概率分布，因此智能体能够在探索状态空间时避免总是遵循相同的路径。
 + 我们还解决了**感知混叠的问题**。感知混叠指的是当两种状态看起来（或实际上是）相同，但需要采取不同的行动时的情况。
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/a8eec3045eec4f41949a262e802ddb27.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/a8eec3045eec4f41949a262e802ddb27.png){: referrerpolicy="no-referrer" }
 
 当然，策略梯度方法也存在一些缺点：
 + 通常，策略梯度方法会收敛到局部最大值而非全局最优值。
@@ -34,36 +35,36 @@ The idea is to parameterize the policy. For instance, using a neural network $\p
 ## 目标函数
 对于给定参数化策略，我们希望在这个策略下，**最大化所有轨迹的期望均值**。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/c64fe41e0de7430c8151deb22c06fd10.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/c64fe41e0de7430c8151deb22c06fd10.png){: referrerpolicy="no-referrer" }
 这个等价于：
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/b863964bc4234783afde124938dcd7ae.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/b863964bc4234783afde124938dcd7ae.png){: referrerpolicy="no-referrer" }
 其中，**每一个轨迹给定的概率分布**为(全概率公式)：
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/d530d6a334c4457d81a82b1ebbd5d53a.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/d530d6a334c4457d81a82b1ebbd5d53a.png){: referrerpolicy="no-referrer" }
 ## 策略梯度定理
 揭示了目标函数的梯度等价于以下公式：
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/8fffd19aab224e998458472f7bb3cffc.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/8fffd19aab224e998458472f7bb3cffc.png){: referrerpolicy="no-referrer" }
 ### 证明过程
 + 首先将梯度提进去，然后提出一个$P(\tau;\theta)$，拼凑一个$logf(x)$求导的公式
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/c22b517fd786460589d1bf2184b28e07.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/c22b517fd786460589d1bf2184b28e07.png){: referrerpolicy="no-referrer" }
 + 根据期望定义将上面的公式重新还原为期望
 + 对于这个期望，我们可以可以利用**大数定理对其采样求解其均值**。
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/7cbb4d9515dd4239b8f57c294d725d46.png)
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/52e7c6bd76604cd398429e75d029bc67.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/7cbb4d9515dd4239b8f57c294d725d46.png){: referrerpolicy="no-referrer" }
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/52e7c6bd76604cd398429e75d029bc67.png){: referrerpolicy="no-referrer" }
 + 我们带入$P(\tau;\theta)$的定义，然后老老实实求梯度，发现除了$\pi(a_t|s_t)$之外，所有项不包含$\theta$，因此直接消去。
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/611889abd6224ee4969d8a269ec984f1.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/611889abd6224ee4969d8a269ec984f1.png){: referrerpolicy="no-referrer" }
 
 # 蒙特卡洛MC Reinforce算法
 我们得到了目标函数的梯度，然后运行梯度上升来最优化我们的策略函数。
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/8d0cbaf7d74a41dc80ab8e3f10584b35.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/8d0cbaf7d74a41dc80ab8e3f10584b35.png){: referrerpolicy="no-referrer" }
 一般来说收集多个轨迹来计算平均梯度。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/a148550510ae4072a27308621b2b6d1a.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/a148550510ae4072a27308621b2b6d1a.png){: referrerpolicy="no-referrer" }
 ## 策略梯度方法流程：
 + **经历一次完整的动作序列后才能开始更新。**
 + 对于好的动作序列，增加其动作选择的概率，对于不好的动作，降低其动作选择的概率。
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/621a4024af29449ba33824129b2b974a.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/621a4024af29449ba33824129b2b974a.png){: referrerpolicy="no-referrer" }
 ## 实现
 我们需要的是：
 $$
@@ -91,7 +92,7 @@ $$
 \sum_{t}{\log\pi_\theta(a_t^{(i)}|s_t^{(i)}){G_t}}
 \end{align}
 $$
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/ee70599bed5c4b66b16bf162e2954ee1.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/ee70599bed5c4b66b16bf162e2954ee1.png){: referrerpolicy="no-referrer" }
 
 ### 参数化策略代码
 

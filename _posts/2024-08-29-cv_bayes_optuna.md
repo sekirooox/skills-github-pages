@@ -5,6 +5,7 @@ date: 2024-08-29
 categories: ["深度学习与计算机视觉", "深度学习"]
 tags: ["深度学习", "学习笔记"]
 render_with_liquid: false
+math: true
 description: "本文整理“机器学习和深度学习·贝叶斯优化和optuna”涉及的模型原理、关键方法与实践要点，便于理解和复习相关技术。"
 ---
 
@@ -39,7 +40,7 @@ description: "本文整理“机器学习和深度学习·贝叶斯优化和optu
 - 在第4步中用来确定下一个观测点的规则被称为**采集函数**，最常见的主要是**概率增量**（依据概率密度函数的极值）、期望增量、信息熵等等，其中大部分优化库中默认使用**期望增量**，具体表达式如下：
 # optuna
 一个流行的自动调超参数的工具，拥有简单的API和实用的功能。
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/e53c9eea066b468384fa618faa76ae1b.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/e53c9eea066b468384fa618faa76ae1b.png){: referrerpolicy="no-referrer" }
 ## 使用流程
 先定义`objective`函数，params传入字典，按照**正常训练流程fit和predict**
 创建学习对象`study`,调用`optimize`

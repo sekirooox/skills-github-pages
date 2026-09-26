@@ -5,6 +5,7 @@ date: 2026-02-10
 categories: ["算法与数据结构", "算法"]
 tags: ["算法", "学习笔记"]
 render_with_liquid: false
+math: true
 description: "本文整理“算法基础·双指针算法”的核心思路、典型问题与实现要点，便于刷题复习和后续查阅。"
 ---
 

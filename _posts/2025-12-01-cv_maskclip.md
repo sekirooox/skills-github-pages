@@ -9,7 +9,7 @@ description: "本文整理“MaskCLIP+”涉及的模型原理、关键方法与
 ---
 
 # MaskCLIP
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/9ac269826eab4389ae0dc6a026a03792.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/9ac269826eab4389ae0dc6a026a03792.png){: referrerpolicy="no-referrer" }
 
 CLIP 是否仅能做图像级的零样本分类？还是其实已经隐含了局部/像素级的语义信息，可以直接用于语义分割？
 结论是：
@@ -30,7 +30,7 @@ CLIP **内部确实已经隐含了丰富的局部语义，可直接输出密集�
 + 对于ResNet的骨干，其密集视觉特征是注意力池化层中的值嵌入。
 作者发现ViT上的表现比ResNet强，因为其分辨率比ResNet高，VIT:32x32，ResNet:7x7
 通过**上采样**还原到原始图像的分辨率。
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/f95f3ff0bad44a35b21cde0cc2f8a939.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/f95f3ff0bad44a35b21cde0cc2f8a939.png){: referrerpolicy="no-referrer" }
 
 ## 文本嵌入作为分类器权重
 分类器权重就是将视觉特征HxWxC映射到HxWxK的矩阵，其中K是类别数。
@@ -40,8 +40,8 @@ CLIP **内部确实已经隐含了丰富的局部语义，可直接输出密集�
 + 作者将注意力池化层丢弃的k重新利用过来，用于平滑输出的分割掩膜
 + 把在所有像素(位置)的预测概率都小于0.5的类别直接移除，用于去噪。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/07d29a5f468c4a73b2ba2bc6b077d87a.png)
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/4b8243a2422c487f858a8cfa200ab3e5.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/07d29a5f468c4a73b2ba2bc6b077d87a.png){: referrerpolicy="no-referrer" }
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/4b8243a2422c487f858a8cfa200ab3e5.png){: referrerpolicy="no-referrer" }
 
 ## MaskCLIP+
 + MaskCLIP已经可以实现开放词汇分割了，但是效果不一定强，主要是受限于特征图分辨率太低。

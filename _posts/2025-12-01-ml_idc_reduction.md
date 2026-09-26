@@ -5,10 +5,11 @@ date: 2025-12-01
 categories: ["机器学习与数据分析", "数据分析"]
 tags: ["数据分析", "机器学习"]
 render_with_liquid: false
+math: true
 description: "本文围绕“数据挖掘·IDC-Reduction”整理基本原理、处理流程与实践方法，便于学习复习和数据分析参考。"
 ---
 
-# IDC![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/2147088400fc437392f57c20eed191ca.png)
+# IDC![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/2147088400fc437392f57c20eed191ca.png){: referrerpolicy="no-referrer" }
 + 核心方法：`remove_edges_sample`，通过"删除边"实现干预。**这里不是真的删除**，而是对于根据父节点的是否被删除，对其后代节点进行干预。
 + 就是一个干预do(a)操作。
 
@@ -106,7 +107,7 @@ $$
 
 > **生成器不允许改变中介变量，只能改变 Y 的生成方式。**
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/7a29061e8bde41faa4a27fc8156b6128.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/7a29061e8bde41faa4a27fc8156b6128.png){: referrerpolicy="no-referrer" }
 
 
 

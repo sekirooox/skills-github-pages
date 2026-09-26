@@ -5,6 +5,7 @@ date: 2026-08-11
 categories: ["深度学习与计算机视觉", "深度学习"]
 tags: ["深度学习", "学习笔记"]
 render_with_liquid: false
+math: true
 description: "本文整理“机器学习和深度学习·理论基础”涉及的模型原理、关键方法与实践要点，便于理解和复习相关技术。"
 ---
 
@@ -158,7 +159,7 @@ $$
 
 > **重点**：支撑向量位于 $\mathbf{w}^{\top}\mathbf{x}+b=\pm1$ 上，它们决定最大间隔。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/9743fd18b91c4cd995ff8e297b20bc4f.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/9743fd18b91c4cd995ff8e297b20bc4f.png){: referrerpolicy="no-referrer" }
 
 
 ### ⭐核函数：原特征空间线性不可分
@@ -418,7 +419,7 @@ $$
 ## 卷积神经网络
 
 ### ⭐⭐⭐归纳偏置：局部性+ 平移不变性
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/e50c5f4559874d03a5dd10183e663682.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/e50c5f4559874d03a5dd10183e663682.png){: referrerpolicy="no-referrer" }
 
 ### 卷积定义
 
@@ -488,7 +489,7 @@ $$
 #### 空洞卷积：在卷积核内部插入空洞来扩大感受野
 
 空洞卷积通过在卷积核内部插入空洞来扩大感受野。
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/c6306cb0d42149d48335faa2e22c3f4a.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/c6306cb0d42149d48335faa2e22c3f4a.png){: referrerpolicy="no-referrer" }
 
 #### 深度可分离卷积：先单独对空间域进行卷积，然后对通道域进行卷积
 
@@ -522,7 +523,7 @@ $$
 
 其中 $D$ 是输出通道数。笔记最后强调：分离的是空间域与通道域。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/bed51e57e6b148de84467f1781b78910.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/bed51e57e6b148de84467f1781b78910.png){: referrerpolicy="no-referrer" }
 
 ## 循环神经网络
 
@@ -552,7 +553,7 @@ $$
 理论上，给定序列 $\mathbf{x}_1,\mathbf{x}_2,\dots,\mathbf{x}_N$，可以递推出 $\mathbf{h}_1,\mathbf{h}_2,\dots,\mathbf{h}_N$，并进一步得到 $\mathbf{y}_1,\mathbf{y}_2,\dots,\mathbf{y}_N$。
 
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/fac59679becd4baa98c5c2fdf024285e.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/fac59679becd4baa98c5c2fdf024285e.png){: referrerpolicy="no-referrer" }
 
 ### 应用
 
@@ -568,7 +569,7 @@ $$
 
 LSTM 通过三门一候选内部状态控制记忆流动。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/6b88aba515ca4472826aee6937738d10.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/6b88aba515ca4472826aee6937738d10.png){: referrerpolicy="no-referrer" }
 
 
 遗忘门：
@@ -649,7 +650,7 @@ $$
 并注明：RNN 中隐藏状态 $h_t$ 随时间不断更新，容易出现梯度问题。
 
 #### 特点：结构较为简洁，有一定记忆能力
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/6445b7a3ea2a469eb1c3f1d727f0d748.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/6445b7a3ea2a469eb1c3f1d727f0d748.png){: referrerpolicy="no-referrer" }
 
 ### BiLSTM
 
@@ -657,7 +658,7 @@ BiLSTM 即双向 LSTM，同时使用正向与反向序列信息。
 
 若正向隐藏状态为 $\overrightarrow{\mathbf{h}}_t$，反向隐藏状态为 $\overleftarrow{\mathbf{h}}_t$，则输出可由两者联合构成。笔记主要保留了结构图，没有额外展开公式。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/42347f18fd534fd58c533e9aa97d1c2c.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/42347f18fd534fd58c533e9aa97d1c2c.png){: referrerpolicy="no-referrer" }
 
 
 ### 自回归生成：教师强制

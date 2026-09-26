@@ -5,6 +5,7 @@ date: 2025-04-29
 categories: ["深度学习与计算机视觉", "深度学习"]
 tags: ["transformer", "深度学习", "学习笔记"]
 render_with_liquid: false
+math: true
 description: "本文整理“深度学习·经典模型·Transformer”涉及的模型原理、关键方法与实践要点，便于理解和复习相关技术。"
 ---
 
@@ -40,7 +41,7 @@ description: "本文整理“深度学习·经典模型·Transformer”涉及的
 ## MASKED掩码
 + ### 只用于decoder中，由于decoder是基于自回归的方式，所以不能让一个t-1时刻的token与t时刻以后的tokens作注意力
 + Transformer掩码计算:$softmax(QK^T*MASKED)*V$
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/de4540876e8c4b59843336052e55ecab.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/de4540876e8c4b59843336052e55ecab.png){: referrerpolicy="no-referrer" }
 ## 交叉注意力
 + K,V是来自encoder的信息矩阵,Q是来自Decoder的信息矩阵.
 + ### 显然是根据encoder的信息，对decoder的特征向量进行专属修正
@@ -53,11 +54,11 @@ description: "本文整理“深度学习·经典模型·Transformer”涉及的
 + **残差连接后**，再**归一化**
 # 位置编码
 + ### 位置编码的动机：Transformer没有序列先后顺序这一概念.
-+ ### 位置编码对于Transformer的作用明显,不加会掉点. ![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/f1ec2ad951a4414c91d067bb5703bc9a.png)
++ ### 位置编码对于Transformer的作用明显,不加会掉点. ![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/f1ec2ad951a4414c91d067bb5703bc9a.png){: referrerpolicy="no-referrer" }
 # 模型Workflow
 + 接受两个句子作为输入
 + 根据Softmax自回归输出token.
- ![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/a3ab3b74da6e46d3be990654adc021c0.png)
+ ![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/a3ab3b74da6e46d3be990654adc021c0.png){: referrerpolicy="no-referrer" }
 # 参考文献
 + [一文了解Transformer全貌（图解Transformer）](https://www.zhihu.com/tardis/zm/art/600773858)
 ```cpp

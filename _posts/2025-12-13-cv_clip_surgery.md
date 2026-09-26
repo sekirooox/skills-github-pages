@@ -5,11 +5,12 @@ date: 2025-12-13
 categories: ["深度学习与计算机视觉", "计算机视觉"]
 tags: ["计算机视觉", "clip", "深度学习", "学习笔记"]
 render_with_liquid: false
+math: true
 description: "本文整理“CLIP Surgery”涉及的模型原理、关键方法与实践要点，便于理解和复习相关技术。"
 ---
 
 # CLIP surgery
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/4a74801c4a674c00a3250c74d10fcaa9.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/4a74801c4a674c00a3250c74d10fcaa9.png){: referrerpolicy="no-referrer" }
 
 # 动机
 CLIP存在相反激活问题，意味着它关注图像的背景，而不是前景。
@@ -20,12 +21,12 @@ CLIP存在相反激活问题，意味着它关注图像的背景，而不是前�
 ### 反向可视化
 Q-K自注意力本来应该在前景位置激活，但是却发现主要在背景位置激活，这说明**Q-K学偏了**。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/5619c3643ef34d2a9cb5e5c73a0bd3ba.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/5619c3643ef34d2a9cb5e5c73a0bd3ba.png){: referrerpolicy="no-referrer" }
 
 # 噪声激活
 即使使用空字符串作为类别嵌入，发现也能激活一些无关的地方，这说明CLIP的局部特征中**分享着一些共同类别的特征**。
 CLIP 为了适应海量类别，会学到大量在当前类别下“未激活”的特征，**这些就是冗余特征**。
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/97841b6b0f8944cfab0a870f98ce2854.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/97841b6b0f8944cfab0a870f98ce2854.png){: referrerpolicy="no-referrer" }
 
 
 

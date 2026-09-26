@@ -5,6 +5,7 @@ date: 2025-03-13
 categories: ["算法与数据结构", "图论"]
 tags: ["图论", "算法", "学习笔记"]
 render_with_liquid: false
+math: true
 description: "本文整理“图论·基本应用”的核心思路、典型问题与实现要点，便于刷题复习和后续查阅。"
 ---
 
@@ -327,7 +328,7 @@ Delia 非常急，所以你只有 $1$ 秒的时间。
 
 各测试点满足以下约定：
 
- ![](https://i-blog.csdnimg.cn/img_convert/8a0130ac217c3c9681905b9c1d4f4fa7.png) 
+ ![](https://i-blog.csdnimg.cn/img_convert/8a0130ac217c3c9681905b9c1d4f4fa7.png){: referrerpolicy="no-referrer" }
 
 【补充说明】
 
@@ -389,4 +390,3 @@ signed main() {
 	solve();
 }
 ```
-

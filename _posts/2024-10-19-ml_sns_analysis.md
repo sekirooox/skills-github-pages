@@ -89,8 +89,8 @@ def show_missing_values(data):
         print('暂未发现缺失值！绘图提前结束！')
 show_missing_values(data)
 ```
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/c72e2945cb9c4bdb9175439b1d58af44.png)
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/61f412bcad6e4c48aef4dcc4924b47aa.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/c72e2945cb9c4bdb9175439b1d58af44.png){: referrerpolicy="no-referrer" }
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/61f412bcad6e4c48aef4dcc4924b47aa.png){: referrerpolicy="no-referrer" }
 ## 异常值处理环节
 np.where函数，**类似倒置的if条件语句**：**cond,true,false**
 ```python
@@ -147,9 +147,9 @@ def abnormal_data_process(data):
 data=abnormal_data_process(data)
 ```
 处理前的图像：
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/a15c827df88f4b97a241e045c1c939d0.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/a15c827df88f4b97a241e045c1c939d0.png){: referrerpolicy="no-referrer" }
 处理后的图像：
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/7336d2b63deb4aea9805e9230c38ac91.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/7336d2b63deb4aea9805e9230c38ac91.png){: referrerpolicy="no-referrer" }
 
 # seaborn绘图
 ## plt中绘制子图

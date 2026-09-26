@@ -5,6 +5,7 @@ date: 2026-03-14
 categories: ["算法与数据结构", "算法"]
 tags: ["字符串", "算法", "学习笔记"]
 render_with_liquid: false
+math: true
 description: "本文整理“算法·字符串哈希”的核心思路、典型问题与实现要点，便于刷题复习和后续查阅。"
 ---
 
@@ -26,7 +27,7 @@ description: "本文整理“算法·字符串哈希”的核心思路、典型�
 	}
 ```
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/3a6cc5f3aabe46f0b349c647b42a1311.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/3a6cc5f3aabe46f0b349c647b42a1311.png){: referrerpolicy="no-referrer" }
 ---
 ### 获得任意子串[i,j]的字符串哈希
 ```cpp
@@ -36,7 +37,7 @@ ll query(int l, int r) {
 ```
 + h[i-1]，h[j]分别为[0,i-1]，[0,j]部分的字符串对应的哈希值
 + 很显然**将h[i-1]左移动j-i+1位就能与h[j]对齐**，这样就能完美消去前i-1位数字，得到的剩余结果就是子串的哈希值。
-![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/cd3ea685a82f48b49ec63e88333f0284.png)
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/cd3ea685a82f48b49ec63e88333f0284.png){: referrerpolicy="no-referrer" }
 
 
 
