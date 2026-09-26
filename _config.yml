@@ -91,11 +91,10 @@ analytics:
   fathom:
     id: # Fathom 站点 ID
 
-# 文章阅读次数：需要对应统计服务支持，并配置上方 analytics。
-# GoatCounter 后台已开启 Allow adding visitor counts on your website。
-# 公开计数有缓存，不会每次刷新立刻增加；配置和维护见 docs/ANALYTICS.md。
+# 文章页阅读次数保持关闭；GoatCounter 仍在后台统计全站访问。
+# 首页公开统计由部署流程读取汇总数据后生成，配置和维护见 docs/ANALYTICS.md。
 pageviews:
-  provider: goatcounter # 当前主题仅支持 goatcounter；留空不启用
+  provider:
 
 # ── 4. 外观与阅读体验（常用装饰设置） ──
 # 默认配色：留空跟随系统；light 为浅色，dark 为深色。
@@ -167,10 +166,6 @@ pwa:
     # 若页面停留在旧版本，先点击站点“更新”提示；必要时清理 Service Worker 缓存。
     deny_paths:
       # - "/example"  # 不缓存匹配 <SITE_URL>/example/* 的页面
-
-# 首页每页文章数；例如 5 或 10，不决定文章置顶顺序。
-# 置顶由各文章 Front Matter 的 pin 控制，封面图由 image 控制。
-paginate: 10
 
 # 网站基础路径：用户主页发布在域名根目录，因此保持为空字符串。
 # 只有项目站点（例如 username.github.io/repository/）才填写 "/repository"。
@@ -249,6 +244,7 @@ exclude:
   - docker-compose.yml
   - THIRD-PARTY-NOTICES.md
   - tools
+  - test
   - README.md
   - LICENSE
   - purgecss.js

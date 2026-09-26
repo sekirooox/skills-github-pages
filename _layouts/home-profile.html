@@ -1,0 +1,93 @@
+---
+layout: default
+script_includes:
+  - home-stats
+---
+
+{% assign stats = site.data.visitor_stats_generated | default: site.data.visitor_stats %}
+
+<div id="home-profile" class="home-profile-page">
+  <section class="profile-hero" aria-labelledby="profile-title">
+    <img
+      class="profile-avatar"
+      src="{{ site.avatar | relative_url }}"
+      width="144"
+      height="144"
+      alt="{{ site.social.name }} 的头像"
+    >
+
+    <div class="profile-copy">
+      <p class="profile-eyebrow">你好，我是</p>
+      <h1 id="profile-title">{{ site.social.name }}</h1>
+      <p class="profile-tagline">{{ site.tagline }}</p>
+      <div class="profile-intro">
+        {% include profile-intro.html %}
+      </div>
+
+      <nav class="profile-actions" aria-label="个人主页快捷入口">
+        <a class="btn btn-primary" href="{{ '/archives/' | relative_url }}">浏览文章</a>
+        <a class="btn btn-outline-secondary" href="{{ site.social.links[0] }}">GitHub</a>
+        <a class="btn btn-outline-secondary" href="{{ '/feed.xml' | relative_url }}">RSS</a>
+      </nav>
+    </div>
+  </section>
+
+  <section class="visitor-card" aria-labelledby="visitor-title">
+    <div class="visitor-heading">
+      <div>
+        <p class="visitor-kicker">VISITOR MAP</p>
+        <h2 id="visitor-title">访客足迹</h2>
+      </div>
+
+      <div class="visitor-total">
+        <span class="visitor-total-label">累计访问</span>
+        <strong id="visitor-total-value">
+          {% if stats.available %}
+            {{ stats.total_visits }}
+          {% else %}
+            —
+          {% endif %}
+        </strong>
+      </div>
+    </div>
+
+    {% if stats.available %}
+      <div
+        id="visitor-map"
+        class="visitor-map"
+        role="img"
+        aria-label="建站以来访客国家和地区分布世界地图"
+      ></div>
+      <p id="visitor-map-status" class="visually-hidden" aria-live="polite"></p>
+
+      <details class="visitor-country-summary">
+        <summary>查看国家和地区文字列表</summary>
+        <ul>
+          {% for country in stats.countries %}
+            <li data-country-code="{{ country.code }}">
+              <span>{{ country.name | escape }}（{{ country.code }}）</span>
+              <span>{{ country.visits }} 次，{{ country.share | times: 100 | round: 1 }}%</span>
+            </li>
+          {% endfor %}
+          {% if stats.unknown_visits > 0 %}
+            <li>
+              <span>未知地区</span>
+              <span>{{ stats.unknown_visits }} 次</span>
+            </li>
+          {% endif %}
+        </ul>
+      </details>
+
+      <p class="visitor-note">
+        更新于 {{ stats.generated_at | date: '%Y-%m-%d %H:%M UTC' }}。
+        国家和地区根据网络位置推断；数字采用 GoatCounter 的访问口径，并非永久唯一用户。
+      </p>
+    {% else %}
+      <div class="visitor-unavailable" role="status">
+        统计数据将在生产部署时生成，本地预览不会读取线上统计。
+      </div>
+    {% endif %}
+  </section>
+
+  <script id="visitor-stats-data" type="application/json">{{ stats | jsonify }}</script>
+</div>

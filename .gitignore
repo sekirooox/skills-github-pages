@@ -43,5 +43,9 @@ _site/
 .sass-cache/
 .bundle/
 vendor/
+!assets/vendor/
+!assets/vendor/jsvectormap/
+!assets/vendor/jsvectormap/**
 .tools/
+_data/visitor_stats_generated.json
 

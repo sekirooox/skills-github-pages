@@ -1,43 +1,67 @@
-# GoatCounter 访问统计与阅读次数
+# GoatCounter 访问统计与访客地图
 
-## 当前接入
+## 当前设计
 
-- 博客：https://sekirooox.github.io/
-- 管理后台：https://mayl.goatcounter.com/（需要登录）
-- `_config.yml` 中 `analytics.goatcounter.id: mayl` 启用访问记录。
-- `pageviews.provider: goatcounter` 在文章标题下方展示阅读次数。
-- 后台已开启 **Allow adding visitor counts on your website**，允许公开查询汇总计数；完整后台仍然仅登录可见。
-- 不需要 API 密钥，也不要把账号密码或 API 密钥写入仓库。
+- 线上站点使用 `mayl.goatcounter.com`，`_config.yml` 中的 `analytics.goatcounter.id: mayl` 让 GoatCounter 在生产环境跟踪全站。
+- `pageviews.provider` 保持为空，因此文章标题下不公开阅读次数。
+- 首页公开建站以来的累计访问数、国家和地区分布及未知地区数量。数据是 GitHub Actions 在构建前读取的快照，浏览器不会接触 API Token。
+- Pull Request 使用 `test/fixtures/visitor-stats.json` 测试数据，只验证页面布局。测试数据带有 `fixture: true` 标记。
+- 公开文件只含国家级汇总，不含 IP、城市、设备标识、浏览器或单次访问明细。
 
-## 可以直接使用的功能
+统计开始时间固定为 `2026-09-26T00:00:00+08:00`。GoatCounter 的 `visit` 大致把八小时内对同一路径的重复访问视为同一次访问，因此累计访问不是刷新次数，也不是永久唯一用户数。国家和地区由访问 IP 推断，VPN、代理、运营商出口和共享网络都会影响准确性；GoatCounter 不会把 IP 写入本站公开数据。
 
-1. **热门文章**：后台 Pages 查看各页面的访问情况，可用路径筛选文章。
-2. **趋势分析**：选择日、周、月等时间范围，观察文章发布后的访问变化。
-3. **来源分析**：Top referrers 查看访客从哪些网站进入。
-4. **设备分析**：Browsers、Systems、Sizes 查看浏览器、操作系统和屏幕尺寸分布。
-5. **推广链接**：分享时添加参数，例如 `https://sekirooox.github.io/?utm_campaign=blog-share&utm_source=wechat`。实际访问后会自动出现在 Campaigns，不需要提前创建活动。可将来源改为 `qq`、`csdn` 等进行比较。
-6. **排除自己的访问**：后台 Settings → Tracking → disable for this browser 可在当前浏览器切换忽略自己的访问。切换后按页面提示确认状态，其他设备需分别操作。
-7. **导出统计**：后台 Settings → Import/Export 查看可用导出选项。当前未额外开启逐条访问记录存储。
+## 创建 API Token 和 GitHub Secret
 
-这些功能使用后台已有的统计选项，不需要公开整个仪表盘。
+1. 登录 <https://mayl.goatcounter.com/>，从用户菜单打开 **API**。
+2. 创建专用于部署的 Token，只授予 **read sites** 和 **read statistics** 权限。
+3. 打开 GitHub 仓库 **Settings → Secrets and variables → Actions**。
+4. 新建 Repository secret，名称必须是 `GOATCOUNTER_API_KEY`，值为刚创建的 Token。
 
-## 本地预览与上线
+Token 只能保存在 GitHub Actions Secret 中。不要把它放进 `_config.yml`、本地数据文件、提交记录、Issue 或构建日志。工作流通过请求头使用 Token，脚本的成功和错误输出不会打印它。
 
-正常运行 `tools/preview.ps1` 时，Jekyll 使用开发环境，不注入统计脚本。文章阅读次数在本地显示占位符，避免将本地地址当成线上访问。
+## 数据生成与发布
 
-GitHub Actions 使用 `JEKYLL_ENV=production` 构建，发布后才会加载统计脚本。修改配置后需要重新部署；本地修改 `_config.yml` 需要重启预览进程。
+`tools/fetch-visitor-stats.rb` 在生产构建前调用：
 
-上线后打开一篇文章，再到后台查看 Pages。新站没有历史记录；公开阅读次数接口可能缓存最多四小时，不能通过连续刷新来判断是否接入成功。
+- `/api/v0/stats/total` 获取累计访问数；
+- `/api/v0/stats/locations` 按页读取全部国家和地区；
+- 校验 HTTP 状态、JSON 结构、非负计数和 ISO 3166-1 alpha-2 国家代码；
+- 合并重复国家代码，将无法识别的代码计入“未知地区”；
+- 原子写入 `_data/visitor_stats_generated.json`。
 
-## 阅读次数的含义与异常
+生成文件被 `.gitignore` 排除，只存在于当次 Actions 工作区和最终静态站点中。工作流只在推送到 `main` 或手动运行时读取真实数据，没有定时任务。要单独刷新首页数字，在仓库 **Actions → Build and Deploy → Run workflow** 中选择 `main` 运行。
 
-公开计数采用 GoatCounter 返回的访客计数口径，不等于每一次刷新次数，也不代表精确的自然人数。会话设置会影响去重。
+本地预览默认显示“统计数据将在生产部署时生成”。需要检查完整布局时，可以临时复制测试数据：
 
-本项目覆盖了主题的 `_includes/pageviews/goatcounter.html`：查询失败显示 `—` 并提示暂不可用，避免主题默认失败时显示 `1` 造成误解。正常返回零时显示 `0`。
+```powershell
+Copy-Item test/fixtures/visitor-stats.json _data/visitor_stats_generated.json
+./tools/preview.ps1
+```
 
-如果一直没有数据，检查部署是否完成、`mayl` 是否填写正确、浏览器拦截扩展或网络是否阻止 `gc.zgo.at` / `mayl.goatcounter.com`。如果后台有数据但页面无计数，检查公开计数开关与文章路径是否一致，再等待缓存更新。文章更换永久链接后，新旧路径会分别统计。
+测试文件已被忽略，不应提交。完成检查后可删除 `_data/visitor_stats_generated.json`。
 
-## 官方文档
+## 失败策略与排查
 
-- [公开阅读次数与缓存](https://www.goatcounter.com/help/visitor-counter)
-- [推广来源参数](https://www.goatcounter.com/help/campaigns)
+缺少 Token、401、403、429、服务异常、非法 JSON 或字段不符合约定时，抓取脚本以非零状态退出，部署随即停止。GitHub Pages 会继续提供上一次成功发布的版本，不会用错误的零统计覆盖首页。
+
+- **缺少 Token**：确认 Secret 名称精确为 `GOATCOUNTER_API_KEY`，并且运行事件是 `main` 推送或手动执行。PR 不读取 Secret。
+- **401**：重新创建 Token 或检查复制值是否完整。
+- **403**：确认 Token 同时具有 read sites 和 read statistics 权限。
+- **429**：等待一段时间后手动重新运行；脚本按页请求且低于正常 API 使用频率。
+- **5xx 或连接失败**：查看 GoatCounter 服务状态，稍后重新运行。
+- **首页数字没有变化**：统计只随部署更新；确认最新 `Build and Deploy` 已成功完成，并硬刷新浏览器。
+- **后台有数据但地图没有国家**：部分访问可能没有可用国家代码，会归入未知地区；检查 Actions 的统计准备步骤是否成功。
+
+本地运行抓取器会访问真实 API，应只在临时环境变量中提供 Token：
+
+```powershell
+$env:GOATCOUNTER_API_KEY = "仅在当前终端设置的值"
+ruby tools/fetch-visitor-stats.rb _data/visitor_stats_generated.json
+Remove-Item Env:GOATCOUNTER_API_KEY
+```
+
+## 官方资料
+
+- [GoatCounter API](https://www.goatcounter.com/help/api)
+- [GoatCounter 隐私设计](https://www.goatcounter.com/help/privacy)
+- [访问计数说明](https://www.goatcounter.com/help/visitor-counter)

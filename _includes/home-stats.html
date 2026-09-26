@@ -1,0 +1,113 @@
+<script src="{{ '/assets/vendor/jsvectormap/jsvectormap.min.js' | relative_url }}"></script>
+<script src="{{ '/assets/vendor/jsvectormap/world.js' | relative_url }}"></script>
+<script>
+  (() => {
+    const dataElement = document.getElementById('visitor-stats-data');
+    const mapElement = document.getElementById('visitor-map');
+    if (!dataElement || !mapElement || typeof jsVectorMap === 'undefined') return;
+
+    let stats;
+    try {
+      stats = JSON.parse(dataElement.textContent);
+    } catch {
+      return;
+    }
+
+    if (!stats.available || !Array.isArray(stats.countries) || stats.countries.length === 0) {
+      mapElement.innerHTML = '<p class="visitor-empty">目前还没有可显示的国家和地区数据。</p>';
+      return;
+    }
+
+    const countries = new Map(stats.countries.map((country) => [country.code, country]));
+    const maximum = Math.max(...stats.countries.map((country) => country.visits), 1);
+    const displayNames = typeof Intl.DisplayNames === 'function'
+      ? new Intl.DisplayNames(['zh-CN'], { type: 'region' })
+      : null;
+
+    const countryName = (code, fallback = code) => {
+      try {
+        return displayNames?.of(code) || fallback;
+      } catch {
+        return fallback;
+      }
+    };
+
+    const colorLevel = (visits) => {
+      if (visits <= 0) return 0;
+      const ratio = visits / maximum;
+      if (ratio <= 0.05) return 1;
+      if (ratio <= 0.2) return 2;
+      if (ratio <= 0.45) return 3;
+      if (ratio <= 0.75) return 4;
+      return 5;
+    };
+
+    const describe = (code) => {
+      const country = countries.get(code);
+      const name = countryName(code, country?.name || code);
+      if (!country) return `${name}：暂无访问`;
+      const percent = new Intl.NumberFormat('zh-CN', {
+        style: 'percent',
+        maximumFractionDigits: 1
+      }).format(country.share);
+      return `${name}：${new Intl.NumberFormat('zh-CN').format(country.visits)} 次（${percent}）`;
+    };
+
+    new jsVectorMap({
+      selector: '#visitor-map',
+      map: 'world',
+      zoomButtons: true,
+      zoomOnScroll: false,
+      regionStyle: {
+        initial: {
+          fill: 'var(--visitor-map-empty)',
+          stroke: 'var(--visitor-map-border)',
+          strokeWidth: 0.5,
+          fillOpacity: 1
+        },
+        hover: {
+          fillOpacity: 0.82,
+          cursor: 'pointer'
+        }
+      },
+      onRegionTooltipShow(event, tooltip, code) {
+        tooltip.text(describe(code));
+      }
+    });
+
+    const decorateRegions = () => {
+      const status = document.getElementById('visitor-map-status');
+      const regions = mapElement.querySelectorAll('.jvm-region');
+      if (regions.length === 0) return false;
+
+      regions.forEach((region) => {
+        const code = region.getAttribute('data-code');
+        const country = countries.get(code);
+        const level = colorLevel(country?.visits || 0);
+        region.style.fill = level === 0
+          ? 'var(--visitor-map-empty)'
+          : `var(--visitor-map-level-${level})`;
+        region.setAttribute('tabindex', '0');
+        region.setAttribute('role', 'img');
+        region.setAttribute('aria-label', describe(code));
+        region.addEventListener('focus', () => {
+          if (status) status.textContent = describe(code);
+        });
+      });
+      return true;
+    };
+
+    if (!decorateRegions()) {
+      const observer = new MutationObserver(() => {
+        if (decorateRegions()) observer.disconnect();
+      });
+      observer.observe(mapElement, { childList: true, subtree: true });
+    }
+
+    document.querySelectorAll('[data-country-code]').forEach((item) => {
+      const code = item.getAttribute('data-country-code');
+      const label = item.querySelector('span');
+      if (label) label.textContent = `${countryName(code, label.textContent)}（${code}）`;
+    });
+  })();
+</script>

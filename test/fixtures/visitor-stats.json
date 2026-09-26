@@ -1,0 +1,14 @@
+{
+  "available": true,
+  "fixture": true,
+  "metric": "goatcounter_visits",
+  "period_start": "2026-09-26T00:00:00+08:00",
+  "generated_at": "2026-09-26T08:00:00Z",
+  "total_visits": 123,
+  "unknown_visits": 2,
+  "countries": [
+    { "code": "CN", "name": "China", "visits": 100, "share": 0.813008 },
+    { "code": "US", "name": "United States", "visits": 15, "share": 0.121951 },
+    { "code": "JP", "name": "Japan", "visits": 6, "share": 0.04878 }
+  ]
+}

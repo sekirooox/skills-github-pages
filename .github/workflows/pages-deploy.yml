@@ -40,10 +40,28 @@ jobs:
           # Reads the version from .ruby-version.
           bundler-cache: true
 
+      - name: Test visitor statistics parser
+        run: ruby test/visitor_stats_fetch_test.rb
+
+      - name: Prepare visitor statistics
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          GOATCOUNTER_API_KEY: ${{ secrets.GOATCOUNTER_API_KEY }}
+          VISITOR_STATS_START: "2026-09-26T00:00:00+08:00"
+        run: |
+          if [[ "$EVENT_NAME" == "pull_request" ]]; then
+            cp test/fixtures/visitor-stats.json _data/visitor_stats_generated.json
+          else
+            ruby tools/fetch-visitor-stats.rb _data/visitor_stats_generated.json
+          fi
+
       - name: Build site
         run: bundle exec jekyll b -d "_site"
         env:
           JEKYLL_ENV: "production"
+
+      - name: Verify generated site
+        run: ruby test/site_output_test.rb _site
 
       - name: Test site
         run: |

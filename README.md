@@ -20,7 +20,7 @@
 
 ## 关于这个项目
 
-你好，我是 **MayL**。这里用于分享技术实践、学习笔记和生活随笔。
+你好，我是 **MayL**。首页用于自我介绍并展示匿名汇总的访客足迹；技术实践、学习笔记和生活随笔可从归档、分类、标签或搜索进入。
 
 项目从 GitHub Skills 的 GitHub Pages 练习起步，目前使用官方 **Chirpy 7.6.0** 主题，通过 GitHub Actions 构建和发布。主题提供响应式布局、明暗模式、站内搜索、分类与标签、文章目录、数学公式、Mermaid 流程图和 RSS。
 
@@ -56,7 +56,8 @@
 | --- | --- |
 | 新增文章 | 复制 [文章模板](templates/post.md) 到 `_posts/YYYY-MM-DD-english-slug.md` |
 | 修改站点名称、简介、时区 | 编辑 [`_config.yml`](_config.yml) |
-| 修改个人介绍 | 编辑 [`_tabs/about.md`](_tabs/about.md) |
+| 修改首页简短介绍 | 编辑 [`_includes/profile-intro.html`](_includes/profile-intro.html) |
+| 修改完整个人介绍 | 编辑 [`_tabs/about.md`](_tabs/about.md) |
 | 新增独立栏目 | 在 `_tabs/` 中创建页面，设置 `title`、`icon`、`order` 和 `permalink` |
 | 增加分类或标签 | 修改文章 Front Matter 中的 `categories`、`tags`，页面自动生成 |
 | 添加图片 | 放入 `assets/img/`，文章图片使用 `/assets/img/...` 路径 |
@@ -80,22 +81,27 @@
 ├── _config.yml                 站点配置与功能开关
 ├── _posts/                     博客文章
 ├── _tabs/                      分类、标签、归档、关于等栏目
-├── _data/                      社交链接等数据
+├── _data/                      社交链接与访客统计回退数据
+├── _includes/                  首页介绍、统计地图和主题扩展钩子
+├── _layouts/home-profile.html  独立个人首页布局
 ├── _plugins/                   文章更新时间插件
 ├── assets/img/                 头像与文章图片
 ├── templates/post.md           文章模板
 ├── docs/                       维护手册、验证记录与归档资料
-├── tools/                      本地预览和检查脚本
+├── tools/                      本地预览、检查和统计抓取脚本
+├── test/                       统计解析测试与 PR 布局数据
 ├── .github/workflows/          GitHub Pages 构建发布流程
 ├── .devcontainer/              VS Code / Codespaces 环境
 ├── Gemfile / Gemfile.lock      主题与锁定的 Ruby 依赖
 ├── .ruby-version               Ruby 版本
 ├── Dockerfile                  容器定义
 ├── docker-compose.yml          本地容器预览配置
-└── index.html                  Chirpy 首页入口
+└── index.html                  独立个人首页入口及旧地址跳转
 ```
 
 主题布局和样式由 gem 提供。`_site/` 是构建产物，`.tools/`、`vendor/`、`.bundle/` 是本地环境目录，不应提交。独立笔记目录 `csdn-repo/` 已从站点构建范围排除。
+
+GoatCounter 在生产环境跟踪全站，但文章页不公开阅读次数。首页的累计访问与国家分布只在发布时更新；API Token 配置、数据口径和排错见[统计维护说明](docs/ANALYTICS.md)。
 
 原 GitHub Skills 教程工作流归档于 `docs/legacy-github-skills/`，不会再触发初始化或覆盖首页。
 

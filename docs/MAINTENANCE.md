@@ -13,7 +13,7 @@ Ruby 版本固定在 `.ruby-version`；完整依赖由 `Gemfile.lock` 管理。G
 1. 在 GitHub 仓库 **Settings → Pages → Build and deployment → Source** 选择 **GitHub Actions**。必须从原先的分支构建切换：Chirpy 使用 Jekyll 4 与自定义插件，不能继续依赖旧的内置构建。
 2. 提交本次迁移的全部文件并推送到 `main`。先检查 `git status`，确保不包含 `.tools`、`vendor`、`_site`。
 3. 在 Actions 查看 **Build and Deploy**。`build` 成功且链接检查通过后才会执行 `deploy`。
-4. 打开站点，检查首页、分类、标签、归档、关于和示例文章。PR 只构建检查，不发布。
+4. 打开站点，检查个人首页、访客地图、分类、标签、归档、关于和示例文章。PR 只构建检查，不发布。
 
 ```sh
 git add .
@@ -73,15 +73,19 @@ bash tools/test.sh
 ├── _config.yml                站点身份、时区、路径与功能开关
 ├── Gemfile / Gemfile.lock     主题及锁定的 Ruby 依赖
 ├── .ruby-version              Ruby 版本
-├── index.html                 官方首页布局入口，自动列出文章
+├── index.html                 独立个人首页入口和旧项目地址跳转
 ├── _posts/                    已发布文章
 ├── _drafts/                   草稿（需要时创建）
 ├── _tabs/                     侧栏栏目：分类、标签、归档、关于
 ├── _data/contact.yml          侧栏社交链接
+├── _data/visitor_stats.yml    本地无统计数据时的回退内容
+├── _layouts/home-profile.html 个人首页布局
+├── _includes/                首页介绍、统计地图和主题扩展钩子
 ├── _plugins/                  按 Git 历史生成文章更新时间
 ├── assets/img/                头像和文章图片
 ├── templates/post.md          可复制的文章模板，不发布到站点
-├── tools/                     预览、构建与检查脚本
+├── tools/                     预览、构建、检查和统计抓取脚本
+├── test/                      统计解析测试和 PR 布局测试数据
 ├── docs/                      本维护手册及归档说明，不发布到站点
 ├── .github/workflows/         唯一有效的构建发布流程
 ├── .github/steps/             原 GitHub Skills 教程文字，仅作参考
@@ -94,7 +98,7 @@ bash tools/test.sh
 
 ## 5. 首页与个人信息
 
-在 `_config.yml` 修改 `title`、`tagline`、`description`、`social.name` 和 `github.username`。头像是 `assets/img/avatar.svg`，可换成自己的 PNG/JPG 并更新 `avatar` 路径。`_tabs/about.md` 是关于页。
+在 `_config.yml` 修改 `title`、`tagline`、`description`、`social.name` 和 `github.username`。头像是 `assets/img/avatar.svg`，可换成自己的 PNG/JPG 并更新 `avatar` 路径。首页简短介绍位于 `_includes/profile-intro.html`，`_tabs/about.md` 是更完整的关于页。
 
 当前用户主页必须保持：
 
@@ -107,7 +111,9 @@ timezone: Asia/Shanghai
 
 `url` 末尾不加斜杠。用户主页的 `baseurl` 必须为空，工作流直接构建并上传 `_site`。如果以后改回项目站点，才需要将 `baseurl` 设置为仓库路径，并同步检查构建目录。
 
-首页卡片来自 `_posts`，不要往 `index.html` 粘贴文章列表。`paginate` 控制每页篇数；`pin: true` 使文章置顶。明暗模式默认跟随系统，可用 `theme_mode: light` 或 `dark` 指定初始偏好。
+首页使用专用 `home-profile` 布局，只显示自我介绍和访客统计，不列出文章，也不生成 `/page2/`。文章仍可通过分类、标签、归档、搜索和直接链接访问。要改首页正文，编辑 `_includes/profile-intro.html`；要改布局或地图说明，分别编辑 `_layouts/home-profile.html` 和 `_includes/home-stats.html`。明暗模式默认跟随系统，可用 `theme_mode: light` 或 `dark` 指定初始偏好。
+
+访客统计由部署工作流从 GoatCounter API 读取，Token 只保存在 `GOATCOUNTER_API_KEY` Secret 中。文章页不公开阅读次数；完整配置、统计口径、手动刷新与故障处理见 [`docs/ANALYTICS.md`](ANALYTICS.md)。
 
 ## 6. 新增、修改和删除文章
 
@@ -195,7 +201,7 @@ permalink: /projects/
 | RSS | `/feed.xml` | 自动生成，社交栏已启用 |
 | 搜索 | 主题内置 | 新文章构建后自动进入索引 |
 | 评论 | `comments` | 先配置服务，再启用 provider |
-| 访问统计 | `analytics` | 填入实际服务 ID，默认未启用 |
+| 访问统计 | `analytics`、部署 Secret | 已启用全站 GoatCounter，首页公开构建时汇总 |
 | PWA | `pwa` | 默认启用安装与离线缓存 |
 | 社交入口 | `_data/contact.yml` | 新增 type、icon、url |
 | 编辑文章按钮 | `actions.edit_post` | 启用后填写仓库 edit/main 地址 |
