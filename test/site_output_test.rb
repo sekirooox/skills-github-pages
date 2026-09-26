@@ -18,7 +18,7 @@ checks = {
   "侧栏包含邮件入口" => home.include?("mailto:' + ['ml1353578','stu2023.jnu.edu.cn']") && home.include?('aria-label="email"'),
   "侧栏包含 Facebook 入口" => home.include?('href="https://www.facebook.com/profile.php?id=61594827508707"') && home.include?('aria-label="facebook"'),
   "侧栏包含 X 入口" => home.include?('href="https://x.com/MayL2btr"') && home.include?('aria-label="x"'),
-  "侧栏包含 RSS/XML 入口" => home.include?('href="/feed.xml"') && home.include?('aria-label="rss"'),
+  "侧栏关闭 RSS/XML 入口" => !home.include?('aria-label="rss"'),
   "外部社交链接隔离 opener" => home.scan('target="_blank" rel="noopener noreferrer"').length >= 3,
   "没有分页首页" => !File.exist?(File.join(site, "page2", "index.html")),
   "旧项目地址保留跳转" => File.file?(File.join(site, "skills-github-pages", "index.html"))

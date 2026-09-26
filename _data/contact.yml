@@ -17,6 +17,7 @@
   icon: "fa-brands fa-x-twitter"
   social_host: x.com
 
-- type: rss
-  icon: "fa-solid fa-rss"
-  noblank: true
+# 暂时关闭 RSS/XML 页脚入口；保留原配置，之后可取消注释恢复。
+# - type: rss
+#   icon: "fa-solid fa-rss"
+#   noblank: true
