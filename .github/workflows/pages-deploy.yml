@@ -41,7 +41,9 @@ jobs:
           bundler-cache: true
 
       - name: Test visitor statistics parser
-        run: ruby test/visitor_stats_fetch_test.rb
+        run: |
+          ruby test/visitor_stats_fetch_test.rb
+          ruby test/social_contact_generator_test.rb
 
       - name: Prepare visitor statistics
         env:

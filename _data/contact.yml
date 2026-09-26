@@ -1,33 +1,22 @@
-#  The contact options.
+# 侧边栏底部入口，显示顺序与本文件一致。
+# social_host 由 _plugins/social-contact-generator.rb 从 _config.yml 的
+# social.links 中解析；找不到对应域名时，该入口不会输出。
 
 - type: github
-  icon: "fab fa-github"
+  icon: "fa-brands fa-github"
+
+- type: email
+  icon: "fa-solid fa-envelope"
+  noblank: true
+
+- type: facebook
+  icon: "fa-brands fa-facebook"
+  social_host: facebook.com
+
+- type: x
+  icon: "fa-brands fa-x-twitter"
+  social_host: x.com
 
 - type: rss
-  icon: "fas fa-rss"
+  icon: "fa-solid fa-rss"
   noblank: true
-# Uncomment and complete the url below to enable more contact options
-#
-# - type: mastodon
-#   icon: 'fab fa-mastodon'   # icons powered by <https://fontawesome.com/>
-#   url:  ''                  # Fill with your Mastodon account page, rel="me" will be applied for verification
-#
-# - type: linkedin
-#   icon: 'fab fa-linkedin'   # icons powered by <https://fontawesome.com/>
-#   url:  ''                  # Fill with your Linkedin homepage
-#
-# - type: stack-overflow
-#   icon: 'fab fa-stack-overflow'
-#   url:  ''                  # Fill with your stackoverflow homepage
-#
-# - type: bluesky
-#   icon: 'fa-brands fa-bluesky'
-#   url: ''                   # Fill with your Bluesky profile link
-#
-# - type: reddit
-#   icon: 'fa-brands fa-reddit'
-#   url: ''                   # Fill with your Reddit profile link
-#
-# - type: threads
-#   icon: 'fa-brands fa-threads'
-#   url: ''                   # Fill with your Threads profile link

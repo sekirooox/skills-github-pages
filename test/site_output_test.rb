@@ -13,6 +13,15 @@ checks = {
   "首页不再加载世界地图" => !home.include?("jsvectormap"),
   "首页没有文章列表" => !home.match?(/id=["']post-list|class=["'][^"']*post-list/),
   "首页侧栏面板被专用样式隐藏" => home.include?("/assets/css/home.css"),
+  "侧栏包含主题切换按钮" => home.include?('id="mode-toggle"'),
+  "侧栏包含 GitHub 入口" => home.match?(%r{href="https://github\.com/sekirooox"[^>]+aria-label="github"}),
+  "侧栏包含邮件入口" => home.match?(%r{href="javascript:void\(location\.href = 'mailto:'[^>]+aria-label="email"}),
+  "侧栏包含 Facebook 入口" => home.match?(%r{href="https://www\.facebook\.com/profile\.php\?id=61594827508707"[^>]+aria-label="facebook"}),
+  "侧栏包含 X 入口" => home.match?(%r{href="https://x\.com/MayL2btr"[^>]+aria-label="x"}),
+  "侧栏包含 RSS/XML 入口" => home.match?(%r{href="/feed\.xml"[^>]+aria-label="rss"}),
+  "外部社交链接隔离 opener" => %w[github facebook x].all? do |label|
+    home.match?(%r{aria-label="#{label}"[^>]+target="_blank"[^>]+rel="noopener noreferrer"})
+  end,
   "没有分页首页" => !File.exist?(File.join(site, "page2", "index.html")),
   "旧项目地址保留跳转" => File.file?(File.join(site, "skills-github-pages", "index.html"))
 }
