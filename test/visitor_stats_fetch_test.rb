@@ -57,6 +57,7 @@ class VisitorStatsFetchTest < Minitest::Test
         client(http_get: ->(_uri, _headers) { Response.new(status.to_s, "{}") }).fetch
       end
       assert_match(/Token|权限|频繁|HTTP/, error.message)
+      assert_match(%r{/api/v0/stats/total}, error.message)
     end
   end
 

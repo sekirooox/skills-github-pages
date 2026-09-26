@@ -122,7 +122,7 @@ module VisitorStats
                 when 429 then "GoatCounter API 请求过于频繁"
                 else "GoatCounter API 返回 HTTP #{status}"
                 end
-        raise Error, label
+        raise Error, "#{label}（#{path}）"
       end
 
       body = response_body(response)
@@ -169,7 +169,7 @@ module VisitorStats
     end
 
     def net_http_get(uri, headers)
-      request = Net::HTTP::Get.new(uri, headers)
+      request = Net::HTTP::Get.new(uri, { "Accept" => "application/json", "Content-Type" => "application/json" }.merge(headers))
       Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == "https",
                       open_timeout: 10, read_timeout: 30) do |http|
         http.request(request)
