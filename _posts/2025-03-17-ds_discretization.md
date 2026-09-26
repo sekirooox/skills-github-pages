@@ -150,7 +150,7 @@ int main() {
 + ### 获取实际长度`len`
 
 + ## 重新找回离散点的映射关系
-+ ### 二分查找函数`lower_bound(v.begin(),v.begin()+len,elem)`返回第一个大于等于查找函数的值，否则为末位元素下一位置的指`
++ ### 二分查找函数 `lower_bound(v.begin(),v.begin()+len,elem)` 返回第一个大于等于查找函数的值，否则为末位元素下一位置的指针
 
 ```cpp
 		auto iter_a = lower_bound(c.begin() + 1, c.begin() + 2*n + 1,a[i]);

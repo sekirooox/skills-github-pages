@@ -487,7 +487,7 @@ $$
 
 # 数据库安全控制
 ## 角色控制
-### ROLE：`CREATE ROLE创建角色；GRANT ROLEA TO ROLEB授予角色A和B的权限；REVOKE 收回角色权限
+### ROLE：`CREATE ROLE` 创建角色；`GRANT ROLEA TO ROLEB` 授予角色 A 和 B 的权限；`REVOKE` 收回角色权限
 
 ![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/141de15be0664ecf905e60c42a857b90.png){: referrerpolicy="no-referrer" }
 ![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/543565e795b6453d8197ffe821bf5368.png){: referrerpolicy="no-referrer" }
@@ -901,7 +901,6 @@ COMMIT / ROLLBACK
 + 对于R1加S锁，则对于数据库也要加IS锁。此时**该表元组是否有X类型的锁尚不知道**，此时检查**同一级的节点R1**是否存在IX锁，**来判断元组间是否有X锁**。
 
 ![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/d3c89c433afa492987541565c9ce4092.png){: referrerpolicy="no-referrer" }
-
 
 
 

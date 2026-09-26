@@ -121,7 +121,7 @@ description: "本文围绕“Python·数据分析和数据预处理”整理基�
 + 提前修改属性：plt.setp(line,"color",'r',"linewidth",4)
 ![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/f76dc9c64c034a6f9213e04ed4879302.png){: referrerpolicy="no-referrer" }
 + 指定坐标轴：`plt.axis([xmin, xmax, ymin, ymax])`
-+ 支持传入多张图：`
++ 支持传入多张图。
 ## 子图
 >figure是窗口，subplot是子图，
 + 子图figure：`plt.figure(num)` 
@@ -141,5 +141,4 @@ plt.show()
 
 # 具有统计意义图像绘制
 >直接看笔记查对应参数
-
 

@@ -48,9 +48,12 @@ NOIP 2001 提高组第一题
 
 # nt题硬控我1个小时！
 + `abs(func(x)) < 10e-4)`double是有误差的,不能令func(x)==0
-+ `else if (abs(func(y)) < 10e-4) {
-			continue;
-		}`**右边界冲突**问题！！！
+```cpp
+else if (abs(func(y)) < 10e-4) {
+    continue;
+}
+```
+**右边界冲突**问题！！！
 **这题用二分做还是太勉强了**
 # 二分做法
 ```cpp
@@ -117,4 +120,3 @@ int main() {
 	return 0;
 }
 ```
-

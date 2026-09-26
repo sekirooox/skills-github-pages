@@ -115,5 +115,5 @@ d=d./sum(d);
 disp("计算完成,下面是正向矩阵、标准矩阵和计算得出的权重矩阵");
 disp(X);
 disp(Stand_X);
-disp(d);```
-
+disp(d);
+```

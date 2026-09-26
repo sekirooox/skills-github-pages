@@ -276,7 +276,7 @@ __all__ = [
     'ConcatCDInput', 'BaseCDDataset', 'DSDLSegDataset', 'BDD100KDataset','ZihaoDataset'
 ]
 ```
-# `mmsegmentation\mmseg相当于源码部分
+# `mmsegmentation\mmseg` 相当于源码部分
 # 在`configs`中自定义训练和测试pipeline `mmsegmentation\configs\_base_\datasets\ZihaoDataset_pipeline.py`
 ## 必须修改的地方有：
 + 类名和数据集**根地址**，注意**接下来的`img_path`和`seg_map_path`参数会和`data_root`拼接在一起**
@@ -628,5 +628,4 @@ python demo/video_demo.py 0 Zihao-Configs/ZihaoDataset_FastSCNN_20230818.py pret
 + 定义训练和测试的pipeline：`mmsegmentation\configs\_base_\datasets\ZihaoDataset_pipeline.py`，修改关键参数(与之前匹配)
 + 融合预训练模型：`configs/fastscnn/fast_scnn_8xb4-160k_cityscapes-512x1024.py`和pipeline：`mmsegmentation\configs\_base_\datasets\ZihaoDataset_pipeline.py`文件，**注意微调分割头!!!**，**注意微调分割头!!!**，**注意微调分割头!!!**
 + 得到最后的config文件`ZihaoDataset_FastSCNN_20230818.py`
-
 

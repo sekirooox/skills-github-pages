@@ -103,7 +103,7 @@ __all__ = [
     'ConcatCDInput', 'BaseCDDataset', 'DSDLSegDataset', 'BDD100KDataset','ZihaoDataset'
 ]
 ```
-# `mmsegmentation\mmseg相当于源码部分
+# `mmsegmentation\mmseg` 相当于源码部分
 # 在`configs`中自定义训练和测试pipeline `mmsegmentation\configs\_base_\datasets\ZihaoDataset_pipeline.py`
 ## 必须修改的地方有：
 + 类名和数据集**根地址**，注意**接下来的`img_path`和`seg_map_path`参数会和`data_root`拼接在一起**
