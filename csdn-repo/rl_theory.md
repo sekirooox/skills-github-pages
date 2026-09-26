@@ -1,0 +1,1206 @@
+﻿@[toc]
+# 强化学习（Reinforcement Learning）
+
+## 基本概念
+
+强化学习（Reinforcement Learning, RL）是一类通过**智能体（Agent）与环境（Environment）交互**，根据获得的奖励信号不断学习最优决策策略的方法。
+
+强化学习的核心目标是：学习一个策略 $\pi$，使智能体能够获得长期累计奖励最大化。
+
+---
+
+## 状态、动作、奖励与策略
+
+在强化学习中：
+
+- 状态（State）：表示环境当前的情况，记为 $s$。
+- 动作（Action）：智能体根据状态采取的行为，记为 $a$。
+- 奖励（Reward）：环境给予智能体的反馈，记为 $r$。
+- 策略（Policy）：智能体选择动作的规则，记为 $\pi(a|s)$。
+
+其中策略表示：
+
+$$
+\begin{align}
+\pi(a|s)
+\end{align}
+$$
+
+其中：
+
+- $\pi$ 表示策略函数；
+- $a$ 表示采取的动作；
+- $s$ 表示当前状态。
+
+---
+
+## 回报（Return）：$G_t=\sum_{k=0}^{T-t}\gamma^k r_{t+k+1}$
+
+回报表示从当前时间开始，未来获得奖励的累计值。
+
+笔记中定义：
+
+$$
+\begin{align}
+G_t=\sum_{k=0}^{T-t}\gamma^k r_{t+k+1}
+\end{align}
+$$
+
+其中：
+
+- $G_t$：时间 $t$ 时刻的累计回报；
+- $r_{t+k+1}$：未来第 $t+k+1$ 步获得的奖励；
+- $\gamma$：折扣因子，用于衡量未来奖励的重要程度；
+- $T$：一个 episode 的终止时间。
+
+---
+
+### 折扣因子 $\gamma$
+
+折扣因子用于降低未来奖励的影响。
+
+当：
+
+- $\gamma$ 接近 0：更加关注即时奖励；
+- $\gamma$ 接近 1：更加关注长期收益。
+
+---
+
+### Episode（回合）
+
+Episode 指智能体从初始状态开始，与环境交互直到终止状态的一整个过程。
+
+例如：
+
+$$
+s_0 \rightarrow a_0 \rightarrow r_1 \rightarrow s_1
+\rightarrow a_1 \rightarrow ... \rightarrow s_T
+$$
+
+其中：
+
+- $s_0$：初始状态；
+- $s_T$：终止状态。
+
+---
+
+## ⭐价值函数（Value Function）：未来期望回报，取决于策略$\pi$
+
+价值函数用于评价某个状态或者动作未来能够获得的期望收益。
+
+主要包括：
+
+### （1）状态价值函数 $V^\pi(s)=E_\pi[G_t|S_t=s]$
+
+定义：
+
+$$
+\begin{align}
+V^\pi(s)=E_\pi[G_t|S_t=s]
+\end{align}
+$$
+
+其中：
+
+- $V^\pi(s)$：策略 $\pi$ 下状态 $s$ 的价值；
+- $E_\pi$：按照策略 $\pi$ 计算的期望；
+- $G_t$：未来累计回报。
+
+含义：
+
+**状态价值函数表示：在状态 $s$ 下，按照策略 $\pi$ 行动时能够获得的平均回报。**
+
+---
+
+### （2）动作价值函数 $Q^\pi(s,a)=E_\pi[G_t|S_t=s,A_t=a]$
+
+定义：
+
+$$
+\begin{align}
+Q^\pi(s,a)=E_\pi[G_t|S_t=s,A_t=a]
+\end{align}
+$$
+
+其中：
+
+- $Q^\pi(s,a)$：在状态 $s$ 执行动作 $a$ 后的价值；
+- $A_t$：时间 $t$ 采取的动作。
+
+含义：
+
+**动作价值函数衡量某个具体动作的长期收益。**
+
+---
+
+# ⭐⭐⭐Bellman 方程：价值函数满足的递归关系。
+
+## Bellman 期望方程：策略迭代
+
+### 动作价值函数：$Q^\pi(s,a)=E[r(s,a,s')+\gamma\sum_{a'}\pi(a'|s')Q^\pi(s',a')]$
+
+
+递推关系如下：
+$$
+\begin{align}
+Q^\pi(s,a)
+=E
+[
+r(s,a,s')
++
+\gamma
+\sum_{a'}\pi(a'|s')Q^\pi(s',a')
+]
+\end{align}
+$$
+
+其中：
+
+- $r(s,a,s')$：执行动作 $a$ 后获得的即时奖励；
+- $\gamma$：折扣因子；
+- $\pi(a'|s')$：下一状态选择动作的概率；
+- $Q^\pi(s',a')$：下一状态动作价值。
+
+---
+
+### 状态价值函数：$V^\pi(s)=E_{a\sim\pi}E_{s'\sim P}[r(s,a,s')+\gamma V^\pi(s')]$
+
+
+
+递推关系如下：
+$$
+\begin{align}
+V^\pi(s)
+=E_{a\sim\pi}
+[
+Q^\pi(s,a)
+]
+\end{align}
+$$
+
+进一步：
+
+$$
+\begin{align}
+V^\pi(s)=
+E_{a\sim\pi}
+E_{s'\sim P}
+[
+r(s,a,s')
++
+\gamma V^\pi(s')
+]
+\end{align}
+$$
+
+其中：
+
+- $P(s'|s,a)$：状态转移概率；
+- $V^\pi(s')$：下一状态价值。
+
+---
+
+## 作用：当前状态的价值 = 当前获得奖励 + 下一状态未来价值
+
+Bellman 方程是强化学习中的核心递推关系。
+
+其思想是：
+
+> 当前状态的价值 = 当前获得奖励 + 下一状态未来价值。
+
+即将复杂的长期决策问题拆解为当前一步和未来一步的问题。
+
+---
+
+## Bellman 最优方程：价值迭代
+
+$$
+\begin{align}
+V^*(s)
+=\max_a
+\sum_{s'}
+P(s'|s,a)
+[
+r(s,a,s')
++
+\gamma V^*(s')
+]
+\end{align}
+$$
+
+# 动态规划类方法
+## 策略迭代（Policy Iteration）
+
+策略迭代由两个步骤循环组成：
+
+1. **策略评估（Policy Evaluation）**
+2. **策略改进（Policy Improvement）**
+
+不断重复这两个过程，直到策略收敛。
+
+---
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/178b6ccbb2484525858b89121b8dc743.png)
+
+### （1）策略评估 Policy Evaluation：根据现有策略进行搜索
+
+策略评估用于计算当前策略 $\pi$ 对应的价值函数 $V^\pi(s)$。
+
+根据 Bellman 期望方程：
+
+$$
+\begin{align}
+V^\pi(s)
+=\sum_a \pi(a|s)
+\sum_{s'}
+P(s'|s,a)
+[
+r(s,a,s')
++
+\gamma V^\pi(s')
+]
+\end{align}
+$$
+
+其中：
+
+- $V^\pi(s)$：当前策略下状态价值；
+- $\pi(a|s)$：当前策略选择动作 $a$ 的概率；
+- $P(s'|s,a)$：状态转移概率；
+- $r(s,a,s')$：即时奖励；
+- $\gamma$：折扣因子。
+
+含义：
+
+**策略评估通过不断更新价值函数，使其逼近当前策略下真实价值。**
+
+---
+
+
+### （2）策略改进 Policy Improvement：重新更新策略
+
+利用当前价值函数选择更优动作。
+
+动作价值函数：
+
+$$
+\begin{align}
+Q^\pi(s,a)
+=r(s,a)
++
+\gamma
+\sum_{s'}
+P(s'|s,a)V^\pi(s')
+\end{align}
+$$
+
+其中：
+
+- $Q^\pi(s,a)$：执行动作 $a$ 后的价值；
+- $V^\pi(s')$：下一状态价值。
+
+根据贪心原则更新策略：
+
+$$
+\begin{align}
+\pi'(s)=
+\arg\max_a Q^\pi(s,a)
+\end{align}
+$$
+
+其中：
+
+- $\arg\max$：寻找使函数取得最大值的动作；
+- $\pi'(s)$：更新后的最优策略。
+
+---
+
+### 策略迭代流程
+
+策略迭代过程：
+
+$$
+\pi
+\rightarrow
+V^\pi
+\rightarrow
+\pi'
+\rightarrow
+V^{\pi'}
+\rightarrow ...
+$$
+
+即：
+
+1. 给定策略 $\pi$；
+2. 计算价值函数 $V^\pi$；
+3. 根据价值函数改进策略；
+4. 重复直到策略稳定。
+
+---
+
+## 价值迭代（Value Iteration）
+
+
+价值迭代直接对价值函数进行更新，不显式进行完整策略评估。
+
+Bellman 最优方程：
+
+$$
+\begin{align}
+V^*(s)
+=\max_a
+\sum_{s'}
+P(s'|s,a)
+[
+r(s,a,s')
++
+\gamma V^*(s')
+]
+\end{align}
+$$
+
+其中：
+
+- $V^*(s)$：最优状态价值函数；
+- $\max_a$：选择价值最大的动作；
+- $P(s'|s,a)$：状态转移概率。
+
+---
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/ff8b9430d84d4785bf83bd466f48c063.png)
+### 隐含最优策略$\pi$：只选择价值函数最大的动作
+
+根据最优价值函数得到最优策略：
+
+$$
+\begin{align}
+\pi^*(s)
+=\arg\max_a Q^*(s,a)
+\end{align}
+$$
+
+其中：
+
+- $\pi^*(s)$：最优策略；
+- $Q^*(s,a)$：最优动作价值。
+
+---
+
+
+## 策略迭代与价值迭代区别
+
+| 方法 | 核心思想 | 特点 |
+|---|---|---|
+| 策略迭代 | 评估策略 → 改进策略 | 收敛快，但计算复杂 |
+| 价值迭代 | 直接更新最优价值 | 计算简单，但需要更多迭代 |
+
+---
+
+# 蒙特卡洛方法（Monte Carlo Method）：统计学方法
+
+## 概念
+
+蒙特卡洛方法是一种**无模型（Model-Free）方法**。
+
+
+## 无模型方法（Model-Free Method）
+
+无模型方法指：
+
+**不需要提前知道环境模型，包括状态转移概率 $P(s'|s,a)$ 和奖励函数 $R$，而是通过实际采样经验学习。**
+
+与动态规划相比：
+
+- 动态规划：
+  - 已知模型；
+  - 根据模型计算价值。
+
+- 无模型方法：
+  - 不知道模型；
+  - 根据经验数据估计价值。
+
+---
+
+## 蒙特卡洛估计价值函数：$V^\pi(s) \approx \frac{1}{N} \sum_{i=1}^{N}G_t^{(i)}$
+
+状态价值函数：
+
+$$
+\begin{align}
+V^\pi(s)
+=E_\pi[G_t|S_t=s]
+\end{align}
+$$
+
+通过多次采样估计：
+
+$$
+\begin{align}
+V^\pi(s)
+\approx
+\frac{1}{N}
+\sum_{i=1}^{N}
+G_t^{(i)}
+\end{align}
+$$
+
+其中：
+
+- $N$：采样次数；
+- $G_t^{(i)}$：第 $i$ 次采样获得的回报。
+
+---
+
+## Monte Carlo 特点
+
+优点：
+
+- 不需要环境模型；
+- 可以处理复杂环境。
+
+缺点：
+
+- **必须等待一个 episode** 结束；
+- 方差较大；
+- 学习速度较慢。
+
+---
+
+# 时间差分学习（Temporal Difference Learning, TD Learning）：缓解动态规划，实时更新
+
+TD 学习结合了：
+
+- 蒙特卡洛方法；
+- 动态规划方法。
+
+特点：
+
+**不需要完整等待 episode 结束，而是在每一步利用估计值更新。**
+
+---
+
+
+## TD Error：$\delta_t = r_{t+1} + \gamma V(s_{t+1}) - V(s_t)$
+
+$$
+\begin{align}
+\delta_t
+=r_{t+1}+\gamma V(s_{t+1})
+-V(s_t)
+\end{align}
+$$
+
+其中：
+
+- $\delta_t$：时间差分误差；
+- $r_{t+1}$：下一步奖励；
+- $V(s_t)$：当前状态价值；
+- $V(s_{t+1})$：下一状态估计价值。
+
+---
+
+## TD 更新公式：
+
+$$
+\begin{align}
+V(s_t)
+\leftarrow
+V(s_t)
++
+\alpha
+\delta_t
+\end{align}
+$$
+
+其中：
+
+- $\alpha$：学习率；
+- $\delta_t$：价值预测误差。
+
+---
+
+## TD Learning 与 Monte Carlo 区别
+
+| 方法 | 更新方式 | 是否等待终止 |
+|---|---|---|
+| Monte Carlo | 使用完整回报 $G_t$ | 是 |
+| TD Learning | 使用一步预测误差 | 否 |
+
+---
+
+
+
+
+
+
+## On-policy 与 Off-policy 策略
+
+强化学习中的策略学习方法主要分为：
+
+1. **On-policy（同策略）**
+2. **Off-policy（异策略）**
+
+---
+
+### On-policy（同策略）：当前正在学习的策略 $\pi$ 进行采样，并利用该策略产生的数据更新自身
+
+
+
+On-policy 方法指：
+
+**智能体使用当前正在学习的策略 $\pi$ 进行采样，并利用该策略产生的数据更新自身。**
+
+即：
+
+> 用当前策略产生经验，同时优化当前策略。
+
+特点：
+
+- 行为策略（Behavior Policy）和目标策略（Target Policy）相同；
+- 学习过程更加稳定；
+- 探索能力受到当前策略限制。
+
+典型算法：
+
+- SARSA
+
+---
+
+### Off-policy（异策略）：智能体使用一个策略产生数据，用于更新另一个策略
+
+
+
+Off-policy 方法指：
+
+**智能体使用一个策略产生数据，同时利用另一个策略进行学习。**
+
+包含两个策略：
+
+1. 行为策略（Behavior Policy）：
+   - 负责产生经验；
+   - 通常用于探索。
+
+2. 目标策略（Target Policy）：
+   - 负责学习最优行为。
+
+
+特点：
+
+- 行为策略与目标策略不同；
+- 可以利用历史经验；
+- 可以进行经验回放。
+
+典型算法：
+
+- Q-learning
+- DQN
+
+
+
+# SARSA 算法：On-policy-时序差分算法
+
+SARSA 是一种典型的 **On-policy 时间差分学习算法**。
+
+SARSA 名称来自五元组：
+
+$$
+\begin{align}
+(S,A,R,S',A')
+\end{align}
+$$
+
+其中：
+
+- $S$：当前状态；
+- $A$：当前动作；
+- $R$：获得的奖励；
+- $S'$：下一状态；
+- $A'$：下一动作。
+
+---
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/9036e895d9fe4245b75e47625a019f8f.png)
+## SARSA 更新公式
+
+SARSA 使用实际执行的下一动作 $A'$ 进行更新：
+
+
+$$
+\begin{align}
+Q(s,a)\leftarrow Q(s,a)+\alpha[r+\gamma Q(s',a')-Q(s,a)]
+\end{align}
+$$
+
+其中：
+
+- $Q(s,a)$：当前动作价值；
+- $\alpha$：学习率；
+- $r$：即时奖励；
+- $\gamma$：折扣因子；
+- $Q(s',a')$：下一状态实际选择动作的价值。
+
+---
+
+## SARSA 特点：On-policy，使用同一策略采样的$(s,a,r,s',a')$的更新
+
+由于 SARSA 使用当前策略选择下一动作，因此属于：
+
+**On-policy 方法。**
+
+更新过程：
+
+$$
+(s,a,r,s',a')
+$$
+
+即：
+
+当前动作 → 获得奖励 → 执行下一动作 → 更新价值。
+
+---
+
+# Q-learning 算法：
+
+Q-learning 是一种经典的 **Off-policy 强化学习算法**。
+
+核心思想：
+
+**利用最大化未来动作价值进行更新，而不是使用实际执行动作。**
+
+---
+
+## Q-learning 更新公式：$Q(s,a)\leftarrow Q(s,a)+\alpha[r+\gamma\max_{a'}Q(s',a')-Q(s,a)]$
+
+
+$$
+\begin{align}
+Q(s,a)\leftarrow Q(s,a)+\alpha[r+\gamma\max_{a'}Q(s',a')-Q(s,a)]
+\end{align}
+$$
+
+其中：
+
+- $Q(s,a)$：当前状态动作价值；
+- $\alpha$：学习率；
+- $r$：即时奖励；
+- $\gamma$：折扣因子；
+- $\max_{a'}Q(s',a')$：下一状态中价值最大的动作。
+
+---
+
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/7dd5704a9f044d858879aaa32d5e1739.png)
+
+
+## Q-learning 与 SARSA 区别：使用最大价值动作 $\max Q(s',a')$，属于Off-policy
+
+| 方法 | 策略类型 | 更新目标 |
+|---|---|---|
+| SARSA | On-policy | 使用实际执行动作 $a'$ |
+| Q-learning | Off-policy | 使用最大价值动作 $\max Q(s',a')$ |
+
+---
+
+# DQN（Deep Q-Network）
+
+## 概念：DNN+Q-Learning，适合离散且状态空间有限
+
+DQN 是将：
+
+**深度神经网络（Deep Neural Network）**
+
+与：
+
+**Q-learning**
+
+结合形成的方法。
+
+主要用于解决：
+
+传统 Q-learning：
+
+- 状态空间过大；
+- Q 表无法存储所有状态动作价值。
+
+的问题。
+
+---
+
+## 核心思想：使用神经网络近似$Q(s,a;\theta)$
+
+使用神经网络近似 Q 函数：
+
+$$
+\begin{align}
+Q(s,a;\theta)
+\end{align}
+$$
+
+其中：
+
+- $Q$：动作价值函数；
+- $s$：状态；
+- $a$：动作；
+- $\theta$：神经网络参数。
+
+---
+
+## 目标函数：时序差分 $\mathcal{L}(\theta)=(r+\gamma\max_{a'}Q(s',a';\theta^-)-Q(s,a;\theta))^2$
+
+DQN 使用目标网络计算目标值：
+
+
+$$
+\begin{align}
+y=r+\gamma\max_{a'}Q(s',a';\theta^-)
+\end{align}
+$$
+
+其中：
+
+- $y$：目标 Q 值；
+- $r$：即时奖励；
+- $\gamma$：折扣因子；
+- $\theta^-$：**目标网络参数。**
+
+---
+
+网络训练目标：
+
+$$
+\begin{align}
+L(\theta)
+=(y-Q(s,a;\theta))^2
+\end{align}
+$$
+
+其中：
+
+- $L(\theta)$：损失函数；
+- $Q(s,a;\theta)$：当前网络预测值；
+- $y$：目标值。
+
+---
+
+## 两个关键技术：解决样本依赖性强和自相关问题
+
+### （1）经验回放（Experience Replay）：存储交互数据$(s,a,r,s')$
+
+经验池存储历史交互数据：
+
+$$
+(s,a,r,s')
+$$
+
+训练时随机采样小批量数据。
+
+作用：
+
+- 打破数据之间的相关性；
+- 提高训练稳定性。
+
+---
+
+### （2）目标网络（Target Network）：使用目标网络$Q(s,a;\theta^-)$采样和$Q(s,a;\theta)$更新
+
+DQN 使用两个网络：
+
+1. 当前网络：
+   
+$$
+Q(s,a;\theta)
+$$
+
+2. 目标网络：
+
+$$
+Q(s,a;\theta^-)
+$$
+
+
+目标网络参数定期复制当前网络参数。
+
+作用：
+
+- 减少目标值不断变化；
+- 提高训练稳定性。
+
+---
+
+
+---
+
+## Q-learning vs DQN
+### Q-learning 核心思想：寻找下一状态最大价值动作
+
+通过：
+
+$$
+\max_{a'}Q(s',a')
+$$
+
+寻找下一状态最大价值动作。
+
+---
+
+### DQN 核心思想：神经网络估计，使用经验回放和双网络解决局限
+
+通过深度神经网络：
+
+$$
+Q(s,a;\theta)
+$$
+
+代替传统 Q 表，实现大规模状态空间下的强化学习。
+
+
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/799fef94abc84aa099a290cd5d5dc62a.png)
+
+
+# 策略梯度方法
+
+为便于统一记号，下面将状态记为向量 $\mathbf{s}_t\in\mathbb{R}^{d_s}$，动作记为向量 $\mathbf{a}_t\in\mathbb{R}^{d_a}$，奖励 $r_t\in\mathbb{R}$ 为标量，轨迹记为 $\tau$。这只是在上下文中统一符号，公式结构保持原笔记含义不变。
+
+## ⭐策略梯度的目标函数：$J(\theta)=\mathbb{E}_{\tau\sim p_\theta(\tau)}[G_0]$
+
+目标是让任意轨迹 $\tau\sim p_\theta(\tau)$ 下的累计回报期望尽量大。原笔记中将它写成策略梯度的优化目标。
+
+$$\begin{align}
+J(\theta)=\mathbb{E}_{\tau\sim p_\theta(\tau)}[G_0],\qquad G_0=\sum_{t=0}^{T-1}\gamma^t r_{t+1}
+\end{align}$$
+
+其中，$\theta$ 是策略参数，$p_\theta(\tau)$ 是由策略 $\pi_\theta$ 诱导出的轨迹分布，$G_0$ 是从初始时刻开始的折扣累计回报，$\gamma\in(0,1]$ 是折扣因子。
+
+## ⭐⭐⭐策略梯度定理：目标函数的导数等于logprob的`期望`$\frac{\partial J(\theta)}{\partial\theta}=\mathbb{E}_{\tau\sim p_\theta(\tau)}\left[\sum_{t=0}^{T}\frac{\partial\log\pi_\theta(\mathbf{a}_t|\mathbf{s}_t)}{\partial\theta}\gamma^t G_t\right]$
+
+策略梯度定理的核心是把梯度导数改写成关于轨迹分布的期望形式，便于后续做采样估计。
+
+$$\begin{align}
+\frac{\partial J(\theta)}{\partial\theta}
+&=\frac{\partial}{\partial\theta}\int p_\theta(\tau)G_0\,d\tau\\
+&=\int \frac{1}{p_\theta(\tau)}p_\theta(\tau)\frac{\partial p_\theta(\tau)}{\partial\theta}G_0\,d\tau\\
+&=\int p_\theta(\tau)\frac{\partial\log p_\theta(\tau)}{\partial\theta}G_0\,d\tau\\
+&=\mathbb{E}_{\tau\sim p_\theta(\tau)}\left[\frac{\partial\log p_\theta(\tau)}{\partial\theta}G_0\right]
+\end{align}$$
+
+其中，$\log p_\theta(\tau)$ 的梯度来自对数导数技巧，最后一行把积分改写成了对轨迹分布的期望。
+
+轨迹分布可分解为初始状态分布、策略分布和环境转移分布的乘积。
+
+$$\begin{align}
+p_\theta(\tau)=p(\mathbf{s}_0)\prod_{t=0}^{T-1}\pi_\theta(\mathbf{a}_t|\mathbf{s}_t)p(\mathbf{s}_{t+1}|\mathbf{s}_t,\mathbf{a}_t)
+\end{align}$$
+
+其中，$p(\mathbf{s}_0)$ 是初始状态分布，$\pi_\theta(\mathbf{a}_t|\mathbf{s}_t)$ 是策略，$p(\mathbf{s}_{t+1}|\mathbf{s}_t,\mathbf{a}_t)$ 是环境转移概率。
+
+继续展开后，可以把与环境无关的部分单独保留为策略项。
+
+$$\begin{align}
+\frac{\partial J(\theta)}{\partial\theta}
+&=\mathbb{E}_{\tau\sim p_\theta(\tau)}\left[\frac{\partial}{\partial\theta}\left(\log p(\mathbf{s}_0)+\sum_{t=0}^{T-1}\log\pi_\theta(\mathbf{a}_t|\mathbf{s}_t)+\sum_{t=0}^{T-1}\log p(\mathbf{s}_{t+1}|\mathbf{s}_t,\mathbf{a}_t)\right)G_0\right]\\
+&=\mathbb{E}_{\tau\sim p_\theta(\tau)}\left[\frac{\partial}{\partial\theta}\left(\sum_{t=0}^{T-1}\log\pi_\theta(\mathbf{a}_t|\mathbf{s}_t)\right)G_0\right]
+\end{align}$$
+
+其中，$\log p(\mathbf{s}_0)$ 和 $\log p(\mathbf{s}_{t+1}|\mathbf{s}_t,\mathbf{a}_t)$ 不依赖于 $\theta$，因此求导后消失。
+
+原笔记进一步把每个时刻的权重改写成与当前时刻之后奖励相关的形式。
+
+$$\begin{align}
+\frac{\partial J(\theta)}{\partial\theta}
+=\mathbb{E}_{\tau\sim p_\theta(\tau)}\left[\sum_{t=0}^{T-1}\frac{\partial\log\pi_\theta(\mathbf{a}_t|\mathbf{s}_t)}{\partial\theta}\gamma^t G_t\right]
+\end{align}$$
+
+其中，$G_t$ 表示从时刻 $t$ 开始的折扣回报；这一步的直观含义是，时刻 $t$ 的动作只需要对它之后的奖励负责。
+
+> **重点**
+>
+> **更合理的权重只与当前时刻之后的奖励有关。**
+
+## REINFORCE算法：随机采样轨迹来估计策略梯度
+
+Reinforce 是最直接的策略梯度方法。它先采样完整轨迹，再把轨迹上的回报作为梯度估计的权重。
+
+$$\begin{align}
+\tau=(\mathbf{s}_0,\mathbf{a}_0,\mathbf{s}_1,r_1,\ldots,\mathbf{s}_{T-1},\mathbf{a}_{T-1},\mathbf{s}_T)
+\end{align}$$
+
+其中，$\tau$ 是一条完整轨迹，包含状态、动作与中间奖励。
+
+$$\begin{align}
+G_t=\sum_{t'=t}^{T-1}\gamma^{t'-t}r_{t'+1}
+\end{align}$$
+
+其中，$G_t$ 是从时刻 $t$ 开始向后的折扣累计回报，$t'$ 是求和用的时间下标。
+
+$$\begin{align}
+\frac{\partial J(\theta)}{\partial\theta}
+=\mathbb{E}_{\tau\sim p_\theta(\tau)}\left[\sum_{t=0}^{T-1}\frac{\partial\log\pi_\theta(\mathbf{a}_t|\mathbf{s}_t)}{\partial\theta}\gamma^t G_t\right]
+\approx \sum_{t=0}^{T-1}\frac{\partial\log\pi_\theta(\mathbf{a}_t|\mathbf{s}_t)}{\partial\theta}\gamma^t G_t
+\end{align}$$
+
+其中，右侧最后一项是用单条采样轨迹得到的随机梯度近似。
+
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/74724b0cb20845b6aca920e20cafd6b4.png)
+
+$$\begin{align}
+\theta\Leftarrow\theta+\alpha\frac{\partial J(\theta)}{\partial\theta}
+\end{align}$$
+
+其中，$\alpha$ 是策略参数的学习率。
+
+> **重点**
+>
+> <span style="color:red">Reinforce 的梯度估计高方差。</span>
+
+## 带基线的 REINFORCE：低方差版本
+
+原笔记在 Reinforce 上引入了状态价值基线 $V_\phi(\mathbf{s}_t)$，用它减小方差。
+
+$$\begin{align}
+G_t\Leftarrow G_t-V_\phi(\mathbf{s}_t)
+\end{align}$$
+
+其中，$V_\phi(\mathbf{s}_t)$ 是由参数 $\phi$ 表示的状态价值函数。
+
+先更新价值网络，使它逼近回报。
+
+$$\begin{align}
+L_\phi(\mathbf{s}_t,\pi_\theta)=\left(G_t-V_\phi(\mathbf{s}_t)\right)^2
+\end{align}$$
+
+其中，$L_\phi$ 是价值函数的回归损失，目标是让 $V_\phi(\mathbf{s}_t)$ 贴近采样回报 $G_t$。
+
+再用去基线后的回报更新策略。
+
+$$\begin{align}
+\frac{\partial J(\theta)}{\partial\theta}
+\approx \sum_{t=0}^{T-1}\frac{\partial\log\pi_\theta(\mathbf{a}_t|\mathbf{s}_t)}{\partial\theta}\gamma^t\left(G_t-V_\phi(\mathbf{s}_t)\right)
+\end{align}$$
+
+其中，$G_t-V_\phi(\mathbf{s}_t)$ 可以理解为一个更稳定的优势估计。
+
+
+
+### REINFORCE缺点：不能实时计算，`策略梯度的方差大`，训练不稳定
+
+> **重点**
+>
+> **不能实时计算。** 这里仍然需要完整轨迹上的 $G_t$，所以更新方式依旧偏离线。
+
+> **笔记中的结论**
+>
+> 轨迹样本集合 $\{\tau^{(n)}\}_{n=1}^N$ 的方差较大，训练容易不稳定，因此引入基线来减小梯度方差。
+
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/bbc52fbabe294465909726f62ee95d4b.png)
+
+
+## 引入基线的原因：策略梯度在期望条件下等价，但方差大幅度下降
+
+原笔记把基线写成一个不改变期望、但尽量减小方差的函数 $b(\mathbf{s}_t)$。
+
+$$\begin{align}
+\mathbb{E}\left[\sum_{t=0}^{T-1}\frac{\partial\log\pi_\theta(\mathbf{a}_t|\mathbf{s}_t)}{\partial\theta}\gamma^t G_t\right]
+=\mathbb{E}\left[\sum_{t=0}^{T-1}\frac{\partial\log\pi_\theta(\mathbf{a}_t|\mathbf{s}_t)}{\partial\theta}\gamma^t\left(G_t-b(\mathbf{s}_t)\right)\right]
+\end{align}$$
+
+其中，$b(\mathbf{s}_t)$ 只依赖状态，不依赖动作，因此在合适条件下不会改变梯度期望。
+
+$$\begin{align}
+\min \operatorname{Var}_{\tau\sim p_\theta(\tau)}\left[\sum_{t=0}^{T-1}\frac{\partial\log\pi_\theta(\mathbf{a}_t|\mathbf{s}_t)}{\partial\theta}\gamma^t\left(G_t-b(\mathbf{s}_t)\right)\right]
+\end{align}$$
+
+其中，目标是在保持无偏的同时，让梯度估计的方差尽量小。
+
+$$\begin{align}
+A^\pi(\mathbf{s}_t,\mathbf{a}_t)=G_t-b(\mathbf{s}_t)
+\end{align}$$
+
+其中，$A^\pi(\mathbf{s}_t,\mathbf{a}_t)$ 是优势函数，用来衡量动作相对基线的好坏。
+
+> **重点**
+>
+> **梯度方差更小，但期望不变。**
+
+## Actor-Critic：引入价值模型来估计优势函数，可以实时计算
+
+Actor-Critic 的想法是实时地用 Critic 估计优势，再由 Actor 更新策略。原笔记把它写成“即时梯度”形式。
+
+$$\begin{align}
+(\mathbf{s}_t,\mathbf{a}_t,\mathbf{s}_{t+1},r_{t+1})
+\end{align}$$
+
+其中，这个四元组是一次在线交互得到的局部样本。
+
+Actor 使用 TD 误差替代完整回报。
+
+$$\begin{align}
+\frac{\partial J(\theta)}{\partial\theta}
+\approx \frac{\partial}{\partial\theta}\left[\log\pi_\theta(\mathbf{a}_t|\mathbf{s}_t)\gamma^t\left(V_\phi(\mathbf{s}_{t+1})+r_{t+1}-V_\phi(\mathbf{s}_t)\right)\right]
+\end{align}$$
+
+其中，$V_\phi(\mathbf{s}_{t+1})+r_{t+1}-V_\phi(\mathbf{s}_t)$ 是一步 TD 误差，也可看成优势估计。
+
+$$\begin{align}
+\theta\Leftarrow\theta+\alpha\frac{\partial J(\theta)}{\partial\theta}
+\end{align}$$
+
+其中，$\alpha$ 是 Actor 的学习率。
+
+Critic 则拟合 TD 目标。
+
+$$\begin{align}
+L_\phi(\mathbf{s}_{t+1},\mathbf{s}_t)=\left\|r_{t+1}+\gamma V_\phi(\mathbf{s}_{t+1})-V_\phi(\mathbf{s}_t)\right\|_2
+\end{align}$$
+
+其中，$L_\phi$ 是 Critic 的损失，原笔记按 $\ell_2$ 范数形式记录了 TD 误差。
+
+$$\begin{align}
+\phi\Leftarrow\phi+\beta\frac{\partial L_\phi}{\partial\phi}
+\end{align}$$
+
+其中，$\beta$ 是 Critic 的学习率；这里更新方向保持原笔记记法不变。
+
+此时，优势函数可写成如下形式。
+
+$$\begin{align}
+A^\pi(\mathbf{s}_t,\mathbf{a}_t)=V_\phi(\mathbf{s}_{t+1})+r_{t+1}-V_\phi(\mathbf{s}_t)=Q_\phi(\mathbf{s}_t,\mathbf{a}_t)-V_\phi(\mathbf{s}_t)
+\end{align}$$
+
+其中，$Q_\phi(\mathbf{s}_t,\mathbf{a}_t)$ 表示动作价值，$V_\phi(\mathbf{s}_t)$ 表示状态价值。
+
+> **重点**
+>
+> **这里没有显式的 $G_t$，说明方法可以做实时更新。**
+
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/422383efdd454a59a9b1b1d8e69c9bb6.png)
+
+### 特点：实时估计，梯度方差更小
+## 三种策略梯度形式的对比
+
+为了和原笔记右页总结对应，这里把三种常见形式并列整理一下。
+
+$$\begin{align}
+\frac{\partial J_{\mathrm{Reinforce}}(\theta)}{\partial\theta}
+\approx \sum_{t=0}^{T-1}\frac{\partial\log\pi_\theta(\mathbf{a}_t|\mathbf{s}_t)}{\partial\theta}\gamma^t G_t
+\end{align}$$
+
+其中，Reinforce 直接使用采样回报 $G_t$，实现简单，但 <span style="color:red">方差较高</span>。
+
+$$\begin{align}
+\frac{\partial J_{\mathrm{Baseline}}(\theta)}{\partial\theta}
+\approx \sum_{t=0}^{T-1}\frac{\partial\log\pi_\theta(\mathbf{a}_t|\mathbf{s}_t)}{\partial\theta}\gamma^t\left(G_t-V_\phi(\mathbf{s}_t)\right)
+\end{align}$$
+
+其中，带基线的 Reinforce 用 $V_\phi(\mathbf{s}_t)$ 降低方差，期望保持不变。
+
+$$\begin{align}
+\frac{\partial J_{\mathrm{A2C}}(\theta)}{\partial\theta}
+\approx \frac{\partial}{\partial\theta}\left[\log\pi_\theta(\mathbf{a}_t|\mathbf{s}_t)\left(V_\phi(\mathbf{s}_{t+1})+r_{t+1}-V_\phi(\mathbf{s}_t)\right)\gamma^t\right]
+\end{align}$$
+
+其中，A2C 用 TD 误差近似优势，能够继续用于 PPO 等后续方法。
+
+## 信赖域优化：近似On-policy
+### ⭐动机：样本利用差；重复利用样本时由于新旧模型差异，原来的优势估计失效
+
+原笔记指出，普通策略梯度还存在更新幅度和样本利用率方面的问题。
+
+- 更新步子可能过大，容易越界。
+- 当前样本的更新时效较短，常常“即用即弃”。
+- 缺少显式约束。
+
+### ⭐重要性采样：如何利用旧策略采样得到的数据
+
+为复用旧样本，可以把新策略下的期望转成旧策略分布下的期望。
+
+$$\begin{align}
+\mathbb{E}_{\tau\sim P_{\pi_\theta}(\tau)}\left[A_t^{\pi}(\mathbf{s},\mathbf{a})\right]
+=\mathbb{E}_{\tau\sim P_{\pi_{\theta_{\mathrm{old}}}}(\tau)}\left[\frac{\pi_\theta(\mathbf{a}|\mathbf{s})}{\pi_{\theta_{\mathrm{old}}}(\mathbf{a}|\mathbf{s})}A_t^{\pi_{\mathrm{old}}}(\mathbf{s},\mathbf{a})\right]
+\end{align}$$
+
+其中，$P_{\pi_\theta}(\tau)$ 和 $P_{\pi_{\theta_{\mathrm{old}}}}(\tau)$ 分别是新旧策略诱导的轨迹分布。
+
+$$\begin{align}
+\rho(\theta)=\frac{\pi_\theta(\mathbf{a}|\mathbf{s})}{\pi_{\theta_{\mathrm{old}}}(\mathbf{a}|\mathbf{s})}
+\end{align}$$
+
+其中，$\rho(\theta)$ 是重要性因子，也就是原笔记里的“重要性因子”。
+
+
+### 使用旧策略，定义代理目标：$L(\theta)=\mathbb{E}_{\tau\sim P_{\pi_{\theta_{\mathrm{old}}}}(\tau)}\left[\rho(\theta)A_t^{\pi_{\mathrm{old}}}\right]$
+
+于是可以定义代理目标。
+
+$$\begin{align}
+L(\theta)=\mathbb{E}_{\tau\sim P_{\pi_{\theta_{\mathrm{old}}}}(\tau)}\left[\rho(\theta)A_t^{\pi_{\mathrm{old}}}\right]
+\end{align}$$
+
+其中，$A_t^{\pi_{\mathrm{old}}}$ 是在旧策略下估计出的优势。
+### 证明代理目标的梯度与原目标近似：`新旧策略在同一个信赖域中，方向仍然相同`
+
+其梯度可按原笔记推成如下形式。
+
+$$\begin{align}
+\frac{\partial L(\theta)}{\partial\theta}
+&=\frac{\partial}{\partial\theta}\int P_{\pi_{\theta_{\mathrm{old}}}}(\tau)\rho(\theta)A_t^{\pi_{\mathrm{old}}}\,d\tau\\
+&=\int P_{\pi_{\theta_{\mathrm{old}}}}(\tau)\frac{\partial\pi_\theta(\mathbf{a}|\mathbf{s})}{\partial\theta}\frac{1}{\pi_{\theta_{\mathrm{old}}}(\mathbf{a}|\mathbf{s})}A_t^{\pi_{\mathrm{old}}}\,d\tau\\
+&=\int P_{\pi_{\theta_{\mathrm{old}}}}(\tau)\frac{\pi_\theta(\mathbf{a}|\mathbf{s})}{\pi_{\theta_{\mathrm{old}}}(\mathbf{a}|\mathbf{s})}\frac{\partial\log\pi_\theta(\mathbf{a}|\mathbf{s})}{\partial\theta}A_t^{\pi_{\mathrm{old}}}\,d\tau\\
+&=\mathbb{E}_{\tau\sim P_{\pi_{\theta_{\mathrm{old}}}}(\tau)}\left[\rho(\theta)\frac{\partial\log\pi_\theta(\mathbf{a}|\mathbf{s})}{\partial\theta}A_t^{\pi_{\mathrm{old}}}\right]
+\end{align}$$
+
+其中，这个式子说明优化方向与策略梯度形式相近，但采样分布已经切换为旧策略。
+
+> **重点**
+>
+> **旧轨迹可以复用，方向也与原始策略梯度保持接近。**
+
+## ⭐PPO：经过裁剪约束信赖域，确保使用旧数据更新当前模型时，方向仍然合适
+
+PPO 先从重要性采样的代理目标出发，再加上裁剪约束近似信赖域。
+
+$$\begin{align}
+L(\theta)=\mathbb{E}_{\tau\sim \pi_{\theta_{\mathrm{old}}}}\left[\rho(\theta)A_t^{\pi_{\mathrm{old}}}(\mathbf{s},\mathbf{a})\right]
+\end{align}$$
+
+其中，$\rho(\theta)$ 若不加约束，就不能保证满足信赖域条件。
+
+> **重点**
+>
+> 若 $\rho(\theta)$ 不受约束，则 $\frac{\partial L(\theta)}{\partial\theta}\approx\frac{\partial J(\theta)}{\partial\theta}$ 的条件近似并不可靠。
+
+PPO 的裁剪目标按原笔记写为：
+
+$$\begin{align}
+L_{\mathrm{PPO}}(\theta)=\mathbb{E}_{\tau\sim \pi_{\theta_{\mathrm{old}}}}\left[\min\left(\rho(\theta)A_t^{\pi_{\mathrm{old}}}(\mathbf{s},\mathbf{a}),\operatorname{clip}\left(\rho(\theta),1-\xi,1+\xi\right)A_t^{\pi_{\mathrm{old}}}(\mathbf{s},\mathbf{a})\right)\right]
+\end{align}$$
+
+其中，$\xi$ 是裁剪半径，$\operatorname{clip}(\cdot)$ 把重要性因子限制在固定区间内。
+
+$$\begin{align}
+\rho(\theta)\in[1-\xi,1+\xi]
+\end{align}$$
+
+其中，这个区间就是 PPO 对更新幅度施加的软约束。
+
+$$\begin{align}
+A_t^{\pi_{\mathrm{old}}}(\mathbf{s},\mathbf{a})\Leftarrow \mathrm{GAE}
+\end{align}$$
+
+其中，原笔记写到优势通常由 GAE 估计，这里仅保留“由 GAE 估计”的结论。
+
+PPO 的直观意义可以概括为两点：一是 $\frac{\partial L(\theta)}{\partial\theta}\approx\frac{\partial J(\theta)}{\partial\theta}$；二是旧轨迹 $\tau\sim\pi_{\theta_{\mathrm{old}}}$ 和对应的优势估计都可以复用。
+
+## GRPO：组内相对优势替换旧策略的优势函数
+
+原笔记最后写到，GRPO 仍沿用 PPO 的裁剪形式，只是把优势换成“组内相对优势”。
+
+$$\begin{align}
+L_{\mathrm{GRPO}}(\theta)=\mathbb{E}_{\tau\sim \pi_{\theta_{\mathrm{old}}}}\left[\min\left(\rho(\theta)A_t,\operatorname{clip}\left(\rho(\theta),1-\xi,1+\xi\right)A_t\right)\right]
+\end{align}$$
+
+其中，$A_t$ 在这里不再是普通优势，而是组内相对优势。
+
+$$\begin{align}
+A_t=\frac{x-\mu}{\sigma}
+\end{align}$$
+
+其中，$x$ 是当前样本的分数或回报，$\mu$ 是组内均值，$\sigma$ 是组内标准差，因此这个式子描述的是标准化后的相对优势。
+
+

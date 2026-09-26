@@ -1,0 +1,562 @@
+﻿
+# 搜索问题
+搜索问题本质也是暴力枚举，**一般想到暴力也要想到利用回溯枚举**。
+## 排序和组合问题
++ ### 回溯法
++ ### 去重问题：定义全局变量`visited`还是局部变量`visited`实现去重？
+## 回溯问题
+## 图论中的搜索问题
++ 与一般的搜索问题一致，**只不过要多定义方向**
+# DFS和BFS的分析
+>有些问题**需要转换**，不能直接使用DFS和BFS来处理
+## DFS
++ ### DFS适合搜索<u>所有路径<u>，时间复杂度为$O(n^m)$,效率非常低
++ ### 只适合10~20这个数量级的方法
+## BFS
++ ### BFS适合搜索<u>最短路径<u>,时间效率与边长和顶点数有关
++ ### 一般适用于大多数搜索方法的数量级
++ ### BFS也可以用于搜索所有路径，但是代码比较难写!
+<br><br><br><br><br><br><br><br><br><br><br><br>
+# P1219 [USACO1.5] 八皇后 Checker Challenge
+
+## 题目描述
+
+一个如下的 $6 \times 6$ 的跳棋棋盘，有六个棋子被放置在棋盘上，使得每行、每列有且只有一个，每条对角线（包括两条主对角线的所有平行线）上至多有一个棋子。
+
+![](https://i-blog.csdnimg.cn/img_convert/15ad5e1a78290c4f4cd3569e3f086507.png)
+
+上面的布局可以用序列 $2\ 4\ 6\ 1\ 3\ 5$ 来描述，第 $i$ 个数字表示在第 $i$ 行的相应位置有一个棋子，如下：
+
+行号 $1\ 2\ 3\ 4\ 5\ 6$
+
+列号 $2\ 4\ 6\ 1\ 3\ 5$
+
+这只是棋子放置的一个解。请编一个程序找出所有棋子放置的解。  
+并把它们以上面的序列方法输出，解按字典顺序排列。  
+请输出前 $3$ 个解。最后一行是解的总个数。
+
+## 输入格式
+
+一行一个正整数 $n$，表示棋盘是 $n \times n$ 大小的。
+
+## 输出格式
+
+前三行为前三个解，每个解的两个数字之间用一个空格隔开。第四行只有一个数字，表示解的总数。
+
+## 输入输出样例 #1
+
+### 输入 #1
+
+```
+6
+```
+
+### 输出 #1
+
+```
+2 4 6 1 3 5
+3 6 2 5 1 4
+4 1 5 2 6 3
+4
+```
+
+## 说明/提示
+
+【数据范围】  
+对于 $100\%$ 的数据，$6 \le n \le 13$。
+
+题目翻译来自NOCOW。
+
+USACO Training Section 1.5
+```cpp
+#define MAX_SIZE 1000009
+using ll = long long;
+using namespace std;
+int n,ans=0;
+vector<vector<int>>graph(20,vector<int>(20,0));
+vector<int>temp;
+bool isvalid(int h,int w) {
+
+	for (int i = 1; i <= n; i++) {
+		if (graph[i][w]) {
+			return false;
+		}
+	}
+
+	//bottom
+	int bottom_upper = min(n - h, n - w);//h=2,w=1
+	int bottom_lower = min(h - 1, w - 1);
+	for (int i = 1; i<= bottom_upper; i++) {
+		if (graph[h + i][w + i]) {
+			return false;
+		}
+	}
+	for (int i = 1; i <= bottom_lower; i++) {
+		if (graph[h - i][w - i]) {
+			return false;
+		}
+	}
+
+	//top
+	int top_upper = min(h - 1, n - w);
+	int top_lower = min(w - 1, n - h);
+	for (int i = 1; i <= top_upper;i++) {
+		if (graph[h - i][w + i]) {
+			return false;
+		}
+	}
+	for (int i = 1; i <= top_lower; i++) {
+		if (graph[h + i][w - i]) {
+			return false;
+		}
+	}
+
+	return true;
+
+
+}
+
+void dfs(int depth) {
+	if (depth > n) {
+		if (ans < 3) {
+			for (auto item : temp) {
+				cout << item << " ";
+			}
+			cout << endl;
+		}
+		ans++;
+		return;
+	}
+	for (int i = 1; i <= n; i++) {
+		if (isvalid(depth, i)) {
+			temp.push_back(i);
+			graph[depth][i] = 1;
+			
+			dfs(depth + 1);
+
+			graph[depth][i] = 0;
+			temp.pop_back();
+		}
+	}
+}
+void solve() {
+
+	cin >> n;
+	dfs(1);
+	cout << ans;
+}
+signed main() {
+	std::ios::sync_with_stdio(false);
+	std::cin.tie(0);
+	std::cout.tie(0);
+	solve();
+}
+```
+# P1443 马的遍历
+
+## 题目描述
+
+有一个 $n \times m$ 的棋盘，在某个点 $(x, y)$ 上有一个马，要求你计算出马到达棋盘上任意一个点最少要走几步。
+
+## 输入格式
+
+输入只有一行四个整数，分别为 $n, m, x, y$。
+
+## 输出格式
+
+一个 $n \times m$ 的矩阵，代表马到达某个点最少要走几步（不能到达则输出 $-1$）。
+
+## 输入输出样例 #1
+
+### 输入 #1
+
+```
+3 3 1 1
+```
+
+### 输出 #1
+
+```
+0    3    2    
+3    -1   1    
+2    1    4
+```
+
+## 说明/提示
+
+### 数据规模与约定
+
+对于全部的测试点，保证 $1 \leq x \leq n \leq 400$，$1 \leq y \leq m \leq 400$。
+# DFS
++ 优点：**它会探索所有的路径**
++ 缺点：**效率比较低**
++ 一般搜索使用BFS比较多
+```cpp
+# include<bits/stdc++.h>
+#define MAX_VALUE 1000009
+using ll = long long;
+using namespace std;
+
+int n, m, x, y;
+
+int dir[8][2] = { 2,1, 1,2, -1,2, -2,1, -1,-2, -2,-1, 1,-2,2,-1 };
+
+vector<vector<bool>>visited(500, vector<bool>(500, 0));
+vector<vector<int>>graph(500, vector<int>(500, MAX_VALUE));
+
+void dfs(int x, int y,int dist) {
+	//cout << "x==" << x << " y==" << y << endl;
+	graph[x][y] = min(graph[x][y], dist);
+	for (int i = 0; i < 8; i++) {
+		int next_x = x + dir[i][0];
+		int next_y = y + dir[i][1];
+
+		if (next_x>=1 && next_x<=n && next_y>=1 && next_y<=m && !visited[next_x][next_y]) {
+			visited[next_x][next_y] = true;
+			dfs(next_x, next_y,dist+1);
+			visited[next_x][next_y] = false;
+		}	
+	}
+
+}
+void solve() {
+	cin >> n >> m >> x >> y;
+	dfs(x,y,0);
+
+	for (int i = 1; i <= n; i++) {
+		for (int j = 1; j <= m; j++) {
+			if (graph[i][j] == MAX_VALUE) {
+				cout << -1 << "   ";
+			}
+			else {
+				cout << graph[i][j] << "    ";
+			}
+		}
+		cout << endl;
+	}
+}
+signed main() {
+	std::ios::sync_with_stdio(false);
+	std::cin.tie(0);
+	std::cout.tie(0);
+	solve();
+}
+```
+# BFS
++ BFS：**搜索效率比较高**
++ 缺点：**没有探索全部路径**
++ 如果需要探索全部路径，需要在`point`结构体数组中保留`visited`作为局部变量
+```cpp
+# include<bits/stdc++.h>
+#define MAX_VALUE 1000009
+using ll = long long;
+using namespace std;
+
+int n, m, x, y;
+
+int dir[8][2] = { 2,1, 1,2, -1,2, -2,1, -1,-2, -2,-1, 1,-2,2,-1 };
+vector<vector<int>>graph(500, vector<int>(500, MAX_VALUE));
+vector<vector<bool>>visited(500,vector<bool>(500,false));
+typedef struct point {
+	int x, y,dist;
+	point(int a, int b,int c) :x(a), y(b),dist(c) {};
+}point;
+queue<point>q;
+void bfs() {
+	q.push(point(x, y,0));
+	while (!q.empty()) {
+		point cur = q.front();
+		graph[cur.x][cur.y] = min(cur.dist, graph[cur.x][cur.y]);
+		q.pop();
+
+		for (int i = 0; i < 8; i++) {
+			int next_x = cur.x + dir[i][0];
+			int next_y = cur.y + dir[i][1];
+
+			if (next_x >= 1 && next_x <= n && next_y >= 1 && next_y <= m
+				&& !visited[next_x][next_y]) {
+				point p(next_x, next_y,cur.dist+1);
+				visited[next_x][next_y] = true;
+				q.push(p);
+			}
+			
+		}
+	}
+}
+void solve() {
+	cin >> n >> m >> x >> y;
+	bfs();
+	for (int i = 1; i <= n; i++) {
+		for (int j = 1; j <= m; j++) {
+			if (graph[i][j] == MAX_VALUE) {
+				cout << -1 << "   ";
+			}
+			else {
+				cout << graph[i][j] << "    ";
+			}
+		}
+		cout << endl;
+	}
+}
+signed main() {
+	std::ios::sync_with_stdio(false);
+	std::cin.tie(0);
+	std::cout.tie(0);
+	solve();
+}
+```
+# P1135 奇怪的电梯
+
+## 题目背景
+
+感谢 @[yummy](https://www.luogu.com.cn/user/101694) 提供的一些数据。
+
+## 题目描述
+
+呵呵，有一天我做了一个梦，梦见了一种很奇怪的电梯。大楼的每一层楼都可以停电梯，而且第 $i$ 层楼（$1 \le i \le N$）上有一个数字 $K_i$（$0 \le K_i \le N$）。电梯只有四个按钮：开，关，上，下。上下的层数等于当前楼层上的那个数字。当然，如果不能满足要求，相应的按钮就会失灵。例如： $3, 3, 1, 2, 5$ 代表了 $K_i$（$K_1=3$，$K_2=3$，……），从 $1$ 楼开始。在 $1$ 楼，按“上”可以到 $4$ 楼，按“下”是不起作用的，因为没有 $-2$ 楼。那么，从 $A$ 楼到 $B$ 楼至少要按几次按钮呢？
+
+## 输入格式
+
+共二行。  
+
+第一行为三个用空格隔开的正整数，表示 $N, A, B$（$1 \le N \le 200$，$1 \le A, B \le N$）。
+
+第二行为 $N$ 个用空格隔开的非负整数，表示 $K_i$。
+
+## 输出格式
+
+一行，即最少按键次数，若无法到达，则输出 `-1`。
+
+## 输入输出样例 #1
+
+### 输入 #1
+
+```
+5 1 5
+3 3 1 2 5
+```
+
+### 输出 #1
+
+```
+3
+```
+
+## 说明/提示
+
+对于 $100 \%$ 的数据，$1 \le N \le 200$，$1 \le A, B \le N$，$0 \le K_i \le N$。
+
+本题共 $16$ 个测试点，前 $15$ 个每个测试点 $6$ 分，最后一个测试点 $10$ 分。
+
+# DFS
+```cpp
+#include <bits/stdc++.h>
+#define MAX_VALUE 1000009
+using ll = long long;
+using namespace std;
+int n, a, b,ans=MAX_VALUE;
+vector<int>v(209,0);
+vector<bool>visited(209, false);
+void dfs(int st,int step=0) {
+	
+	//cout << "st==" << st << endl;
+	if (st == b) {
+		ans = min(ans, step);
+		return;
+	}
+	if (st + v[st] <= n && !visited[st+v[st]]) {
+		visited[st + v[st]] = true;
+		dfs(st + v[st], step + 1);
+		visited[st + v[st]] = false;
+	}
+
+	if (st -v[st] >= 1  && !visited[st - v[st]]) {
+		visited[st - v[st]] = true;
+		dfs(st - v[st], step + 1);
+		visited[st - v[st]] = false;
+	}
+
+}
+void solve() {
+	cin >> n >> a>>b;
+	for (int i = 1; i <= n; i++) {
+		cin >> v[i];
+	}
+	dfs(a);
+	cout << (ans==MAX_VALUE?-1:ans);
+}
+signed main() {
+	std::ios::sync_with_stdio(false);
+	std::cin.tie(0);
+	std::cout.tie(0);
+	solve();
+}
+```
+# BFS
+
+```cpp
+#include <bits/stdc++.h>
+#define MAX_VALUE 1000009
+using ll = long long;
+using namespace std;
+int n, a, b,ans=MAX_VALUE;
+vector<int>v(209, 0);
+vector<bool>visited(209, false);
+
+typedef struct node {
+	int fr, step;
+	node(int x, int y) :fr(x), step(y) {};
+}node;
+
+queue<node>q;
+void bfs(int st) {
+	q.push(node(st, 0));
+	while (!q.empty()) {
+		node cur=q.front();
+		q.pop();
+		//终止条件
+		if (cur.fr == b) {
+			ans = min(ans, cur.step);
+		}
+
+		if (cur.fr + v[cur.fr] <= n && !visited[cur.fr + v[cur.fr]]) {
+			q.push(node(cur.fr + v[cur.fr], cur.step + 1));
+			visited[cur.fr + v[cur.fr]] = true;
+		}
+		if (cur.fr - v[cur.fr] >= 1 && !visited[cur.fr - v[cur.fr]]) {
+			q.push(node(cur.fr - v[cur.fr], cur.step + 1));
+			visited[cur.fr - v[cur.fr]] = true;
+		}
+	}
+
+}
+void solve() {
+	cin >> n >> a>>b;
+	for (int i = 1; i <= n; i++) {
+		cin >> v[i];
+	}
+	bfs(a);
+	cout << (ans==MAX_VALUE?-1:ans);
+}
+signed main() {
+	std::ios::sync_with_stdio(false);
+	std::cin.tie(0);
+	std::cout.tie(0);
+	solve();
+}
+```
+# P2895 [USACO08FEB] Meteor Shower S
+
+## 题目描述
+
+贝茜听说一场特别的流星雨即将到来：这些流星会撞向地球，并摧毁它们所撞击的任何东西。她为自己的安全感到焦虑，发誓要找到一个安全的地方（一个永远不会被流星摧毁的地方）。
+
+如果将牧场放入一个直角坐标系中，贝茜现在的位置是原点，并且，贝茜不能踏上一块被流星砸过的土地。
+
+根据预报，一共有 $M$ 颗流星 $(1\leq M\leq 50,000)$ 会坠落在农场上，其中第 $i$ 颗流星会在时刻 $T_i$（$0 \leq T _ i \leq 1000$）砸在坐标为 $(X_i,Y_i)(0\leq X_i\leq 300$，$0\leq Y_i\leq 300)$ 的格子里。流星的力量会将它所在的格子，以及周围 $4$ 个相邻的格子都化为焦土，当然贝茜也无法再在这些格子上行走。
+
+贝茜在时刻 $0$ 开始行动，她只能在会在横纵坐标 $X,Y\ge 0$ 的区域中，平行于坐标轴行动，每 $1$ 个时刻中，她能移动到相邻的（一般是 $4$ 个）格子中的任意一个，当然目标格子要没有被烧焦才行。如果一个格子在时刻 $t$ 被流星撞击或烧焦，那么贝茜只能在 $t$ 之前的时刻在这个格子里出现。 贝茜一开始在 $(0,0)$。
+
+请你计算一下，贝茜最少需要多少时间才能到达一个安全的格子。如果不可能到达输出 $−1$。
+
+## 输入格式
+
+共 $M+1$ 行，第 $1$ 行输入一个整数 $M$，接下来的 $M$ 行每行输入三个整数分别为 $X_i, Y_i, T_i$。
+
+## 输出格式
+
+贝茜到达安全地点所需的最短时间，如果不可能，则为 $-1$。
+
+## 输入输出样例 #1
+
+### 输入 #1
+
+```
+4
+0 0 2
+2 1 2
+1 1 2
+0 3 5
+```
+
+### 输出 #1
+
+```
+5
+```
+# 解法
++ ## DFS过不了：数据级别超限制了
++ ## 要将问题转换一下，预先处理好，而不是直接模拟流星的行为，这点很重要！！！
+```cpp
+#include<bits/stdc++.h>
+#define MAX_VALUE 10000009
+using ll = long long;
+using namespace std;
+int m,x,y,t,ans=MAX_VALUE;
+int dir[4][2] = { 1,0,0,1,-1,0,0,-1 };
+vector<vector<int>>graph(309, vector<int>(309, MAX_VALUE));
+vector<vector<bool>>visited(309, vector<bool>(309, false));
+
+typedef struct point {
+	int x, y, step;
+	point(int a, int b, int c) :x(a), y(b), step(c) {};
+}point;
+queue<point>q;
+void bfs() {
+	q.push(point(0, 0, 0));
+	visited[0][0] = true;
+	while (!q.empty()) {
+		point cur = q.front();
+		q.pop();
+		if (graph[cur.x][cur.y]==MAX_VALUE||cur.x>301||cur.y>301){//301可能被砸
+			cout << cur.step;
+			return;
+			//return;//continue->return 
+		}
+		for (int i = 0; i < 4; i++) {
+			int next_x = cur.x + dir[i][0];
+			int next_y = cur.y + dir[i][1];
+			if (next_x >= 0 && next_y >= 0//可以大于300
+				&&cur.step+1<graph[next_x][next_y]&&!visited[next_x][next_y]
+				) {
+				q.push(point(next_x, next_y, cur.step + 1));
+				visited[next_x][next_y] = true;
+			}
+		}
+	}
+	cout << -1;
+
+}
+void solve() {
+	cin >> m;
+	while (m--) {
+		cin >> x >> y >> t;
+		//cout << x << " " << y << endl;
+		graph[x][y] = min(graph[x][y], t);
+		for (int i = 0; i < 4; i++) {
+			int next_x = x + dir[i][0];
+			int next_y = y + dir[i][1];
+			//cout << "next_x==" << next_x << " next_y==" << next_y << endl;
+			if (next_x >= 0 && next_x <= 300 && next_y >= 0 && next_y <= 300) {
+				graph[next_x][next_y] = min(graph[next_x][next_y], t);
+			}
+		}
+	}
+	bfs();
+	//cout << (ans==MAX_VALUE?-1:ans);
+	//for (int i = 0; i <= 5; i++) {
+	//	for (int j = 0; j <= 5; j++) {
+	//		cout <<setw(8)<< graph[i][j]<<" ";
+	//	}
+	//	cout << endl;
+	//}
+
+}
+signed main() {
+	std::ios::sync_with_stdio(false);
+	std::cin.tie(0);
+	std::cout.tie(0);
+	solve();
+}
+```
+

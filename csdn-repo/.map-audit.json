@@ -1,0 +1,54 @@
+{
+  "source": "csdn-repo/.migration-map.json",
+  "source_sha256": "ea316a0dd1dd36e4805b37e1fda51a3b85c17cb05d00fcd4a36dd439bfe4a022",
+  "generated_at": "2026-09-26T20:57:11.501248+08:00",
+  "record_count": 178,
+  "status": "passed",
+  "checks": {
+    "indices_are_exactly_1_through_178": true,
+    "indices_are_unique": true,
+    "article_ids_are_unique": true,
+    "urls_are_unique": true,
+    "url_article_ids_match": true,
+    "filenames_are_unique": true,
+    "filenames_match_ascii_lowercase_snake_case_md": true,
+    "category_prefixes_are_consistent": true
+  },
+  "category_prefixes": {
+    "算法与数据结构": [
+      "ds"
+    ],
+    "深度学习与计算机视觉": [
+      "cv"
+    ],
+    "大语言模型与强化学习": [
+      "llm",
+      "rl"
+    ],
+    "数学基础与数学建模": [
+      "math"
+    ],
+    "论文阅读与科研": [
+      "paper"
+    ],
+    "计算机系统与开发": [
+      "cs"
+    ],
+    "机器学习与数据分析": [
+      "ml"
+    ],
+    "编程语言与工具": [
+      "dev"
+    ],
+    "其他与学习计划": [
+      "misc"
+    ]
+  },
+  "filename_length": {
+    "average": 16.79,
+    "maximum": 29,
+    "warning_threshold": 30
+  },
+  "errors": [],
+  "warnings": []
+}

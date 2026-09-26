@@ -1,0 +1,92 @@
+﻿[原题地址(https://www.luogu.com.cn/problem/P1601)
+# A+B Problem（高精）
+
+## 题目描述
+
+高精度加法，相当于 a+b problem，**不用考虑负数**。
+
+## 输入格式
+
+分两行输入。$a,b \leq 10^{500}$。
+
+## 输出格式
+
+输出只有一行，代表 $a+b$ 的值。
+
+## 样例 #1
+
+### 样例输入 #1
+
+```
+1
+1
+```
+
+### 样例输出 #1
+
+```
+2
+```
+
+## 样例 #2
+
+### 样例输入 #2
+
+```
+1001
+9099
+```
+
+### 样例输出 #2
+
+```
+10100
+```
+
+## 提示
+
+$20\%$ 的测试数据，$0\le a,b \le10^9$；
+
+$40\%$ 的测试数据，$0\le a,b \le10^{18}$。
+# 位运算(高精度)
++ ## 位加法(不仅适用于十进制)
+	+	c,d是对应每一位的数字0~9
+	+	q是商，` q=(c+d+r)%10`
+	+	r是余数，也是进位,`r=(c+d+r)/10`
+	+	对于每一位数字，结果就是商，**最后可能还有一个r溢出，也记得加上！**
+# 代码如下
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+string a, b;
+int c, d,r,q;
+string res;
+void solve() {
+	cin >> a >> b;
+	r = 0;
+	int i = a.size() - 1, j = b.size() - 1;
+	while (i>=0 || j>=0) {//i和j都遍历完了才结束，不然很可能只加到一半！
+		c = 0, d = 0;
+		if (i >= 0) {
+			c = a[i] - '0';
+		}
+		if (j >= 0) {
+			d = b[j] - '0';
+		}
+		q = (c + d + r) % 10;
+		r = (c + d+r) /10;
+		res.insert(res.begin(), q + '0');
+		i--, j--;
+	}
+	if (r != 0) {
+		res.insert(res.begin(), r+'0');
+	}
+	cout << res;
+}
+
+int main(){
+	std::ios::sync_with_stdio(false);
+	std::cin.tie(0); std::cout.tie(0);
+	solve();
+}
+```

@@ -1,0 +1,49 @@
+﻿# CLIP
+
+# 一些细节
+## 骨干
+ResNet 4x,16x,64x
+ViT B-16/L-14/L-14@336px(增大分辨率为336x336多训练一个epoch)
+
+## ResNet的一点改进
+>We make several modifications to the original version using the ResNetD improvements from He et al. (2019) and the antialiased rect-2 blur pooling from Zhang (2019). We also replace the global average pooling layer with an attention pooling mechanism. The attention pooling is implemented as a single layer of “transformer-style” multi-head QKV attention where the query is conditioned on the global average-pooled representation of the image. For the second architecture, we experiment with the recently introduced Vision Transformer (ViT) (Dosovitskiy et al., 2020).
+>我们使用He等人（2019）的ResNetD改进和Zhang（2019）的抗锯齿rect-2模糊池对原始版本进行了一些修改。我们还将全局平均池化层替换为注意力池化机制。注意力池被实现为一个单层的“变压器式”多头QKV注意力，其中查询是基于图像的全局平均池表示。对于第二个架构，我们使用最近引入的视觉变压器（ViT）进行实验（Dosovitskiy等人，2020）。
+>
+首先使用**全局池化获得Query:（1，D）**
+然后使用K和V分别为原来的特征图(N,D)
+使用**注意力池化获得新的Query，该Query就是所谓[CLS]**
+## 文本编码器的一些细节
+使用SOS和EOS，其中EOS作为文本的CLS token
+## scaling
+
++ ResNet 4x,16x,64x，按照宽度，深度和分辨率同时增大模型参数量
++ text编码器：只是增加的与之匹配的宽度
+
+
+# 数据大小
++ 4亿个文本-图像对，而且是高质量的
+# 预训练方法
+## Text encoder
+>“The text sequence is bracketed with [SOS] and [EOS] tokens and the activations of the highest layer of the transformer at the [EOS] token are used as the feature representation” ([Radford 等, 2021, p. 4]
+🔤文本序列用 [SOS] 和 [EOS] 令牌括起来，并使用 **[EOS] 令牌处变压器最高层的激活**作为特征表示🔤
++ `text encoder`一个简单的transformer模型，可以类别`Bert`，采用了类似的完型填空等等方法预训练。特点是每个句子都有类似`[CLS]`的**特殊含义token**。
++ 简单来说就是一个句子过去，经过text encoder后，形状应该是`(batch_size,sequence_length,dim)`,现在我们只要首个`[EOS]` token作为特征向量，因此最终得到的特征维度是`(batch_size,1,dim)=(batch_size,dim)`
+## Image encoder
+
+
++ 简单来说就是卷积网络ResNet和VIT。
++ 得到的特征就是`(batch_size,dim)`
+
+## 对比学习
++ 正例就是预先构建的文本-图像对，负例就是其他不匹配的对。
++ 方法是两两算cosine相似度，然后得到一个大小为`(n,n)`的相似度矩阵。
+## 损失计算
++ 损失不是直接构建对角线为1，其余元素为0的标签矩阵实现的。
++ CLIP是通过**分别按行和按列来计算交叉熵**来计算损失的。
+
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/7ae0202d584a44beb095a9d1154a8459.png)
+
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/ee22486d79ac4688871d17bf1d56c92a.png)
+# 推理
+>For each dataset, we use the names of all the classes in the dataset as the set of potential text pairings and predict the most probable (image, text) pair according to CLIP. We additionally experiment with providing CLIP with text prompts to help specify the task as well as ensembling multiple of these templates in order to boost performance. However, since the vast majority of unsupervised and self-supervised computer vision research focuses on representation learning, we also investigate this for CLIP using the common linear probe protocol.
+对于每个数据集，我们使用数据集中所有类的名称作为潜在文本配对的集合，并根据CLIP预测最可能的（图像，文本）配对。**我们还尝试为CLIP提供文本提示以帮助指定任务**，并集成多个模板以提高性能。然而，由于绝大多数无监督和自监督计算机视觉研究都集中在表示学习上，我们也使用通用线性探测协议对CLIP进行了研究。

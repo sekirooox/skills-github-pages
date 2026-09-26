@@ -1,0 +1,103 @@
+﻿# Introduction
++ ## **这篇文章适合有markdown基础的人**看,不会的人可以先去学一下markdown.
++ ## 仅适用于科研入门.
++ ## 本文使用的latex环境为[overleaf](https://www.overleaf.com/project)
+
+# Latex概况
+## 文件格式
++ 以`.tex`为结尾的文件
++ 可能有多个`.tex`文件
++ **最终只编译一个文件**,相当于一个文件控制其他子文件.
+## Latex 代码分为三种：命令，环境和区域
++ 命令：`\command{ }`:有些命令适用于排版，有些命令适用于文字内容。例如`\textbf{命令}`用于加深字体，`\par`命令用于在latex中换行
++ 环境：`以\begin{ }`和`\end{ }`包围的一个**整体**，**支持嵌套命令**。
++ 区域：`以\begin{ }`和`\end{ }`包围的一个**大整体**，例如`\begin{document}`.
+## 宏包
++ 相当于**python中的库**和**C++中的头文件**
++ 用法：`\usepackage{}`
+# Overleaf入门
+## 模板
+>我们使用Latex**一般使用模板**，不会重头开始排版,这样很麻烦！
+
+### 这是你overleaf的主页,按照以下步骤以模板形式创建new project.
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/23d66c50c75d458ba703353b4b4630ad.png)
+### 这里有很多模板,可以任选其一
+
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/169b11604afd47008c2cb5cceab0efd7.png)
+### 以模板打开,这样会自动变成你的project，以后可以改名。
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/e9da997443c448178aacd12bd7c1336b.png)
+
+## 菜单
+### 左上角有一个菜单
+![菜单](https://i-blog.csdnimg.cn/direct/8b1a60d693f741b59a3da38ba1ddb0ff.png)
+### 菜单里面有一个设置
++ Compiler建议使用**XeLaTex**：这个编译器**支持中文**,但**仍然需要导入**`\usepackage[UTF8]{ctex}`这个宏包
++ Main document就是指正在对哪个文件进行编译，这个文件以`.tex`结尾，可能是**控制文件**，也可能是文章的**内容文件**。
+
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/30828aa24d994082b1f4334340181b46.png)
+
+
+---
+# 常见操作和使用技巧
+## 脚注footnote
+**加上小标注**
+```python
+这里是脚注的示范(footnote):
+这是一段话,我要说什么呢?我说的东西在下面\footnote{其实我什么也不想说...},但是我说的不能太直白,我把它放在下面了\footnote{脚注自动编号}.
+```
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/33adb43389224fee8f25d15365a26181.png)
+## 枚举命令
+**分点作答**
+```python
+以下是有序和无序列表的演示:
+\begin{itemize}
+    \item 无序列表是一个环境
+    \begin{itemize}
+        \item 支持嵌套
+    \end{itemize}
+\end{itemize}
+
+\begin{enumerate}
+    \item 有序列表是一个环境
+    \begin{itemize}
+        \item 支持嵌套
+        \item 支持互相嵌套
+    \end{itemize}
+\end{enumerate}
+```
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/3e17c5c6dd0340fdb747f27026ca16da.png)
+
+## \verb||命令
++ 这个命令相当于对括号内的内容理解为字符串,不作任何编译(也就是**用于展示某些命令**)
++ **字体也会改变**
+## 快捷键
++ ctrl+b：加粗
++ ctrl+i ：斜体
++ ctrl+/：注释
+```python
+\section{快捷键和使用技巧}
+这里是一些常用的符号和快捷键
+\begin{itemize}
+    \item \verb|\verb|语句:有点类似转义符,latex会将其理解为字符串,避免编译为命令.
+    \item 单引号和双引号:\LaTeX 会自动转换单引号和双引号,所以尽量使用\verb|\verb|语句+ 单双引号的格式
+    \item 公式内省略号命令\verb|\cdot|和\verb|\cdots|:需要搭配公式使用,例如$1,2,3\cdots$和$1,2,3\cdot$
+    \item \LaTeX 文档的省略号:建议使用键盘打出来的.../.
+    \item \textbf{加租}:Black ctrl+B快捷键,例如:\textbf{一段文字}
+    \item \textbf{斜体}:Incline ctrl+i快捷键,例如:\textit{一段文字}
+    \item 下划线:这个不怎么常用,命令为\verb|\underline{}|,例如:\underline{一段文字}
+\end{itemize}
+
+\section{三线表}
+\subsection{普通三线表}
+具体要求如下:
+\begin{itemize}
+    \item 使用\verb|booktabs|作为库来完成,提供了一些画线的符号.
+    \item \verb|\toprule|,\verb|\midrule|和\verb|\bottomrule|分别对应不同粗粒度的线.
+\end{itemize}
+```
+# 图片
+## 建议
++ 首先建议**创建一个figures**文件夹
++ 然后把所有的图片放在这里
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/7d631b430bfd412d8a323cef359c97f1.png)
+## 导入的包

@@ -1,0 +1,338 @@
+﻿# 树的特点
++ ## 最小连通图
++ ## 无环
++ ## 有且只有 $n-1$ 条边
+
+
+# 树的性质(需要理解)
+
+### 节点和边/度的关系
+$n= n_0+n_1+n_2=0* n_0+n_1+2* n_2+1$
+
++ 其中：$n_i$代表度为$i$的节点数。
++ **每一个节点的度代表其子节点，而根节点没人代表它，所以要加1.**
+### 叶子节点和满节点(度为2的节点)的关系
+$n_0=n_2+1$
+
+# 树的建立方式
+## 顺序存储
++ ### 只适用于**满n叉树，完全n叉树**
++ `1<<n` 表示结点 $2^n$
++ [P4715 【深基16.例1】淘汰赛](https://www.luogu.com.cn/problem/P4715)
+```cpp
+void solve() {
+	cin >> n;
+	for (int i = 0; i<(1<<n); i++) {
+		cin >> value[i + (1 << n)];
+	}
+```
+## 结构体数组
++ ### 使用**整型**存储父母和孩子的编号信息，结点的权值。
++ [P1364 医院设置](https://www.luogu.com.cn/problem/P1364)
+```cpp
+typedef struct node {
+	int w,l,r,f;
+};
+vector<node>nodes(109, node());
+```
+
+## 链式存储
++ 比结构体数组存储更加灵活，**不依赖结点编号**，且给定输入，父子关系明确。
++ ### leetcode的给定输入格式
++ 使用结构体存储结点信息，**使用指针的形式存储父母和孩子的信息**。
+```cpp
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+```
+### ⭐层次序列作为输入：`[5 null 4 3 6]`
++ 特点：如果父节点非空，则给出其左右孩子，**否则省略其左右孩子**。
+
+```cpp
+typedef struct node{
+    int val;
+    node*left;
+    node*right;
+    node(int v):val(v){left=nullptr;right=nullptr;};
+};
+```
++ 建树代码：使用队列来表示**当前构建的根节点**是什么，然后每次读两个节点，如果**是空节点则不再加入到队列中** (省略空节点的左右孩子)。
+```cpp
+node* build_tree(){
+    // root
+    int root_val=stoi(s[1]);
+    node*root = new node(root_val);
+
+    queue<node*>q;
+    q.push(root);
+
+    int i=2;
+    while(q.size()&&i<=k){
+        node*cur=q.front();
+        q.pop();
+        if(i<=k){
+            if(s[i]=="null"){
+                cur->left=nullptr;
+            }
+            else{
+                int val=stoi(s[i]);
+                node*left_node=new node(val);
+                cur->left=left_node;
+                q.push(left_node);
+            }
+            i++;
+        }
+        if(i<=k){
+            if(s[i]=="null"){
+                cur->right=nullptr;
+            }
+            else{
+                int val=stoi(s[i]);
+                node*right_node=new node(val);
+                cur->right=right_node;
+                q.push(right_node);
+            }
+            i++;
+        }
+    }
+    return root;
+}
+```
+
+
+## 图的存储方式
+>### 树作为一种特殊的图，完全可以沿用图的存储方式
+<br><br><br><br><br><br><br><br>
+
+---
+
+以下均为例题
+# 遍历树的应用
++ ## 对于遍历的理解，和递归三部曲的理解。
+
++ [226.翻转二叉树](https://leetcode.cn/problems/invert-binary-tree/):后序遍历修改左右结点，注意需要设置中间值，不然会空指针异常。
++ ### ＊ [101. 对称二叉树](https://leetcode.cn/problems/symmetric-tree/):操作两个结点进行遍历，使用后序遍历收集结果。
+```cpp
+    bool dfs(TreeNode*left,TreeNode*right){
+        if(!left&&right)return false;
+        if(left&&!right)return false;
+        if(!left&&!right)return true;
+
+        return left->val==right->val&&dfs(left->left,right->right)&&dfs(left->right,right->left);
+    }
+    bool isSymmetric(TreeNode* root) {
+        if(!root)return true;
+        return dfs(root->left,root->right);
+    }
+```
++ [104.二叉树的最大深度](https://leetcode.cn/problems/maximum-depth-of-binary-tree/description/)：后序遍历。
+
+```cpp
+    int dfs(TreeNode* root){
+        if(!root)return 0;
+        return max(dfs(root->left),dfs(root->right))+1;
+    }
+    int maxDepth(TreeNode* root) {
+        return dfs(root);   
+    }
+```
++ [111.二叉树的最小深度](https://leetcode.cn/problems/minimum-depth-of-binary-tree/)：后序遍历，**但是只有叶子结点才算深度，所以遍历空结点会干扰最后答案**，干脆不遍历空结点，空结点设置为`INT_MAX`。**终止条件也改为叶子结点**。y
+```cpp
+    int dfs(TreeNode*root){
+        if(!root->left&&!root->right)return 1;
+        int left=INT_MAX,right=INT_MAX;
+        if(root->left)left=dfs(root->left);
+        if(root->right)right=dfs(root->right);
+        return min(left,right)+1;
+    }
+    int minDepth(TreeNode* root) {
+        if(!root)return 0;
+        return dfs(root);
+    }
+```
+[222.完全二叉树的节点个数](https://leetcode.cn/problems/count-complete-tree-nodes/)：后序遍历或者BFS。
+
+```cpp
+    int dfs(TreeNode*root){
+        if(!root)return 0;
+        return dfs(root->left)+dfs(root->right)+1;
+    }
+    int countNodes(TreeNode* root) {
+        return dfs(root);
+    }
+```
++ [110. 平衡二叉树](https://leetcode.cn/problems/balanced-binary-tree/)：**本质是比较高度**。可以用`pair<int,int>`分别表示子树的高度和子树是否满足平衡二叉树，也可以用特殊值`-1`处理。
+```cpp
+    int dfs(TreeNode* root){
+        if(!root)return 0;
+        int left=dfs(root->left);
+        int right=dfs(root->right);
+    
+        if(left==-1||right==-1)return -1;
+        if(left-right>=2||right-left>=2){
+            return -1;
+        }
+
+        return max(left,right)+1;
+    }
+    bool isBalanced(TreeNode* root) {
+        if(dfs(root)!=-1)return true;
+        return false;
+    }
+```
++ [257. 二叉树的所有路径](https://leetcode.cn/problems/binary-tree-paths/description/)：回溯，注意`to_string`函数的使用。还用了一点**终止条件控制**和**带条件的遍历**。
+
+```cpp
+    vector<string>res;
+    void dfs(TreeNode* root,string s){
+        if(!root)return;
+        if(!root->left&&!root->right){
+            res.push_back(s);
+        }
+
+        if(root->left){
+            string tmp(s);
+            tmp+="->";
+            tmp+=to_string(root->left->val);
+            dfs(root->left,tmp);
+        }      
+
+        if(root->right){
+            string tmp(s);
+            tmp+="->";
+            tmp+=to_string(root->right->val);
+            dfs(root->right,tmp);
+        }
+
+    }
+    vector<string> binaryTreePaths(TreeNode* root) {
+        string s;
+        s+=to_string(root->val);
+        dfs(root,s);
+        return res;
+    }
+```
++ [404.左叶子之和](https://leetcode.cn/problems/sum-of-left-leaves/)：使用后序遍历。**特殊判断是否存在左叶子结点**。
+```cpp
+    int dfs(TreeNode* root){
+        if(!root)return 0;
+        int value=0;
+        if(root->left){
+            if(!root->left->left&&!root->left->right){
+                value+=root->left->val;
+            }
+
+        }
+
+        return value+dfs(root->left)+dfs(root->right);
+    }
+    int sumOfLeftLeaves(TreeNode* root) {
+        return dfs(root);
+    }
+```
++ [513.找树左下角的值](https://leetcode.cn/problems/find-bottom-left-tree-value/)：设置全局变量，然后dfs即可。
+```cpp
+    int ans=0;
+    int max_depth=0;
+    void dfs(TreeNode* root,int depth){
+        if(!root)return;
+        if(!root->left&&!root->right){
+            if(depth>max_depth){
+                max_depth=depth;
+                ans=root->val;
+            }
+        }
+        dfs(root->left,depth+1);
+        dfs(root->right,depth+1);
+    }
+    int findBottomLeftValue(TreeNode* root) {
+        dfs(root,1);
+        return ans;
+    }
+```
++ [112. 路径总和](https://leetcode.cn/problems/path-sum/)：后序遍历。
+```cpp
+    bool dfs(TreeNode* root,int sum,int targetSum){
+        if(!root->left&&!root->right){
+            if(sum==targetSum){
+                return true;
+            }
+            return false;
+        }
+        bool left=false,right=false;
+        if(root->left)left=dfs(root->left,sum+root->left->val,targetSum);
+        if(root->right)right=dfs(root->right,sum+root->right->val,targetSum);
+        return left||right;
+    }
+    bool hasPathSum(TreeNode* root, int targetSum) {
+        if(!root)return false;
+        return dfs(root,root->val,targetSum);
+    }
+```
++ ### *[106.从中序与后序遍历序列构造二叉树](https://leetcode.cn/problems/construct-binary-tree-from-inorder-and-postorder-traversal/)：一道好题，从前序遍历建立树的模板。首先理解中序+后序怎么构造二叉树，然后利用前序的方式显示的建立每一个结点`TreeNode*node=new TreeNode()`。注意分割左右子树的数组时，迭代器是`左闭右开[begin,end)`的!
+
+```cpp
+    TreeNode*dfs(vector<int>& inorder,vector<int>& postorder){
+        if(inorder.size()==0)return nullptr;
+        if(inorder.size()==1){
+            TreeNode*node=new TreeNode(inorder[0]);
+            return node;
+        }
+
+        int value=postorder[postorder.size()-1];
+        TreeNode*root=new TreeNode(value);
+
+        int idx=-1;
+        for(int i=0;i<inorder.size();i++){
+            if(inorder[i]==value){idx=i;break;}
+        }
+
+        vector<int>inorder_left(inorder.begin(),inorder.begin()+idx);
+        vector<int>inorder_right(inorder.begin()+idx+1,inorder.end());
+
+        vector<int>postorder_left(postorder.begin(),postorder.begin()+idx);
+        vector<int>postorder_right(postorder.begin()+idx,postorder.end()-1);
+
+        root->left=dfs(inorder_left,postorder_left);
+        root->right=dfs(inorder_right,postorder_right);
+        return root;
+    }
+    TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
+        return dfs(inorder,postorder);
+    }
+```
++ [654.最大二叉树](https://leetcode.cn/problems/maximum-binary-tree/description/)：前序遍历
++ [617.合并二叉树](https://leetcode.cn/problems/merge-two-binary-trees/description/)：两个树同时遍历
++ [700.二叉搜索树中的搜索](https://leetcode.cn/problems/search-in-a-binary-search-tree/submissions/622750496/)
++ ### LCA问题之 [最近公共祖先](https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-tree/)
+后序遍历，收集结果。共有两种情况，情况一是**p和q分别在祖先结点的左右子树**，这种很容易判断；情况2是p为q的祖先或者q为p的祖先，需要注意，**情况一判断的代码包括了情况2判断的代码**。由于需要祖先结点，所以要指定返回值，返回值不难判断，**需要标志位**(本体的标志位就是结点本身。)
+```cpp
+    TreeNode *dfs(TreeNode* root, TreeNode* p, TreeNode* q){
+        if(!root)return nullptr;
+        if(root->val==p->val){
+            return root;
+        }
+
+        if(root->val==q->val){
+            return root;
+        }
+
+        TreeNode* left=dfs(root->left,p,q);
+        TreeNode* right=dfs(root->right,p,q);
+        if(left&&right){
+            return root;
+        }
+        if(left&&!right)return left;
+        if(right&&!left)return right;
+
+        return nullptr;
+    }
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        return dfs(root,p,q);
+    }
+```
+

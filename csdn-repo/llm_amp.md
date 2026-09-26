@@ -1,0 +1,281 @@
+﻿@[toc]
+
+# 完整AMP训练流程
+
+```cpp
+======================
+[初始化阶段]
+======================
+
+Model Weights:
+    FP32 master weights（优化器维护，真实参数）
+
+Runtime Weights:
+    FP16 weights（由FP32 cast得到，用于forward/backward）
+
+
+======================
+[Forward（autocast开启）]
+======================
+
+Input: FP32
+↓（进入 autocast）
+
+[算子1：matmul / conv]
+→ cast 为 FP16（利用Tensor Core加速）
+→ 输出：FP16
+
+[算子2：exp / softmax / layernorm 等数值敏感操作]
+→ 自动提升为 FP32（防止数值不稳定，如overflow/精度损失）
+→ 输出：FP32
+
+[算子3：继续 matmul]
+→ cast 回 FP16
+→ 输出：FP16
+
+...
+
+最终 loss：
+→ 通常为 FP32（loss / reduction类操作一般在FP32）
+
+
+======================
+[Loss Scaling]
+======================
+
+loss (FP32)
+↓ × scale（如1024）
+scaled loss (FP32)
+
+# 目的：放大梯度，避免FP16下溢（变0）
+
+
+======================
+[Backward]
+======================
+
+scaled loss (FP32)
+↓ backward（自动根据forward路径传播）
+
+梯度传播过程：
+
+- 来自 FP16 forward 分支：
+    → 梯度通常以 FP16 表示（易受下溢影响）
+
+- 来自 FP32 forward 分支：
+    → 梯度计算中涉及 FP32（更稳定）
+
+最终得到：
+gradients（大多数存储为 FP16，部分计算路径为 FP32）
+
+
+======================
+[Unscale + 类型转换]
+======================
+
+FP16 gradients
+↓ cast
+FP32 gradients
+
+↓ ÷ scale（unscale，恢复真实梯度）
+
+得到：
+真实梯度（FP32）
+
+
+======================
+[参数更新（Optimizer Step）]
+======================
+
+FP32 gradients
+↓
+更新 FP32 master weights（高精度累积更新）
+
+# 关键原因：
+# FP16无法表示微小更新，会导致训练停滞
+
+
+======================
+[同步回计算图]
+======================
+
+更新后的 FP32 master weights
+↓ cast
+FP16 weights（供下一轮 forward 使用）
+
+
+======================
+[整体数据流总结]
+======================
+
+FP32 master weights
+↓ cast
+FP16 weights
+↓
+forward（FP16为主 + FP32关键算子）
+↓
+loss（FP32）
+↓ scale
+scaled loss（FP32）
+↓ backward
+grad（FP16为主）
+↓ cast + unscale
+grad（FP32）
+↓
+update master weights（FP32）
+↓
+再 cast → FP16（进入下一轮）
+
+
+======================
+[核心要点]
+======================
+
+1. FP16用于“计算加速”（forward/backward主路径）
+2. FP32用于“数值稳定”（loss / softmax / norm等）
+3. FP32用于“参数更新”（避免精度丢失）
+4. loss scaling 仅用于解决 FP16 梯度下溢问题
+```
+
+# 混合精度训练的优势
+## 节省显存占用：激活值是大头
++ **激活值是关键大头，而且与batch_size和序列长度有关**，因此应该考虑节省这些中间值的梯度占用！
+
+FP32：
+```cpp
+参数:      1 GB
+activation: 6 GB
+gradient:   3 GB
+----------------
+总计:     10 GB
+```
+AMP：
+```cpp
+参数:
+  FP32 master: 1 GB
+  FP16 copy:   0.5 GB
+
+activation:   3 GB（减半）
+gradient:     1.5 GB（减半）
+----------------
+总计:        6 GB
+```
+
+## 加快推理速度：低精度加速
++ NVIDIA的显卡**对于低精度BF16/FP16有专门加速**
+
+| 精度   | 吞吐量   |
+| ---- | ----- |
+| FP32 | 1×    |
+| FP16 | 2×～8× |
+
+
+# 低精度(bf16,fp16)的问题
+## 溢出问题
+混合精度训练（Mixed Precision Training）的核心是：
+用 **FP16（或BF16）进行大部分计算**，用 **FP32保留关键数值稳定性**。
+但由于 FP16 的表示范围和精度有限，会引入一系列典型问题。下面用**具体例子**说明这些问题。
+
+
+
+### FP16 的数值限制
+
+FP16（IEEE half precision）：
+
+* 指数位：5 bit → **范围小**
+* 尾数：10 bit → **精度低**
+
+大致范围：
+
+* 最大值：≈ (6.5 \times 10^4)
+* 最小正数（正规）：≈ (6 \times 10^{-8})
+
+
+### 梯度下溢（underflow）
+
+
+假设某层梯度为：
+$$
+g = 1 \times 10^{-8}
+$$
+* FP32：可以表示 ✔️
+* FP16：**直接变成 0 ❌**
+
+
+### 梯度上溢（overflow）
+$$
+g = 1 \times 10^5
+$$
+* FP16最大值 ≈ 65504
+* 超出范围 → **变成 inf**
+
+
+---
+
+## 大数吃小数问题
++ 浮点数加减法需要**先对齐指数**，再比对小数部分，但是小数部分往往有限
++ **数值差距悬殊时，容易出现小数部分溢出**。
+$$
+2048 = 1.0 \times 2^{11}
+$$
+$$
+0.5 = 1.0 \times 2^{-1}
+$$
+
+
+对齐指数：
+$$
+0.5 = 1.0 \times 2^{-1} = 0.000000000001 \times 2^{11}
+$$
+
+**但BF16 只有 7 位尾数：**
+
+```text
+2048: 1.0000000 × 2^11
+0.5 : 0.000000000001 × 2^11  （被截断）
+```
+结果
+$$
+2048 + 0.5 \approx 2048
+$$
+ **0.5 被完全忽略**
+
+
+---
+# 混合精度训练的流程
++ 在涉及前向过程中，可以使用**低精度**。
++ 在涉及梯度更新过程中，优化器会保存**较高精度的模型参数**和并使用**较高精度的梯度值**。
+
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/b5f724f4ac1e442abf63735be367c6a8.png)
++ 对于高精度的数学计算操作：**例如矩阵加法，softmax操作，强制使用高精度。**
+
+
+## Loss scaling
++ 动机：**低精度的高数值部分使用较少**，可以考虑**将梯度更新缩放N倍，确保不会溢出，然后转换位低精度来进行更新**。
+
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/4cf1147001644643ab0cf4213d25f4ed.png)
+Loss scaling 的本质是在反向传播前对 **loss 进行数值放大**，使得在 **FP16 精度下计算的梯度不会发生下溢**；在得到梯度后再进行反缩放（unscale），恢复真实梯度，并在 FP32 master weight 上进行更新，从而保证数值稳定性和更新精度。
+
+![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/9da717739bf2469183ef402994d450ba.png)
+# 实现
++ `with torch.cuda.amp.autocast(device_type="cuda", dtype=torch.float16)`：模型会**在这个上下文下，优先选择FP16精度**，**对于需要高精度的操作例如softmax，计算过程仍然使用FP32，不受影响**。
++ `scaler.scale(loss).backward() `：缩放损失，确保FP16的梯度不会溢出。
+```cpp
+# PyTorch AMP（FP16）训练片段
+
+scaler = torch.cuda.amp.GradScaler()
+
+for x, y in dataloader:
+    optimizer.zero_grad()
+
+    with torch.cuda.amp.autocast(device_type="cuda", dtype=torch.float16):
+        out = model(x)
+        loss = criterion(out, y)
+
+    scaler.scale(loss).backward()   # scaled loss 反传
+    scaler.step(optimizer)          # 内部完成 unscale + update（FP32 master）
+    scaler.update()                 # 动态调整 scale
+```
+
+
+
