@@ -34,7 +34,7 @@ $$H(p_1) = -p_1 \text{log}_2(p_1) - (1- p_1) \text{log}_2(1- p_1)$$
 # 回归树
 树划分的标准为：
 
-$\max :var_{root}-\left(w_{left}*var_{left}+w_{right}*var_{right}\right)$
+$\max\left\{\operatorname{var}_{root}-\left(w_{left}\operatorname{var}_{left}+w_{right}\operatorname{var}_{right}\right)\right\}$
 
 ![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/8310aface75247c8aa82d0813de79d3c.png){: referrerpolicy="no-referrer" }
 输出的结果为**数据集的均值**

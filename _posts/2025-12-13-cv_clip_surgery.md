@@ -220,8 +220,8 @@ CLIP Surgery 对卷积网络和 ViT 都显著提升了解释质量，远超现�
    \hat x_{i+1} =
    \begin{cases}
    \text{None}, & i < d[3pt]
-   \text{Attn}*{vv}(x_i;\phi_v) + x_i, & i=d[3pt]
-   \text{Attn}*{vv}(x_i;\phi_v) + \hat x_i, & i>d
+   \text{Attn}_{vv}(x_i;\phi_v) + x_i, & i=d[3pt]
+   \text{Attn}_{vv}(x_i;\phi_v) + \hat x_i, & i>d
    \end{cases}
    $$
    原路径输出：
@@ -525,4 +525,3 @@ CLIP Surgery 对卷积网络和 ViT 都显著提升了解释质量，远超现�
 5. 对整张图的类别分数做同样处理，用来做多标签识别和其他开放词汇任务。
 
 如果你想，我可以下一步专门帮你画一张“矩阵维度总览表”，把 $$F_i, F_t, F_c, F^m, F_r, S$$ 全部列出来，对照方便你在代码里实现。
-

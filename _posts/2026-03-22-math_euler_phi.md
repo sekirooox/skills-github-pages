@@ -24,7 +24,7 @@ $$
 
 即
 $$
-\varphi(n) = \left| \{, k \in \mathbb{Z}^+ \mid 1 \le k \le n,\ \gcd(k,n)=1 ,\} \right|
+\varphi(n) = \left\lvert \{ k \in \mathbb{Z}^+ \mid 1 \le k \le n,\ \gcd(k,n)=1 \} \right\rvert
 $$
 ## 欧拉函数的计算公式
 设正整数 $n$ 的质因数分解为
@@ -198,4 +198,3 @@ void solve() {
 	cout << res;
 }
 ```
-

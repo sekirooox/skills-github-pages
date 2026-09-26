@@ -82,11 +82,11 @@ description: "本文整理“计算机基础·数据库系统”的核心知识�
 设：
 
 $$
-R=\{t|t\in R\}
+R=\{t\mid t\in R\}
 $$
 
 $$
-S=\{t|t\in S\}
+S=\{t\mid t\in S\}
 $$
 
 
@@ -100,7 +100,7 @@ $$
 
 $$
 \begin{align}
-R\cup S=\{t|t\in R \vee t\in S\}
+R\cup S=\{t\mid t\in R \vee t\in S\}
 \end{align}
 $$
 
@@ -109,7 +109,7 @@ $$
 
 $$
 \begin{align}
-R\cap S=\{t|t\in R \wedge t\in S\}
+R\cap S=\{t\mid t\in R \wedge t\in S\}
 \end{align}
 $$
 
@@ -119,7 +119,7 @@ $$
 
 $$
 \begin{align}
-R-S=\{t|t\in R \wedge t\notin S\}
+R-S=\{t\mid t\in R \wedge t\notin S\}
 \end{align}
 $$
 
@@ -130,7 +130,7 @@ $$
 $$
 \begin{align}
 R\times S=
-\{t|t=(t_R,t_S),t_R\in R,t_S\in S\}
+\{t\mid t=(t_R,t_S),t_R\in R,t_S\in S\}
 \end{align}
 $$
 
@@ -161,7 +161,7 @@ $$
 
 $$
 \begin{align}
-\sigma_F(R)=\{t|t\in R\land F(t)=true\}
+\sigma_F(R)=\{t\mid t\in R\land F(t)=true\}
 \end{align}
 $$
 其中**F表示需要满足的表达式**，**R表示目标关系/表**
@@ -184,7 +184,7 @@ $$
 
 $$
 \begin{align}
-\pi_A(R)=\{t[A]|t\in R\}
+\pi_A(R)=\{t[A]\mid t\in R\}
 \end{align}
 $$
 其中**A表示属性名**
@@ -212,7 +212,7 @@ $$
 $$
 \begin{align}
 R\bowtie S=
-\{t|t_R\in R\land t_S\in S\land \theta(t_R,t_S)\}
+\{t\mid t_R\in R\land t_S\in S\land \theta(t_R,t_S)\}
 \end{align}
 $$
 
@@ -901,7 +901,6 @@ COMMIT / ROLLBACK
 + 对于R1加S锁，则对于数据库也要加IS锁。此时**该表元组是否有X类型的锁尚不知道**，此时检查**同一级的节点R1**是否存在IX锁，**来判断元组间是否有X锁**。
 
 ![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/d3c89c433afa492987541565c9ce4092.png){: referrerpolicy="no-referrer" }
-
 
 
 

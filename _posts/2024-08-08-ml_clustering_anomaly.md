@@ -54,11 +54,11 @@ def closest_centroid(X,centroids):
 >一般采取计算样本的均值，使用`np.mean()`即可
 >注意python的条件索引
 * Specifically, for every centroid $\mu_k$ we set
-$$\mu_k = \frac{1}{|C_k|} \sum_{i \in C_k} x^{(i)}$$ 
+$$\mu_k = \frac{1}{\lvert C_k\rvert} \sum_{i \in C_k} x^{(i)}$$
 
     where 
     * $C_k$ is the set of examples that are assigned to centroid $k$
-    * $|C_k|$ is the number of examples in the set $C_k$
+    * $\lvert C_k\rvert$ is the number of examples in the set $C_k$
 ```python
 def update_centroids(X,idx,centroids):
     """
@@ -165,4 +165,3 @@ def select_threshold(y_val,p_val):
             best_f1=temp
     return best_epsilon,best_f1,prec_list,rec_list,e_list
 ```
-

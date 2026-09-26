@@ -151,7 +151,7 @@ $$
 $$
 \frac{x_i-\mu}{\sigma}
 $$
-$其中：\mu是均值，\sigma是方差$
+其中：$\mu$ 是均值，$\sigma$ 是方差
 # 逻辑回归
 >使用线性函数预测连续值，映射到概率函数sigmoid，然后选择决策阈值即可判断**0-1问题**
 ## Sigmoid函数
@@ -193,4 +193,3 @@ X_norm=scaler.transform(X_train)
 poly = PolynomialFeatures(degree, include_bias=False)
 X_train_mapped = poly.fit_transform(x_train)
 ```
-

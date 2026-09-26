@@ -590,9 +590,9 @@ $$\begin{align} \text{换到特征向量坐标系}\rightarrow \text{按特征值
 ## ⭐SVD分解：非方阵的相似对角化
 ### 定义
 #### 动机：广义特征方程的变形，$AV=U\Sigma \Leftrightarrow A=U\Sigma V^{-1} \Leftrightarrow A=U\Sigma V^{T}$
-+ **动机**：给定**单位**向量$v\in \mathbb{R}^{m \times 1}$，使得$||Av||_2$的值最大，含义为经过A投影后，投影向量的**伸长程度最大**。
++ **动机**：给定**单位**向量$v\in \mathbb{R}^{m \times 1}$，使得$\lVert Av\rVert_2$的值最大，含义为经过A投影后，投影向量的**伸长程度最大**。
 ![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/928008db942b4ca58606015bef5ad85b.png){: referrerpolicy="no-referrer" }
-+ **转换**：$||Av||_2$的值最大，等价于$v^TA^TAv$的值最大，其中$A^TA$一定可以进行特征分解，等价于$v^T\lambda v$。因此得到$||Av||_2=\sqrt{\lambda}$。最大投影长度为$\lambda$。
++ **转换**：$\lVert Av\rVert_2$的值最大，等价于$v^TA^TAv$的值最大，其中$A^TA$一定可以进行特征分解，等价于$v^T\lambda v$。因此得到$\lVert Av\rVert_2=\sqrt{\lambda}$。最大投影长度为$\lambda$。
 + **形式化表示**：$Av=\sqrt{\lambda}u$，其中$u \in \mathbb{R}^{n \times 1}$，表示为投影后的空间中，单位的**方向向量**。
 
 #### 形式化定义
@@ -977,4 +977,3 @@ Q(\mathbf{x})\text{ 正定}\Longleftrightarrow \lambda_1,\lambda_2,\ldots,\lambd
 + 列范数：每一列的绝对值求和，然后取最大值
 + F范数：类似向量的norm-2范数
 + 谱范数
-

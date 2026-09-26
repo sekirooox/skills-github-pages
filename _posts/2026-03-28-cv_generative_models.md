@@ -43,7 +43,7 @@ $$p(z)=\mathcal{N}(0,I)$$
 ## 模型损失
 
 + 重建损失：$L_{rec}$，表示为**重建图像的常见MSE损失**。
-+ KL散度损失：$L_{KL}$：$q(z|x)$和$p(z)$的损失，其中**q表示编码过程**，p表示多源标准正态分布。**通常来说，这个很难计算，将其转换为其他损失**。
++ KL散度损失：$L_{KL}$：$q(z\mid x)$和$p(z)$的损失，其中**q表示编码过程**，p表示多源标准正态分布。**通常来说，这个很难计算，将其转换为其他损失**。
 
 ![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/eb9b61901f574dde9d97eb8b483a59f7.png){: referrerpolicy="no-referrer" }
 ### 原始优化目标
@@ -76,14 +76,14 @@ $$
 
 ## 降噪过程
 ### 公式变形
-+ $q(x_{t-1}|x_{t})$表示我们的降噪过程，可以经过贝叶斯公式展开为：
++ $q(x_{t-1}\mid x_{t})$表示我们的降噪过程，可以经过贝叶斯公式展开为：
 + 其中$q(x_{t-1})$和$q(x_{t})$表示特定步数下图像的分布情况，这是很难预测的。
 + 因此**引入$x_0$的信息来简化去噪过程**。
 $$
 \begin{align}
- & q(x_{t-1}|x_{t})=\frac{q(x_{t}|x_{t-1})q(x_{t-1})}{q(x_{t})} \\
- & q(x_{t-1}|x_{t},x_{0})=\frac{q(x_{t}|x_{t-1},x_{0})q(x_{t-1}|x_{0})}{q(x_{t}|x_{0})} \\
- & q(x_{t-1}|x_{t},x_{0})=\frac{q(x_{t}|x_{t-1})q(x_{t-1}|x_{0})}{q(x_{t}|x_{0})}
+ & q(x_{t-1}\mid x_{t})=\frac{q(x_{t}\mid x_{t-1})q(x_{t-1})}{q(x_{t})} \\
+ & q(x_{t-1}\mid x_{t},x_{0})=\frac{q(x_{t}\mid x_{t-1},x_{0})q(x_{t-1}\mid x_{0})}{q(x_{t}\mid x_{0})} \\
+ & q(x_{t-1}\mid x_{t},x_{0})=\frac{q(x_{t}\mid x_{t-1})q(x_{t-1}\mid x_{0})}{q(x_{t}\mid x_{0})}
 \end{align}
 $$
 ![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/9ceffaf37b0a4042984f833a82a9a74c.png){: referrerpolicy="no-referrer" }
@@ -99,7 +99,7 @@ $$
 + 将最大化MLE这种比较抽象的目标转换为实际的KL散度目标：
 + 公式的含义：从前向加噪过程中学习NN的去噪方法，最小化两种方式的KL散度。
 $$
-L=\sum_{t=2}^{T}\mathbb{E}_{q(x_{t}\mid x_{0})}[D_{KL}(q(x_{t-1}\mid x_{t},x_{0})||p_{\theta}(x_{t-1}|x_{t}))]
+L=\sum_{t=2}^{T}\mathbb{E}_{q(x_{t}\mid x_{0})}[D_{KL}(q(x_{t-1}\mid x_{t},x_{0})\mathbin{\|\!\|}p_{\theta}(x_{t-1}\mid x_{t}))]
 $$
 ![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/b818bec8225f405397536cda1994188c.png){: referrerpolicy="no-referrer" }
 ### 去噪公式
@@ -107,7 +107,7 @@ $$
 \mu=\frac{1}{\sqrt{\alpha_{t}}}\left(x_{t}-\frac{1-\alpha_{t}}{\sqrt{1-\overline{\alpha}_{t}}}\cdot\epsilon\right)
 \\\sigma^{2}=\frac{(1-\alpha_{t})(1-\overline{\alpha}_{t-1})}{1-\overline{\alpha}_{t}}
 $$
-+ 现在我们就是求解：$q(x_{t-1} | x_t,x_0)$
++ 现在我们就是求解：$q(x_{t-1}\mid x_t,x_0)$
 + 基本理论：**先验概率是正态分布，后验概率也是正态分布。**
 + 求解这一步的均值和方差。
 
@@ -138,4 +138,3 @@ $$
 ![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/7a938cff11c7476fa5fb388b82db5eef.png){: referrerpolicy="no-referrer" }
 ![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/34e4e099e7534564a7d2f9da05dd93b8.png){: referrerpolicy="no-referrer" }
 ![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/c68de85de058432894f149a7c848bb7b.png){: referrerpolicy="no-referrer" }
-

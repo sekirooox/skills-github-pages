@@ -258,7 +258,7 @@ $$\begin{align}X\sim Exp(\lambda)\end{align}$$
 $$\begin{align}P(X>x)=e^{-\lambda x}\end{align}$$
 其中$x\geq0$，随机变量X表示：公交车到站的等待事件，排队的等待时间
 + 假设排队的平均等待时间为$1/\lambda$，那么等待时间不超过15的概率为：
-$$\begin{align}P(X<=x)=1-\lambda e^{-\lambda x}\end{align}$$ 
+$$\begin{align}P(X\le x)=1-e^{-\lambda x}\end{align}$$
 
 
 ## 随机变量和随机向量
@@ -602,7 +602,6 @@ $$
 * 我们事先设定的显著性水平$\alpha$为$0.05$。
 
 * 因为$p<\alpha$，所以认为当前样本结果在原假设成立时较少发生，因此拒绝原假设。
-
 
 
 

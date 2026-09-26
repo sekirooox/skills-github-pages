@@ -98,7 +98,7 @@ description: "本文围绕“强化学习·贝尔曼方程”梳理核心概念�
 ![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/78db9ba3e43149368503b25fb96ad4f9.png){: referrerpolicy="no-referrer" }
 ### 最优策略
 + 简单来说，最优策略就是**选择使Q-value最大时的动作**。
-+ 原因很简单，贝尔曼方程可以简化为Q-value的加权和，**我们只需要让Q-value最大的权重为1就能实现最优策略($\pi(a|s)=1 \text{ when }Q(s,a) \text{ is maximum}$)**。
++ 原因很简单，贝尔曼方程可以简化为Q-value的加权和，**我们只需要让Q-value最大的权重为1就能实现最优策略($\pi(a\mid s)=1 \text{ when }Q(s,a) \text{ is maximum}$)**。
 ![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/79920cd46b2b41d0976596337ea92b0f.png){: referrerpolicy="no-referrer" }
 ![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/ac2ca51f5cf344aeb56286fb3239ba75.png){: referrerpolicy="no-referrer" }
 ## 求解最优贝尔曼公式
@@ -112,4 +112,3 @@ description: "本文围绕“强化学习·贝尔曼方程”梳理核心概念�
 + **然后根据Q-value更新策略和V-value**
 ![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/479014a9b48b43818796aa92e5e46ab0.png){: referrerpolicy="no-referrer" }
 ![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/6ff9d4098e414e7f9a7ee864d2ec17a7.png){: referrerpolicy="no-referrer" }
-

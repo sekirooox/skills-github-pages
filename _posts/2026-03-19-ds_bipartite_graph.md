@@ -39,9 +39,9 @@ description: "本文整理“图论·二分图”的核心思路、典型问题�
 
 一种特殊的二分图称为**完全二分图**，记作 $K_{m, n}$，其中：
 
-- $|U| = m$，$|V| = n$
+- $\lvert U\rvert = m$，$\lvert V\rvert = n$
 - $U$ 中的**每个顶点都与 $V$ 中的所有顶点相连**
-- 边数 $|E| = m \times n$
+- 边数 $\lvert E\rvert = m \times n$
 
 
 
@@ -148,4 +148,3 @@ void solve() {
 	cout << ans;
 }
 ```
-

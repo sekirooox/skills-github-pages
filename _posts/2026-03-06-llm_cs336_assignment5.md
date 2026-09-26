@@ -329,7 +329,7 @@ def evaluate_vllm(
 # 4. 对 MATH 数据集的监督微调（Supervised Finetuning, SFT ）
 ## 4.2 SFT 辅助方法
 + 采样一组数据
-+ 然后最大化标签的负数似然比，$\max log\pi_{\theta}(a_t|x_t)$
++ 然后最大化标签的负数似然比，$\max \log\pi_{\theta}(a_t\mid x_t)$
 + 反向传播和梯度更新即可
 ![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/8007908011204c01a80137e9d2b6f363.png){: referrerpolicy="no-referrer" }
 
@@ -1737,7 +1737,6 @@ def train_step(self,global_it:int)->dict[str:float,str:float]:
         }
 
 ```
-
 
 
 

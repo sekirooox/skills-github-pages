@@ -143,8 +143,8 @@ $$
    $$
 3. 注意力输出并加残差：
    $$
-   X_{\text{attn}} = \text{Proj}(\text{Attn}*{qk}\cdot v),\quad
-   X*{\text{sum}} = X_{\text{res}} + X_{\text{attn}} = X + X_{\text{attn}}
+   X_{\text{attn}} = \text{Proj}(\text{Attn}_{qk}\cdot v),\quad
+   X_{\text{sum}} = X_{\text{res}} + X_{\text{attn}} = X + X_{\text{attn}}
    $$
 4. 再过一层 FFN：
    $$
@@ -175,9 +175,9 @@ $$
 
 2. **使用 self-self attention（默认 q-q）：**
 
-   把原来的 $$\text{Attn}*{qk}$$ 换成
+   把原来的 $$\text{Attn}_{qk}$$ 换成
    $$
-   \text{Attn}*{qq} = \text{softmax}\Big(\frac{qq^\top}{\sqrt{d_q}}\Big)
+   \text{Attn}_{qq} = \text{softmax}\Big(\frac{qq^\top}{\sqrt{d_q}}\Big)
    $$
    或其他 self-self 组合（q-q, k-k, v-v, I），实际发现 q-q 效果最好，因此默认采用：
    $$
@@ -208,7 +208,7 @@ $$
 
 2. **Self-self attention：**
 
-   * 通过 $$\text{Attn}*{qq}, \text{Attn}*{kk}, \text{Attn}_{vv}$$ 等形式，让 token 之间根据自己的相似性进行空间上的重组；
+   * 通过 $$\text{Attn}_{qq}, \text{Attn}_{kk}, \text{Attn}_{vv}$$ 等形式，让 token 之间根据自己的相似性进行空间上的重组；
    * 更关注局部语义关系（patch 与 patch 之间）；
    * 当 residual 被去掉时，这种空间重组直接决定最终特征的结构 ⇒ 得到更清晰、连贯的分割图。
 
@@ -407,7 +407,7 @@ $$
    * 残差和 FFN；
 3. **改造最后一层 block：**
 
-   * 把 $$\text{Attn}*{qk}$$ 换成 $$\text{Attn}*{qq}$$（或其他 self-self）；
+   * 把 $$\text{Attn}_{qk}$$ 换成 $$\text{Attn}_{qq}$$（或其他 self-self）；
    * 直接输出 $$X_{\text{attn}} = \text{Proj}(\text{Attn}_{qq}\cdot v)$$；
    * 不再做 $$X + X_{\text{attn}}$$，也不再过 FFN。
 4. **dense 推理：**
@@ -486,4 +486,3 @@ ClearCLIP 本质是：**让 CLIP 产生更干净、更局部可分的 dense 特�
 5. 把相似度最大的类别标签，贴回到对应图像位置，得到整张分割图。
 
 如果你后面想，我也可以帮你对照你自己的方法（比如基于一阶段 ZegCLIP 改进）看，哪些思想可以直接拿来：比如“去残差的 last-block 改造”能不能迁到你的一阶段结构里。
-

@@ -29,10 +29,10 @@ x_cv,x_test,y_cv,y_test=train_test_split(x_train,y_train,test_size=0.5)
 ![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/f19e6dfc021640c1926a1580a89e66f3.png){: referrerpolicy="no-referrer" }
 
 ## 高偏差bias
-$J_{train}=J_{cv}且J_{train}较大$
+$J_{train}=J_{cv}$，且 $J_{train}$ 较大
 >大小上训练集和验证集差不多，但是训练集的损失较大
 ## 高方差variance
-$J_{train}<<J{cv}$
+$J_{train}\ll J_{cv}$
 >验证集与训练集的损失有较大出入，且验证集明显大于训练集
 ## 正则化
 >正则化系数$\lambda$越大，**拟合曲线就越趋于平缓，偏差越大。**
@@ -72,4 +72,3 @@ $J_{train}<<J{cv}$
 >一种准确率和召回率的权衡方法，**用于评估不同分类模型的效果**
 
 ![在这里插入图片描述](https://i-blog.csdnimg.cn/direct/6c00737d6c9c4cec8516e016667bf893.png){: referrerpolicy="no-referrer" }
-

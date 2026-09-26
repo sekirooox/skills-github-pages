@@ -98,7 +98,7 @@ description: "本文整理“AlignZeg: Mitigating Ob…”涉及的模型原理�
 
 优化目标为：
 $$
-\mathcal{L} = \mathcal{L}*{bc} + \lambda_1\mathcal{L}*{ce} + \lambda_2\mathcal{L}*{mask} + \lambda_3\mathcal{L}*{vir} + \lambda_4\mathcal{L}_{reg}
+\mathcal{L} = \mathcal{L}_{bc} + \lambda_1\mathcal{L}_{ce} + \lambda_2\mathcal{L}_{mask} + \lambda_3\mathcal{L}_{vir} + \lambda_4\mathcal{L}_{reg}
 $$
 其中各项分别对应偏置校正、分类、掩码、虚拟样本与背景正则损失。
 
@@ -120,5 +120,4 @@ $$
 > **AlignZeg** 从根本上解决了零样本语义分割中的目标错位问题，
 > 通过 **提案互精炼、特征泛化增强与预测偏置校正** 三个互补机制，
 > 使模型在 seen 与 unseen 类上实现了更平衡、泛化性更强的表现。
-
 
