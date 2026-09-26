@@ -108,7 +108,8 @@ cdn:
 
 # 侧栏头像：可填本地图片路径或允许跨域访问的图片 URL。
 # 例如 /assets/img/avatar.png；本地文件需要同时放入仓库。
-avatar: /assets/img/avatar.svg
+# 同名换图后更新 ?v= 后的版本标记，避免浏览器沿用旧缓存；README 中同步更新。
+avatar: /assets/img/avatar.svg?v=d3eb6bb2ca4f
 
 # 全站默认分享预览图，写入 SEO 的 og:image 元标签；不是侧栏头像。
 # 文章 Front Matter 中的 image 可覆盖此默认值。

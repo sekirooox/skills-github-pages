@@ -100,6 +100,8 @@ bash tools/test.sh
 
 在 `_config.yml` 修改 `title`、`tagline`、`description`、`social.name` 和 `github.username`。头像是 `assets/img/avatar.svg`，可换成自己的 PNG/JPG 并更新 `avatar` 路径。首页简短介绍位于 `_includes/profile-intro.html`，`_tabs/about.md` 是更完整的关于页。
 
+首页大头像和全站侧栏共用 `_config.yml` 的 `avatar`，README 顶部单独引用同一张图片。同名替换 `assets/img/avatar.svg` 后，请同步更新配置和 README 中 `?v=` 后的版本标记（可使用日期或文件哈希前缀），让浏览器重新加载图片。这个参数不是文件名的一部分，无需创建带问号的文件。修改配置后需重启本地预览；线上需重新构建部署。网站 favicon 和分享预览图是独立配置，不会随头像自动替换。
+
 当前用户主页必须保持：
 
 ```yaml

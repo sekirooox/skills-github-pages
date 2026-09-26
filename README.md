@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/img/avatar.svg" width="112" height="112" alt="MayL 博客头像" />
+<img src="assets/img/avatar.svg?v=d3eb6bb2ca4f" width="112" height="112" alt="MayL 博客头像" />
 
 # MayL 的博客
 
